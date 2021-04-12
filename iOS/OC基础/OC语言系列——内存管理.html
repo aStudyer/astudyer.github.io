@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="IT那些事儿" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="MRC内存管理简介自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。但是，对于iOS开">
+<meta name="keywords" content="Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OC语言系列——内存管理">
+<meta property="og:url" content="http://blog.astudyer.com/iOS/OC基础/OC语言系列——内存管理.html">
+<meta property="og:site_name" content="IT那些事儿">
+<meta property="og:description" content="MRC内存管理简介自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。但是，对于iOS开">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.astudyer.com/img/2018/OC/logo.jpg">
+<meta property="og:image" content="http://blog.astudyer.com/img/2018/OC/mrc.png">
+<meta property="og:updated_time" content="2020-09-14T01:44:08.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OC语言系列——内存管理">
+<meta name="twitter:description" content="MRC内存管理简介自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。但是，对于iOS开">
+<meta name="twitter:image" content="http://blog.astudyer.com/img/2018/OC/logo.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.astudyer.com/iOS/OC基础/OC语言系列——内存管理.html">
+
+
+
+
+
+  <title>OC语言系列——内存管理 | IT那些事儿</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT那些事儿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个程序猿的进化史</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.astudyer.com/iOS/OC基础/OC语言系列——内存管理.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="匿名">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/27911329?s=460&u=f4a261c55d714830a8c4dcb1ec64efbb1d9f0fd2&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT那些事儿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OC语言系列——内存管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T15:57:31+08:00">
+                2018-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/iOS/OC基础/OC语言系列——内存管理.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="iOS/OC基础/OC语言系列——内存管理.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,010
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/img/2018/OC/logo.jpg" alt></p>
+<h1 id="MRC内存管理"><a href="#MRC内存管理" class="headerlink" title="MRC内存管理"></a>MRC内存管理</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。<br>但是，对于iOS开发来说，内存管理是个很重要的概念，如果想要写出内存使用效率高而又没有bug的代码，就得掌握其内存管理模型的细节。</p>
+<blockquote>
+<p><strong>如何在开启MRC环境</strong>：<br>1、整个项目改为MRC：<code>Building Settings</code>-&gt;<code>Objective-C Automatic Reference Counting</code>设置为<code>NO</code><br>2、某个文件改为MRC：<code>Build Phases</code>-&gt;<code>Compile Sources</code>双击需要修改为MRC的文件在弹出的输入框中输入<code>-fno-objc-arc</code><br><strong>MRC转ARC</strong>：<br>选中需要被转换为ARC的文件，然后选择菜单栏中的<code>Edit</code>-&gt;<code>Convert</code>-&gt;<code>To Objective-C ARC...</code></p>
+</blockquote>
+<p><strong>几个概念</strong>：</p>
+<ul>
+<li>僵尸对象: 所占用的内存已经被回收的对象,僵尸对象不能再使用</li>
+<li>野指针: 指向僵尸对象的指针,给野指针发送消息会报错EXC_BAD_ACCESS错误:访问了一块已经被回收的内存</li>
+<li>空指针: 没有指向任何对象的指针(存储的东西是nil,NULL,0),给空指针发送消息不会报错,系统什么也不会做,所以在对象被释放时将指针设置为nil可以避免野指针错误</li>
+</ul>
+<blockquote>
+<p>默认情况下，Xcode是不会监听僵尸对象的,所以需要我们自己手动开启,开启监听僵尸对象步骤为: <code>Edit Scheme</code>-&gt;<code>Run</code>-&gt;<code>Diagnostics</code>-&gt;<code>Memory Management</code>-&gt;<code>Zombie Objects</code>打钩,这样便可以在因为僵尸对象报错的时候给出更多错误信息</p>
+</blockquote>
+<p>示例：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person *p = [[Person alloc] init]; <span class="comment">// 引用计数器 = 1</span></span><br><span class="line">[p release]; <span class="comment">// 引用计数器 = 0,指针所指向的对象的内存被释放</span></span><br><span class="line">[p release]; <span class="comment">// 这句向一块已经被释放的内存发送release消息，会报野指针错误,开启监听僵尸对象会给出错误信息-[Person release]: message sent to deallocated instance 0x100206fd0</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注: 如果在第一次给对象发送release消息后，立刻将指针置空，便不会出现野指针错误，因为给空指针发送消息不会报错，系统什么也不会做，所以在对象被释放时将指针设置为nil可以避免野指针错误</p>
+</blockquote>
+<h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><p>任何继承了NSObject的对象，对基本数据类型无效</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="引用计数介绍"><a href="#引用计数介绍" class="headerlink" title="引用计数介绍"></a>引用计数介绍</h3><p>引用计数（Reference Count），也叫保留计数（retain count），表示对象被引用的次数。一个简单而有效的管理对象生命周期的方式。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
+<li>当使用<code>alloc</code>、<code>new</code>或者(mutable)<code>copy</code>创建一个对象时，对象的引用计数器被设置为1</li>
+<li>给对象发送一条<code>retain</code>消息，可以使引用计数器值<code>+1</code></li>
+<li>给对象发送一条<code>release</code>消息，可以使引用计数器值<code>-1</code></li>
+<li>当一个对象的引用计数器值为<code>0</code>时，说明这个对象不再被任何对象(指针)指向(引用)了,那么它将会被销毁，其占用的内存被系统回收，OC会自动向该对象发送一条<code>dealloc</code>消息。</li>
+</ul>
+<p>流程参考图如下：<br><img src="/img/2018/OC/mrc.png" alt></p>
+<h3 id="操作引用计数的方法"><a href="#操作引用计数的方法" class="headerlink" title="操作引用计数的方法"></a>操作引用计数的方法</h3><p>以下是NSObject协议中声明的3个用于操作计数器的方法：</p>
+<ul>
+<li><code>retain</code>：引用计数<code>+1</code></li>
+<li><code>release</code>：引用计数<code>-1</code></li>
+<li><code>autorelease</code>：稍后(清理<code>自动释放池</code>时)，再使引用计数<code>-1</code>，所以作用是延迟对象的release</li>
+<li><code>retainCount</code>：给对象发送该消息可以获取对象当前的引用计数值</li>
+</ul>
+<h3 id="dealloc方法"><a href="#dealloc方法" class="headerlink" title="dealloc方法"></a>dealloc方法</h3><p>当引用计数为0的时候对象会自动收到一条dealloc消息。而我们可以在dealloc方法做的，就是释放对其他对象的引用，以及取消已经订阅的KVO、通知等，相当于对象的<code>遗言</code>，在<code>死</code>之前有什么想说的都赶紧说完；（<code>注意点</code>：我们不能手动给对象发送dealloc消息，因为一旦调用dealloc方法，对象就不再有效）</p>
+<h2 id="内存管理原则"><a href="#内存管理原则" class="headerlink" title="内存管理原则"></a>内存管理原则</h2><ol>
+<li>谁创建，谁释放。如果你通过<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy创建一个对象，那么你必须调用<code>release</code>或<code>autorelease</code>。换句话说，不是你创建的，不需要你去释放</li>
+<li>一般来说，除了<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy之外的方法创建的对象都声明了<code>autorelease</code></li>
+<li>谁retain，谁release。只要你调用了retain，无论这个对象是如何生成的，你都要调用release</li>
+</ol>
+<blockquote>
+<p>1、对已经释放的对象发送<code>release</code>消息，会产生<code>野指针</code>错误（<code>EXC_BAD_ACCESS</code>）<br>2、对<code>nil</code>发送<code>release</code>消息，不会报错（和<code>野指针</code>有本质区别，<code>nil</code>指的是不指向任何存储空间的指针，并不是野指针，而野指针错误指的是对已经被系统回收的存储空间发送release消息）<br>3、<code>autorelease</code>：在适当的时刻自动使引用计数器<code>-1</code>（注意：不一定是释放）</p>
+</blockquote>
+<h2 id="property参数详解"><a href="#property参数详解" class="headerlink" title="@property参数详解"></a>@property参数详解</h2><h3 id="retain"><a href="#retain" class="headerlink" title="retain"></a>retain</h3><p><strong>含义</strong>：在setter方法中release旧值，retain新值<br><strong>示例</strong>：<code>@proterty (retain) Book *book;</code>编译器编译到这句代码会自动帮我们实现如下形式的setter方法<br>    <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setBook:(Book *)book&#123;</span><br><span class="line">	<span class="keyword">if</span> (_book != book) &#123;</span><br><span class="line">	 	 [_book release];</span><br><span class="line">	  	 [_book <span class="keyword">retain</span>];</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="assign"><a href="#assign" class="headerlink" title="assign"></a>assign</h3><p><code>默认类型</code>，setter方法直接赋值，而不进行retain操作，不会改变引用计数，写不写都一样，一般用于基本数据类型</p>
+<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><p><strong>含义</strong>：编译器只会帮我们生成get方法的声明（我们依然可以手动实现set方法的声明）<br><strong>默认值</strong>：readwrite（同时生成get和set方法的声明）</p>
+<h3 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h3><ul>
+<li>@property属性<code>默认为atomic</code>，提供多线程安全</li>
+<li>在多线程环境下，原子操作是必要的，否则有可能引起错误的结果</li>
+<li>加了atomic，setter/getter是一个原子操作。如果多个线程同时调用setter的话，不会出现某一个线程执行完setter全部语句之前，另一个线程开始执行setter的情况，相当于函数头尾加了锁一样</li>
+<li>加了atomic，setter函数会变成下面这样：  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;lock&#125;</span><br><span class="line"><span class="keyword">if</span> (property != newValue) &#123; </span><br><span class="line">[property release]; </span><br><span class="line">property = [newValue <span class="keyword">retain</span>]; </span><br><span class="line">&#125;</span><br><span class="line">&#123;unlock&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="nonatomic"><a href="#nonatomic" class="headerlink" title="nonatomic"></a>nonatomic</h3><ul>
+<li>禁止多线程，变量保护，提高性能</li>
+<li>atomic是OC使用的一种线程保护技术，防止在写入未完成的时候被另外一个线程读取，造成数据错误。而这种机制是耗费系统资源的，所以在iPhone这种小型设备上，如果没有使用多线程间的通讯编程，那么nonatomic是一个非常好的选择</li>
+<li>如果不需要多线程支持的话，用nonatomic就够了，另外由于不涉及锁操作，所以执行速度相对快点</li>
+</ul>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p><strong>含义</strong>：setter方法release旧值，再copy新值</p>
+<h3 id="getter"><a href="#getter" class="headerlink" title="getter"></a>getter</h3><p><strong>含义</strong>：指定getter方法的方法名，一般用于BOOL值</p>
+<h2 id="自动释放池（autorelease-pool）"><a href="#自动释放池（autorelease-pool）" class="headerlink" title="自动释放池（autorelease pool）"></a>自动释放池（autorelease pool）</h2><p><strong>创建</strong>：<code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</code><br><strong>释放</strong>：<code>[pool release]</code> 或者 <code>[pool drain]</code>;</p>
+<ul>
+<li>自动释放池是OC里面的一种内存自动回收机制，一般可以将一些临时变量添加到自动释放池中，统一回收释放</li>
+<li>当自动释放池销毁时，池里面的所有对象都会调用一次release方法</li>
+<li>OC对象只需要发送一条autorelease消息，就会把这个对象添加到最近的自动释放池中（栈顶的释放池）（<code>注意：该操作不会改变引用计数</code>）</li>
+<li>autorelease实际上只是把对release的调用延迟了，对于每一次autorelease，系统只是把该对象放入了当前的autorelease pool中，当该pool被释放时，该pool中的所有对象都会被调用release（<code>注意：该操作不一定能释放掉对象</code>）</li>
+</ul>
+<p><strong>释放时机</strong><br>每个Runloop中都创建一个autorelease pool（自动释放池），并在Runloop的末尾进行释放，而当该pool被释放时，该pool中的所有Object会接收到一个release消息。 所以，一般情况下，每个接受autorelease消息的对象，都会在下个Runloop开始前被释放。<br><strong>注意点</strong></p>
+<ol>
+<li>在ARC下，不能使用<code>[[NSAutoreleasePool alloc] init]</code>，而应当使用<code>@autoreleasepool{}</code>创建自动释放池</li>
+<li>不要把大量循环操作放到同一个NSAutoreleasePool之间，这样会造成内存峰值的上升（此时应该手动调用release方法或者手动创建自动释放池，自己管理内存）</li>
+<li>尽量避免对大内存使用该方法，对于这种延迟释放机制，还是尽量少用</li>
+<li>SDK中一般利用静态方法创建并返回的对象都是autorelease的，不需要再进行release操作<br> 如[NSNumber numberWithInt:10];返回的对象是不需要再release的。<br> 但是通过[[NSNumber alloc] initWithInt:10];创建的对象需要release</li>
+</ol>
+<h1 id="ARC内存管理"><a href="#ARC内存管理" class="headerlink" title="ARC内存管理"></a>ARC内存管理</h1><h2 id="ARC简介"><a href="#ARC简介" class="headerlink" title="ARC简介"></a>ARC简介</h2><p>ARC自动引用计数（automatic reference counting）是iOS5推出的新功能。需要注意的是，ARC并不是GC（Garbage Collection 垃圾回收器），仍然是需要用引用计数管理内存的，只不过是隐式的管理。它背后依赖的是编译器的静态分析能力，通过在编译时在合适的位置插入引用计数管理代码，从而提高iOS开发人员的开发效率。是<code>编译器特性</code>，并不是OC的运行时特性。</p>
+<blockquote>
+<p>在ARC中栈变量会被初始化为nil，即使不进行赋值,程序也不会造成崩溃,示例如下<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)test &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *name;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name: %@"</span>, name);</span><br><span class="line">    <span class="comment">// 打印结果为nil,不会崩溃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="ARC判断标准"><a href="#ARC判断标准" class="headerlink" title="ARC判断标准"></a>ARC判断标准</h2><p>只要有强指针指向一个对象，那个这个对象就不会被释放，只要没有强指针指向一个对象，那么这个对象就被立即回收</p>
+<h2 id="指针分类"><a href="#指针分类" class="headerlink" title="指针分类"></a>指针分类</h2><p>1、<strong>强指针</strong>：默认所有的指针都是强指针，关键字<code>__strong</code><br>2、<strong>弱指针</strong>：一般在两个对象相互引用而导致循环引用无法释放的时候用<code>__weak</code>修饰其中一个对象对另一个对象的应用，避免循环应用</p>
+<h2 id="ARC注意点"><a href="#ARC注意点" class="headerlink" title="ARC注意点"></a>ARC注意点</h2><p>1、不能显示调用release、retain、retainCount、autorelease、zone等消息<br>2、不能再使用NSAutoreleasePool对象，ARC提供了@autoreleasepool块来代替它，这样更有效率<br>3、可以重写dealloc，但是不允许调用<code>[super dealloc];</code><br>4、一般来说用类方法直接创建的对象编译器默认会在后面插入<code>autorelease</code>方法</p>
+<h2 id="property参数"><a href="#property参数" class="headerlink" title="@property参数"></a>@property参数</h2><h3 id="strong"><a href="#strong" class="headerlink" title="strong"></a>strong</h3><p>相当于MRC中的retain（适用于OC对象），对对象进行强引用</p>
+<h3 id="weak"><a href="#weak" class="headerlink" title="weak"></a>weak</h3><p>不改变对象的引用计数，也不持有对象，对对象进行弱引用，比assign多了一个功能，当对象消失后自动把指针变成nil（适用于OC对象）</p>
+<h3 id="assign-1"><a href="#assign-1" class="headerlink" title="assign"></a>assign</h3><p>对对象进行弱引用，和weak类似，适用于非OC对象（基本数据类型）</p>
+<h3 id="copy-1"><a href="#copy-1" class="headerlink" title="copy"></a>copy</h3><p>对于不可变对象来说相当于strong，开辟一块新的内存空间</p>
+<h2 id="关于Copy"><a href="#关于Copy" class="headerlink" title="关于Copy"></a>关于Copy</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>copy(复制、拷贝)是产生一个副本对象的过程,只要是通过拷贝产生的副本对象,副本对象中的内容与源对象中的内容就完全一致</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>修改源对象的属性和行为,不会影响副本对象</li>
+<li>修改副本对象的属性和行为,不会影响源对象</li>
+</ul>
+<h3 id="copy与mutableCopy"><a href="#copy与mutableCopy" class="headerlink" title="copy与mutableCopy"></a>copy与mutableCopy</h3><ul>
+<li>使用copy产生的副本对象是不可变的(如NSString、NSArray)</li>
+<li>使用mutableCopy产生的副本对象是可变的(如NSMutableString、NSMutableArray)</li>
+</ul>
+<h3 id="通过拷贝是否会产生新的对象"><a href="#通过拷贝是否会产生新的对象" class="headerlink" title="通过拷贝是否会产生新的对象"></a>通过拷贝是否会产生新的对象</h3><p>通过拷贝是否会产生新对象,就要看源对象与副本对象是否满足拷贝的特点</p>
+<ul>
+<li>可变对象通过mutableCopy,会生成新的对象</li>
+<li>可变对象通过copy,会生成新的对象</li>
+<li>不可变对象通过mutableCopy,会生成新的对象</li>
+<li>不可变对象通过copy,不会生成新的对象</li>
+</ul>
+<h3 id="深拷贝-内容拷贝-与浅拷贝-指针拷贝"><a href="#深拷贝-内容拷贝-与浅拷贝-指针拷贝" class="headerlink" title="深拷贝(内容拷贝)与浅拷贝(指针拷贝)"></a>深拷贝(内容拷贝)与浅拷贝(指针拷贝)</h3><ul>
+<li>深拷贝: 如果通过拷贝生成了新对象,就称为深拷贝(内容拷贝)</li>
+<li>浅拷贝: 如果通过拷贝没生成新对象,就称为浅拷贝(指针拷贝)</li>
+</ul>
+<blockquote>
+<p>注意：<br>1、通过深拷贝，源对象的引用计数器不变，副本对象的引用计数器为1，所以需要对副本对象进行一次release操作<br>2、通过浅拷贝,源对象的引用计数器+1,所以需要对源对象再进行一次release操作</p>
+</blockquote>
+<h2 id="自定义类实现copy与mutableCopy功能"><a href="#自定义类实现copy与mutableCopy功能" class="headerlink" title="自定义类实现copy与mutableCopy功能"></a>自定义类实现copy与mutableCopy功能</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>一个类的对象想拥有copy与mutableCopy功能，都需要拥有一个前提</p>
+<ul>
+<li>使用copy的前提: 对应类需要遵守NSCopying协议,并实现copyWithZone:方法</li>
+<li>使用mutableCopy的前提: 对应类需要遵守NSMutableCopying协议,并实现mutableCopyWithZone:方法</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person类的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//实现Student类(继承自Person类)的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> copyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> mutableCopyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="几个经典面试题"><a href="#几个经典面试题" class="headerlink" title="几个经典面试题"></a>几个经典面试题</h2><p>1、在ARC中以下代码有没有问题？如果有问题，怎么写才正确？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于stringWithFormat创建出来的对象调用了autorelease方法，所以不会立即释放，创建出来的大量对象一直在内存中，会导致内存在短时间内暴涨。所以有问题。正确的写法如下<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">       [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、strong和weak作为属性修饰符的区别？<br>都指向原来数据地址，区别是前者会对数据地址进行引用计数+1，后者不会<br>3、assing和weak作为属性修饰符的区别？<br>assign和weak都指向引用对象地址并且计数不+1，但当对象地址引用计数为0时，assign不会对该地址进行数据的抹除操作，只是进行值释放。容易导致野指针现象（指针还在，指针指向的内存已经释放，访问不属于自己的内存），即当这块地址还没写上其他值前，能输出正常值，但一旦重新写上数据，该指针随时可能没有值，造成奔溃。而weak会在对象消失（引用计数为0）时自动把指针变成nil，防止野指针问题。一般assign常用语基本数据类型，而weak用于OC对象（基于NSObject的对象）。<br>4、copy与retain作为属性修饰符的区别？</p>
+<ul>
+<li>通过copy作为属性修饰符来修饰对象的属性，是对传入变量进行了一次copy操作，在外界变量进行修改之后，对象的属性不会随之发生变化</li>
+<li>通过retain作为属性修饰符来修饰对象的属性,是对传入变量进行了一次retain操作,在外界变量进行修改之后,对象的属性会随之发生了变化</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/iOS/OC基础/OC语言系列——基础篇.html" rel="next" title="OC语言系列——基础篇">
+                <i class="fa fa-chevron-left"></i> OC语言系列——基础篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html" rel="prev" title="OC语言系列——Protocol(协议)及Delegate(委托代理)">
+                OC语言系列——Protocol(协议)及Delegate(委托代理) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/27911329?s=460&u=f4a261c55d714830a8c4dcb1ec64efbb1d9f0fd2&v=4" alt="匿名">
+            
+              <p class="site-author-name" itemprop="name">匿名</p>
+              <p class="site-description motion-element" itemprop="description">莫叹息，莫停留，莫让年华付水流！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/astudyer" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:astudyer@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MRC内存管理"><span class="nav-number">1.</span> <span class="nav-text">MRC内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用范围"><span class="nav-number">1.2.</span> <span class="nav-text">作用范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数"><span class="nav-number">1.3.</span> <span class="nav-text">引用计数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">引用计数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作原理"><span class="nav-number">1.3.2.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作引用计数的方法"><span class="nav-number">1.3.3.</span> <span class="nav-text">操作引用计数的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dealloc方法"><span class="nav-number">1.3.4.</span> <span class="nav-text">dealloc方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存管理原则"><span class="nav-number">1.4.</span> <span class="nav-text">内存管理原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#property参数详解"><span class="nav-number">1.5.</span> <span class="nav-text">@property参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#retain"><span class="nav-number">1.5.1.</span> <span class="nav-text">retain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assign"><span class="nav-number">1.5.2.</span> <span class="nav-text">assign</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readonly"><span class="nav-number">1.5.3.</span> <span class="nav-text">readonly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#atomic"><span class="nav-number">1.5.4.</span> <span class="nav-text">atomic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nonatomic"><span class="nav-number">1.5.5.</span> <span class="nav-text">nonatomic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy"><span class="nav-number">1.5.6.</span> <span class="nav-text">copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getter"><span class="nav-number">1.5.7.</span> <span class="nav-text">getter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动释放池（autorelease-pool）"><span class="nav-number">1.6.</span> <span class="nav-text">自动释放池（autorelease pool）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ARC内存管理"><span class="nav-number">2.</span> <span class="nav-text">ARC内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC简介"><span class="nav-number">2.1.</span> <span class="nav-text">ARC简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC判断标准"><span class="nav-number">2.2.</span> <span class="nav-text">ARC判断标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针分类"><span class="nav-number">2.3.</span> <span class="nav-text">指针分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARC注意点"><span class="nav-number">2.4.</span> <span class="nav-text">ARC注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#property参数"><span class="nav-number">2.5.</span> <span class="nav-text">@property参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#strong"><span class="nav-number">2.5.1.</span> <span class="nav-text">strong</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weak"><span class="nav-number">2.5.2.</span> <span class="nav-text">weak</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assign-1"><span class="nav-number">2.5.3.</span> <span class="nav-text">assign</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy-1"><span class="nav-number">2.5.4.</span> <span class="nav-text">copy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Copy"><span class="nav-number">2.6.</span> <span class="nav-text">关于Copy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.6.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.6.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copy与mutableCopy"><span class="nav-number">2.6.3.</span> <span class="nav-text">copy与mutableCopy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过拷贝是否会产生新的对象"><span class="nav-number">2.6.4.</span> <span class="nav-text">通过拷贝是否会产生新的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝-内容拷贝-与浅拷贝-指针拷贝"><span class="nav-number">2.6.5.</span> <span class="nav-text">深拷贝(内容拷贝)与浅拷贝(指针拷贝)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类实现copy与mutableCopy功能"><span class="nav-number">2.7.</span> <span class="nav-text">自定义类实现copy与mutableCopy功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.7.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">2.7.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个经典面试题"><span class="nav-number">2.8.</span> <span class="nav-text">几个经典面试题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">匿名</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1262318393'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1262318393%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://aStudyer.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.astudyer.com/iOS/OC基础/OC语言系列——内存管理.html';
+          this.page.identifier = 'iOS/OC基础/OC语言系列——内存管理.html';
+          this.page.title = 'OC语言系列——内存管理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aStudyer.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>

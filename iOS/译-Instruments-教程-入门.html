@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Instruments,Swift,性能优化,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="IT那些事儿" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。 Version：Swift 5, iOS 13, Xcode 11 除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！ 本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问">
+<meta name="keywords" content="Instruments,Swift,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译] Instruments 入门教程">
+<meta property="og:url" content="http://blog.astudyer.com/iOS/译-Instruments-教程-入门.html">
+<meta property="og:site_name" content="IT那些事儿">
+<meta property="og:description" content="了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。 Version：Swift 5, iOS 13, Xcode 11 除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！ 本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.astudyer.com/16001702844764.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844792.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844804.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844815.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844824.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844834.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844843.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844853.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844863.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844872.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844882.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844895.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844905.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844916.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844927.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844937.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844946.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844955.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844967.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844977.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844989.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702844999.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702845009.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702845019.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702845029.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702845039.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16001702845051.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16002243673096.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16002243673109.jpg">
+<meta property="og:image" content="http://image.astudyer.com/16002243673118.jpg">
+<meta property="og:updated_time" content="2020-09-16T02:51:29.567Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译] Instruments 入门教程">
+<meta name="twitter:description" content="了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。 Version：Swift 5, iOS 13, Xcode 11 除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！ 本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问">
+<meta name="twitter:image" content="http://image.astudyer.com/16001702844764.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.astudyer.com/iOS/译-Instruments-教程-入门.html">
+
+
+
+
+
+  <title>[译] Instruments 入门教程 | IT那些事儿</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IT那些事儿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一个程序猿的进化史</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.astudyer.com/iOS/译-Instruments-教程-入门.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="匿名">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/27911329?s=460&u=f4a261c55d714830a8c4dcb1ec64efbb1d9f0fd2&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IT那些事儿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[译] Instruments 入门教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-15T15:48:53+08:00">
+                2020-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/iOS/译-Instruments-教程-入门.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="iOS/译-Instruments-教程-入门.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7,650
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。</p>
+<p>Version：Swift 5, iOS 13, Xcode 11</p>
+<p>除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！</p>
+<p>本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问题，参考周期和其他问题。</p>
+<p>可以了，好了？准备好进入迷人的 Instruments 世界！</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>对于本教程，您将不会经历从头开始创建应用的过程。相反，下载资料包括一个完整的示例项目。您的任务是像使用自己的应用程序一样，以 Instruments 为指导来浏览并改进该应用程序！</p>
+<p>使用本教程底部的 <strong>“下载材料”</strong> 按钮下载项目材料。在 Xcode 中打开启动项目。</p>
+<p>此示例应用程序使用 <strong>Flickr API</strong> 搜索图像。要使用 API​​，您需要一个 API 密钥。对于演示项目，您可以在 Flickr 的网站上生成示例密钥。只需在 <a href="http://www.flickr.com/services/api/explore/?method=flickr.photos.search" target="_blank" rel="noopener">Flickr API Explorer</a> 中执行任何搜索，然后从底部的 URL 复制 API 密钥即可。它一直沿 “＆api_key =” 到下一个 “＆”。</p>
+<p>例如，如果URL为：<br><code>HTTP：//api.flickr.com/services/rest/?method=flickr.photos.search
+＆api_key = ff417a50b95180cb0c7e3b68a8749fba
+＆format = rest＆api_sig = f24f4e98063a9b8ecc8b522b238d5e2f</code></p>
+<p>然后，API 密钥为：ff417a50b95180cb0c7e3b68a8749fba。</p>
+<p>打开 <strong>FlickrAPI.swift</strong> 并将现有的 API 密钥值替换为新值。</p>
+<p>请注意，API 密钥每天都会更改，因此有时您不得不重新生成一个新密钥。只要密钥无效，该应用程序就会提醒您。</p>
+<p>生成并运行，执行搜索，单击结果，您将看到类似以下内容：<br><img src="http://image.astudyer.com/16001702844764.jpg" alt="-w258"><br>使用该应用程序并查看其基本功能。您可能会认为，一旦 UI 看起来不错，该应用就可以提交商店了。但是，您将看到使用 Instruments 可以为您的应用添加的价值。</p>
+<p>本教程的其余部分将向您展示如何查找和修复应用程序中仍然存在的问题。您将看到 Instruments 如何使调试问题大为简化！</p>
+<h2 id="Time-Profiler"><a href="#Time-Profiler" class="headerlink" title="Time Profiler"></a>Time Profiler</h2><p><img src="http://image.astudyer.com/16001702844792.jpg" alt="-w80"><br>您将要看的第一个乐器是 <strong>Time Profiler</strong>。每隔一定的时间间隔，Instruments 将暂停程序的执行，并在每个运行的线程上进行堆栈跟踪。可以将其视为单击 Xco​​de 调试器中的“暂停”按钮。</p>
+<p>这是 Time Profiler 的预览：<br><img src="http://image.astudyer.com/16001702844804.jpg" alt="-w889"><br>此界面显示 <strong>Call Tree</strong>。Call Tree 显示了在应用程序中执行各种方法所花费的时间。每一行都是程序执行路径遵循的不同方法。Instruments 通过计算分析器在每种方法中停止的次数来估算每种方法所花费的时间。</p>
+<p>例如，如果您以1毫秒的间隔进行100个采样，并且在10个采样中的某个特殊方法出现在堆栈的顶部，则可以推断出该方法花费了该应用大约10％的总执行时间（10毫秒）。这是一个很粗略的近似值，但是可以用！</p>
+<blockquote>
+<p>注意：通常，您应该始终在实际设备上而不是模拟器上对应用程序进行配置文件配置。iOS 模拟器具有Mac 的全部功能，而设备将具有移动硬件的所有限制。您的应用似乎可以在模拟器中正常运行，但是一旦它在真实设备上运行，您可能会发现性能问题。</p>
+</blockquote>
+<p>因此，事不宜迟，该花些时间进行检测了！</p>
+<h2 id="仪器仪表"><a href="#仪器仪表" class="headerlink" title="仪器仪表"></a>仪器仪表</h2><p>在 Xcode 的菜单栏中，选择 <strong>Product ▸ Profile</strong> 或按 <strong>Command-I</strong>。这将构建应用程序并启动 Instruments。您将看到一个选择窗口，如下所示：<br><img src="http://image.astudyer.com/16001702844815.jpg" alt="-w626"><br>这些是Instruments随附的所有不同模板。</p>
+<p>选择Time Profiler仪器，然后单击选择。这将打开一个新的Instruments文档。单击左上角的红色录制按钮开始录制并启动该应用程序。macOS可能会要求您输入密码以授权Instruments分析其他进程。别担心，可以在这里安全地提供！</p>
+<p>在“工具”窗口中，您可以看到时间在向上计数，并且在屏幕中心的图形上方有一个小箭头从左向右移动。这表明该应用程序正在运行。</p>
+<p>现在，开始使用该应用程序。搜索一些图像，然后向下钻取一个或多个搜索结果。您可能已经注意到，进入搜索结果的过程非常缓慢，并且滚动浏览搜索结果列表也非常令人讨厌。这是一个非常笨拙的应用程序！</p>
+<p>好吧，你很幸运。您即将着手修复它！但是，您首先要快速了解 Instruments 中的内容。</p>
+<p>首先，确保工具栏右侧的视图选择器同时选择了两个选项，如下所示：<br><img src="http://image.astudyer.com/16001702844824.jpg" alt="-w147"><br>这样可以确保所有面板均打开。现在，研究下面的屏幕截图以及下面每个部分的说明：<br><img src="http://image.astudyer.com/16001702844834.jpg" alt="-w648"></p>
+<ol>
+<li><strong>录制控件</strong>：红色的“录制”按钮停止并启动当前正在测试的应用。暂停按钮可暂停应用程序的当前执行。</li>
+<li><strong>运行计时器</strong>：计时器计算已配置应用程序已运行了多长时间以及已运行了多少次。单击停止按钮，然后重新启动应用程序。您将看到显示为 <strong>Run 2 of 2</strong> 的显示。</li>
+<li><strong>乐器音轨</strong>：对于您选择的 Time Profiler 模板，只有一架乐器，因此只有一条音轨。您将在本教程的后面部分中详细了解该图的细节。</li>
+<li><p><strong>详细信息面板</strong>：显示有关您正在使用的特定乐器的主要信息。在这种情况下，它显示了“最热”的方法，即使用最多CPU时间的方法。</p>
+<p> 在详细信息面板的顶部，单击 <strong>Profile</strong>，然后选择样本。在这里您可以查看每个样本。点击一些样本；您将看到捕获的堆栈跟踪显示在右侧的扩展详细信息检查器中。完成后，切换回个人资料。</p>
+</li>
+<li>检查器面板：有两个检查器- <strong>Extended Detail</strong> 和 <strong>Run Info</strong> -您将很快了解更多信息。</li>
+</ol>
+<h2 id="深钻"><a href="#深钻" class="headerlink" title="深钻"></a>深钻</h2><p>执行图像搜索，然后深入研究结果。我个人喜欢搜索“狗”，但是选择任何您想要的-您可能就是其中的猫人之一！</p>
+<p>现在，上下滚动列表几次，以便在 Time Profiler 中获得大量数据。您应该注意到屏幕中间的数字在变化，并且图形在填充。这表明您的应用程序正在使用CPU周期。</p>
+<p>直到滚动像黄油一样，任何收藏视图都无法交付！</p>
+<p>为了帮助查明问题，您将设置一些选项。单击 <strong>Stop</strong>，然后在详细信息面板下方，单击 <strong>Call Tree</strong>。在出现的弹出窗口中，选择 <strong>Separate by Thread</strong>，<strong>Invert Call Tree</strong> 和 <strong>Hide System Libraries</strong>。它看起来像这样：<br><img src="http://image.astudyer.com/16001702844843.jpg" alt="-w469"><br>以下是每个选项对左侧表格中显示的数据的处理方式：</p>
+<ul>
+<li><strong>Separate by State</strong>：此选项按应用程序的生命周期状态对结果进行分组，是一种检查应用程序正在执行的工作量和时间的有用方法。</li>
+<li><strong>Separate by Thread</strong>：分别对待每个线程。这使您能够了解哪些线程导致最大的 CPU 使用量。</li>
+<li><strong>Invert Call Tree</strong>：使用此选项，堆栈跟踪将首先显示最近的帧。</li>
+<li><strong>Hide System Libraries</strong>：选择此选项时，仅显示您自己的应用程序中的符号。选择此选项通常很有用，因为通常您只关心 CPU 在自己的代码中花费的时间，而对于系统库使用的 CPU 数量却做得不多！</li>
+<li><strong>Flatten Recursion</strong>：此选项显示递归函数，这些函数可以在每个堆栈跟踪中只有一个条目，而不是多次调用自己。</li>
+<li><strong>Top Functions</strong>：启用此功能可使仪器将在一个功能上花费的总时间视为该功能内直接花费的时间之和，以及该功能所调用的功能所花费的时间。因此，如果函数A 调用B ，则 Instruments 将A的时间报告为A所花费的时间加上B中所花费的时间。这非常有用，因为它使您每次下降到调用堆栈时都选择最大的时间数字，将其清零使用最耗​​时的方法。</li>
+</ul>
+<p>扫描结果以识别 <strong>Weight</strong> 列中哪些行具有最高百分比。请注意，带有 <strong>Main Thread</strong> 的行正在消耗大量的 CPU 周期。通过单击文本左侧的小箭头来展开该行，然后向下钻取，直到看到您自己的方法之一，并标有“人”符号。尽管某些值可能会略有不同，但是条目的顺序应类似于下表：<br><img src="http://image.astudyer.com/16001702844853.jpg" alt="-w708"><br>好吧，那看起来当然不好。该应用程序将大部分时间用于将 <strong>“tonal”</strong> 滤镜应用于缩略图的方法。这对您来说应该不会太震惊，因为表格的加载和滚动是 UI 中最笨拙的部分，并且表格单元会不断更新。</p>
+<p>要了解有关该方法中发生的事情的更多信息，请双击表中的该行。这样做将显示以下视图：<br><img src="http://image.astudyer.com/16001702844863.jpg" alt="-w635"><br><code>applyTonalFilter()</code> 是 <code>UIImage</code> 扩展中添加的方法，并且 <code>CGImage</code> 在应用图像滤镜之后花费大量时间调用创建输出的方法。</p>
+<p>您实际上没有什么可以做来加快速度。创建映像是一个密集的过程，需要花费很长时间。尝试后退以查看应用程序的调用位置 <code>applyTonalFilter()</code>。在代码视图顶部的面包屑路径中单击 <strong>Root</strong> 以返回上一屏幕：<br><img src="http://image.astudyer.com/16001702844872.jpg" alt="-w473"><br>现在，单击 <code>applyTonalFilter</code> 表顶部行左侧的小箭头。这将显示呼叫者 <code>applyTonalFilter</code>-您可能也需要展开下一行。在对 Swift 进行性能分析时，有时会在 <strong>Call Tree</strong> 中有重复的行，并带有 <code>@objc</code>。您对第一行带有“人”图标的前缀感兴趣，这表明它属于您应用的目标：<br><img src="http://image.astudyer.com/16001702844882.jpg" alt="-w586"><br>在这种情况下，该行引用结果收集视图的 <code>(_:cellForItemAt:)</code>。双击该行以查看项目中的关联代码。</p>
+<p>现在您可以看到问题所在了。看一下第70行：应用 <code>tonal filter</code> 的方法要花很长时间才能执行，您可以直接从调用它 <code>collectionView(_:cellForItemAt:)</code>。这将在每次请求过滤图像时阻塞主线程，并因此阻塞整个UI。</p>
+<h2 id="分担工作"><a href="#分担工作" class="headerlink" title="分担工作"></a>分担工作</h2><p>要解决此问题，您将采取两个步骤：首先，将图像过滤的方法放到后台线程上 <code>DispatchQueue.global().async</code>。然后，在生成每个图像后对其进行缓存。<code>ImageCache</code> 入门项目中包含一个小型，简单的图像缓存类-具有易记的名称，该类仅将图像存储在内存中并使用给定的键检索它们。</p>
+<p>现在，您可以切换到 Xcode，并在 Instruments 中手动找到要查看的源文件。但是，在Instruments 中有一个方便的 <strong>Open in Xcode</strong> 按钮。在代码上方的面板中找到它，然后单击它：<br><img src="http://image.astudyer.com/16001702844895.jpg" alt="-w1782"><br>太棒了！Xcode刚好在正确的位置打开！</p>
+<p>现在，将 <code>collectionView(_:cellForItemAt:)</code> 中的 <code>loadThumbnail(for:completion:)</code> 方法替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ImageCache</span>.shared.loadThumbnail(<span class="keyword">for</span>: flickrPhoto) &#123; result <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">switch</span> result &#123;</span><br><span class="line">  <span class="keyword">case</span> .success(<span class="keyword">let</span> image):</span><br><span class="line">    <span class="keyword">if</span> cell.flickrPhoto == flickrPhoto &#123;</span><br><span class="line">      <span class="keyword">if</span> flickrPhoto.isFavourite &#123;</span><br><span class="line">        cell.imageView.image = image</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedImage = </span><br><span class="line">          <span class="type">ImageCache</span>.shared.image(forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>) &#123;</span><br><span class="line">          cell.imageView.image = cachedImage</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 2</span></span><br><span class="line">          <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> filteredImage = image.applyTonalFilter() &#123;</span><br><span class="line">              <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(filteredImage, </span><br><span class="line">                                    forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>)</span><br><span class="line">            </span><br><span class="line">              <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                cell.imageView.image = filteredImage</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Error: \(error)"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该代码的第一部分与之前相同，并从网上加载了Flickr照片的缩略图。如果照片是收藏夹，则单元格将显示缩略图而无需修改。但是，如果照片不是您的最爱，则会应用色调滤镜。</p>
+<p>这是您更改内容的地方：</p>
+<ol>
+<li>检查图像缓存中是否存在针对该照片的过滤图像。如果是，那就太好了；显示该图像。</li>
+<li>如果不是，请分派将色调过滤器应用到后台队列的调用。这允许UI在过滤器运行时保持响应。筛选器完成后，将图像保存在缓存中并更新主队列上的图像视图。</li>
+</ol>
+<p>那是经过过滤的图像，但是仍然有原始的 Flickr 缩略图需要解决。打开 <strong>Cache.swift</strong> 并查找<code>loadThumbnail(for:completion:)</code>。将其替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadThumbnail</span><span class="params">(<span class="keyword">for</span> photo: FlickrPhoto,</span></span></span><br><span class="line"><span class="function"><span class="params">                   completion: @escaping FlickrAPI.FetchImageCompletion)</span></span> &#123;</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> image = <span class="type">ImageCache</span>.shared.image(forKey: photo.id) &#123;</span><br><span class="line">    completion(<span class="type">Result</span>.success(image))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="type">FlickrAPI</span>.loadImage(<span class="keyword">for</span>: photo, withSize: <span class="string">"m"</span>) &#123; result <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">case</span> .success(<span class="keyword">let</span> image) = result &#123;</span><br><span class="line">        <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(image, forKey: photo.id)</span><br><span class="line">      &#125;</span><br><span class="line">      completion(result)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这与您处理已过滤图像的方式非常相似。如果缓存中已存在图像，则可以立即与缓存的图像一起调用完 <code>completion closure</code>。否则，您将从 Flickr 加载图像并将其存储在缓存中。</p>
+<p>按 <strong>Command-I</strong> 再次在 Instruments 中运行该应用程序。请注意，这次 Xcode 不会询问您要使用哪种 instrument。这是因为您仍然为应用程序打开了一个窗口，并且 Instruments 假设您想使用相同的选项再次运行。</p>
+<p>再进行几次搜索。用户界面现在还不那么笨拙！该应用程序现在在后台应用图像过滤器并缓存结果，因此图像仅需过滤一次。您会在调用树中看到许多 <strong>dispatch_worker_threads</strong>。这些正在处理应用图像滤镜的繁重工作。</p>
+<p>看起来很棒！现在该发货了吗？还没！</p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>那么，接下来您要查找什么错误？</p>
+<p>项目中隐藏着一些您可能不知道的东西。您可能听说过内存泄漏。但是您可能不知道的是实际上存在两种泄漏：</p>
+<ol>
+<li><p>真正的内存泄漏：当对象不再被任何东西引用但仍被分配时发生。这意味着该内存将永远无法重复使用。</p>
+<p> 即使借助 Swift 和 ARC 帮助管理内存，最常见的内存泄漏类型仍然是 <strong>retain cycle</strong> 或 <strong>strong reference cycle</strong>。当两个对象相互之间保持强引用时，就会发生这种情况，从而使每个对象都不会释放另一个对象。结果，他们的内存永远不会释放。</p>
+</li>
+<li><p>无限的内存增长：在连续分配内存且从未释放过内存的情况下发生。如果继续不检查，将耗尽内存。在iOS上，这意味着系统将终止您的应用。</p>
+</li>
+</ol>
+<p>现在，您将探索 <strong>Allocations</strong> instrument。该工具为您提供有关应用程序创建的所有对象以及支持它们的内存的详细信息。它还显示您保留每个对象的计数。</p>
+<h2 id="Allocations"><a href="#Allocations" class="headerlink" title="Allocations"></a>Allocations</h2><p>要从新的 instruments 重新开始，请退出 Instruments 应用。不必担心保存此特定运行。现在，在Xcode 中按 <strong>Command-I</strong>，从列表中选择 <strong>Allocations</strong>，然后单击 <strong>Choose</strong>。<br><img src="http://image.astudyer.com/16001702844905.jpg" alt="-w637"><br>片刻之后，您将看到 <strong>Allocations</strong> 工具。它对您应该很熟悉，因为它看起来很像 Time Profiler。<br><img src="http://image.astudyer.com/16001702844916.jpg" alt="-w1518"><br>单击左上角的 <strong>Record</strong> 按钮以运行该应用程序。这次您会注意到两条音轨。出于本教程的目的，您只需要关注 <strong>All Heap and Anonymous VM</strong>。<br><img src="http://image.astudyer.com/16001702844927.jpg" alt="-w1341"><br>在应用程序上运行 <strong>Allocations</strong> 工具后，可以在应用程序中进行五次不同的搜索，但仍不深入查询结果。确保搜索得到一些结果。现在，让应用程序等待几秒钟来解决问题。<br><img src="http://image.astudyer.com/16001702844937.jpg" alt="-w266"><br>您应该已经注意到 <strong>All Heap and Anonymous VM</strong> 轨道中的图形一直在上升。这告诉您您的应用正在分配内存。正是这一功能将指导您找到无限的内存增长。</p>
+<h2 id="世代分析"><a href="#世代分析" class="headerlink" title="世代分析"></a>世代分析</h2><p>您将要执行的是<strong>世代分析</strong>。为此，请单击详细信息面板底部的 <strong>Mark Generation</strong> 按钮：<br><img src="http://image.astudyer.com/16001702844946.jpg" alt="-w476"><br>单击它，您将看到一条红旗出现在曲目中，如下所示：<br><img src="http://image.astudyer.com/16001702844955.jpg" alt="-w155"><br>生成分析的目的是多次执行一个动作，并查看内存是否以无限的方式增长。打开搜索结果，等待几秒钟以加载图像，然后返回主页。再次标记一代。重复执行此操作以进行不同的搜索。</p>
+<p>检查了几次搜索后，Instruments 将如下所示：<br><img src="http://image.astudyer.com/16001702844967.jpg" alt="-w1341"><br>此时，您应该变得可疑了。请注意，您每次进行深入的搜索时，蓝色图形都会随着上升。好吧，那当然不是很好。但是等等，内存警告呢？你知道这些吧？</p>
+<h2 id="模拟内存警告"><a href="#模拟内存警告" class="headerlink" title="模拟内存警告"></a>模拟内存警告</h2><p>内存警告是 iOS 告知应用程序内存部门越来越紧张并且需要清除一些内存的方式。</p>
+<p>这种增长可能不仅取决于您的应用程序。这可能是 UIKit 深入存储的东西。让系统框架和您的应用有机会先清除它们的内存，然后再将它们指向任何一个。</p>
+<p>通过在 Instruments 菜单栏中选择 <strong>Instrument ▸ Simulate Memory Warning</strong> 或从模拟器的菜单栏中选择 <strong>Hardware ▸ Simulate Memory Warning</strong> 来模拟内存警告。您会注意到内存使用量有所下降，或者根本没有下降。当然不会回到应该的位置。因此，某处仍存在无限的内存增长。</p>
+<p>您在检查搜索的每个迭代之后都标记了一个世代，这样您就可以看到每个世代之间分配了什么内存。在详细信息面板中查看，您会看到很多代。</p>
+<p>在每一代中，您将看到标记该代时已分配并仍驻留的所有对象。自从上一代被标记以来，后代将只包含对象。</p>
+<p>查看 <strong>Growth</strong> 列，您会发现肯定有某处发生了增长。打开其中几代，您将看到以下内容：<br><img src="http://image.astudyer.com/16001702844977.jpg" alt="-w588"><br>哇，有很多东西！从哪里开始？</p>
+<p>简单。单击 <strong>Growth</strong> 标题以按大小排序。确保最重的物体在顶部。在每一代的顶部附近，您会注意到一列标记为 <strong>VM：CoreImage</strong>，听起来确实很熟悉！单击 <strong>VM：CoreImage</strong> 左侧的箭头以显示与此项目关联的内存地址。选择第一个内存地址以在右侧面板上的扩展详细信息检查器中显示关联的堆栈跟踪：<br><img src="http://image.astudyer.com/16001702844989.jpg" alt="-w1343"><br>此堆栈跟踪显示了创建此特定对象的时间。灰色的堆栈跟踪部分位于系统库中。黑色部分在您应用的代码中。嗯，有些东西看起来很熟悉：有些黑字显示您的老朋友 <code>collectionView(_:cellForItemAt:)</code>。双击任何这些条目；Instruments 将在其上下文中显示代码。</p>
+<p>看一下该方法。它 <code>set(_:forKey:)</code> 在第79行进行调用。请记住，此方法将缓存图像，以防再次在应用程序中使用它。听起来确实是个问题！</p>
+<p>再次，单击 <strong>Open in Xcode</strong> 以跳回Xcode。打开 <strong>Cache.swift</strong> 并查看 <code>set(_:forKey:)</code> 方法实现：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">set</span><span class="params">(<span class="number">_</span> image: UIImage, forKey key: String)</span></span> &#123;</span><br><span class="line">  images[key] = image</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这会将图像添加到字典，并在 Flickr 照片的照片 ID 上键入。但是，您会注意到该图片从未从该词典中清除！</p>
+<p>那就是您无限内存增长的来源。一切都按预期进行，但该应用程序永远不会从缓存中删除内容-它只会添加内容！</p>
+<p>要解决此问题，您需要做的就是 <code>ImageCache</code> 监听内存警告通知 <code>UIApplication</code>。当 <code>ImageCache</code> 收到此消息时，它必须是好公民并清除其缓存。</p>
+<p>要ImageCache监听通知，请打开 <strong>Cache.swift</strong> 并将以下初始化程序添加到该类：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span>() &#123;</span><br><span class="line">  <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(</span><br><span class="line">    forName: <span class="type">UIApplication</span>.didReceiveMemoryWarningNotification,</span><br><span class="line">    object: <span class="literal">nil</span>,</span><br><span class="line">    queue: .main) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] notification <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span>?.images.removeAll(keepingCapacity: <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这将注册一个观察者 <code>UIApplicationDidReceiveMemoryWarningNotification</code> 以执行闭包清理图片。</p>
+<p>该代码所需要做的就是删除缓存中的所有对象。这样可以确保不再保留任何图像并将它们释放。</p>
+<p>要测试此修复程序，请再次启动 Instruments，然后重复之前执行的步骤。不要忘了最后的模拟内存警告。</p>
+<blockquote>
+<p>注意：确保您从Xcode启动，触发构建，而不只是点击Instruments中的红色按钮，以确保您使用的是最新代码。您可能还需要先构建并运行，然后再进行性能分析。如果您只是进行Profile，有时Xcode似乎不会将模拟器中的应用程序版本更新为最新版本。</p>
+</blockquote>
+<p>这次，世代分析应如下所示：<br><img src="http://image.astudyer.com/16001702844999.jpg" alt="-w640"><br>您会注意到内存警告后内存使用率下降。总体而言，内存仍在增长，但远未达到以前。</p>
+<p>仍然有一定增长的原因实际上是由于系统库，您对此无能为力。看来系统库并未释放它们的所有内存，这可能是设计使然，也可能是错误。您在应用中可以做的就是释放尽可能多的内存，而您已经做到了！</p>
+<p>做得好！修补了另一个问题！现在一定是时候发货了！哦，等等-仍然存在您尚未解决的第一类泄漏问题。</p>
+<h2 id="强引用循环"><a href="#强引用循环" class="headerlink" title="强引用循环"></a>强引用循环</h2><p>如前所述，当两个对象彼此保持强引用时，就会发生强引用循环，从而防止两个对象都被释放。您可以使用 Allocations 工具以其他方式检测这些周期。</p>
+<p>关闭仪器并返回到Xcode。再次选择 <strong>Product ▸ Profile</strong>，然后选择 <strong>Allocations</strong>。<br><img src="http://image.astudyer.com/16001702845009.jpg" alt="-w637"><br>这次，您将不再使用世代分析。相反，您将查看在内存中徘徊的不同类型的对象的数量。单击 <strong>Record</strong> 按钮开始运行。您应该已经看到大量对象填充了详细信息面板-太多了！为了仅缩小目标对象的范围，请在左下角的字段中输入 <strong>“Instruments”</strong> 作为过滤器。<br><img src="http://image.astudyer.com/16001702845019.jpg" alt="-w641"><br>在 Instruments 中值得注意的两列是＃<strong>Persistent</strong>和＃<strong>Transient</strong>。＃Persistent 列保留内存中当前存在的每种类型的对象数。＃Transient 列显示了已存在但已释放的对象数。持久对象正在消耗内存；暂态对象不是。</p>
+<h2 id="查找持久对象"><a href="#查找持久对象" class="headerlink" title="查找持久对象"></a>查找持久对象</h2><p>您应该看到存在的持久实例 <code>ViewController</code>。这很有意义，因为这就是您当前正在查看的屏幕。还有一个应用程序实例 <code>AppDelegate</code>。</p>
+<p>回到应用程序！执行搜索并深入研究结果。请注意，Instruments 中现在显示了许多额外的对象：<code>SearchResultsViewController</code> 和 <code>ImageCache</code> 等。该 <code>ViewController</code> 实例仍然是持久性的，因为其导航控制器需要它。</p>
+<p>现在点击应用程序中的后退按钮。这将弹出 <code>SearchResultsViewController</code> 导航堆栈，因此应将其释放。但是它在分配摘要中仍显示＃Persistent1 ！为什么还在那里？</p>
+<p>尝试执行另外两个搜索，然后在每个搜索之后点击“后退”按钮。现在有三个<code>SearchResultsViewControllers</code>？！这些视图控制器在内存中徘徊的事实意味着某些东西一直在强烈地引用它们。看来您有很强的引用周期！<br><img src="http://image.astudyer.com/16001702845029.jpg" alt="-w637"><br>在这种情况下，您的主要线索不仅是 <code>SearchResultsViewController</code> 持久性，而且也包括所有 <code>SearchResultsCollectionViewCells</code>。引用周期很可能介于这两个类之间。</p>
+<p>幸运的是，Xcode 8中引入的 <strong>Visual Memory Debugger</strong> 是一个简洁的工具，可以帮助您进一步诊断内存泄漏并保留周期。<strong>Visual Memory Debugger</strong> 不是 Xcode 的 Instrument 套件的一部分，但是它是一个非常有用的工具，值得在本教程中包括。来自分配工具和可视内存调试器的交叉引用见解是一项强大的技术，可以使您的调试工作流更加有效。</p>
+<h2 id="Visual-Memory-Debugger"><a href="#Visual-Memory-Debugger" class="headerlink" title="Visual Memory Debugger"></a>Visual Memory Debugger</h2><p>退出 Instruments。</p>
+<p>在启动 <strong>Visual Memory Debugger</strong> 之前，请像下面这样在 Xcode 方案编辑器中启用 <strong>Malloc</strong> 堆栈日志记录：Option-单击窗口顶部（“停止”按钮旁边）的 <strong>InstrumentsTutorial</strong> scheme。在出现的弹出窗口中，选择 <strong>Run</strong>，然后切换到 <strong>Diagnostics</strong> 选项卡。选中显示 <strong>Malloc Stack</strong> 的框，然后选择 <strong>Live Allocations Only</strong> 选项，然后单击 <strong>Close</strong>。<br><img src="http://image.astudyer.com/16001702845039.jpg" alt="-w626"><br>直接从 Xcode 启动应用程序。和以前一样，至少执行三个搜索以累积一些数据。</p>
+<p>现在，像这样激活可视内存调试器：<br><img src="http://image.astudyer.com/16001702845051.jpg" alt="-w861"></p>
+<ol>
+<li>切换到 <strong>Debug</strong> 导航器。</li>
+<li>单击此图标，然后从弹出窗口中选择 <strong>View Memory Graph Hierarchy</strong>。</li>
+<li>单击的条目 <code>SearchResultsCollectionViewCell</code>。</li>
+<li>您可以单击图形上的任何对象，以在检查器窗格中查看详细信息。</li>
+<li>您可以在此区域中查看详细信息。在此处切换到内存检查器。</li>
+</ol>
+<p><strong>Visual Memory Debugger</strong> 会暂停您的应用程序，并以直观的方式显示内存中的对象及其之间的引用。</p>
+<p>如上面的屏幕快照中突出显示的那样，Visual Memory Debugger显示以下信息：</p>
+<ul>
+<li><strong>堆内容</strong>（调试导航器窗格）：这将显示您暂停应用程序时在内存中分配的所有类型和实例的列表。单击一种类型将展开该行，以向您显示该类型在内存中的单独实例。</li>
+<li><strong>内存图</strong>（主窗口）：主窗口以可视方式表示内存中的对象。对象之间的箭头表示它们之间的引用（强关系和弱关系）。</li>
+<li><strong>内存检查器</strong>（实用程序窗格）：这包括详细信息，例如类名和层次结构，以及引用是强还是弱。</li>
+</ul>
+<p>请注意，调试导航器中的某些行旁边如果带有括号。括号中的数字表示内存中有多少个特定类型的实例。在上面的屏幕截图中，您可以看到经过几次搜索后，Visual Memory Debugger 会确认您在 <strong>Allocations</strong> 工具中看到的结果。换句话说，从20到（如果您滚动到搜索结果的末尾）的任何位置SearchResultsCollectionViewCell，每个 SearchResultsViewController 实例的60个实例都将保留在内存中。</p>
+<p>使用该行左侧的箭头展开该类型并显示 SearchResultsViewController 内存中的每个实例。单击单个实例将在主窗口中显示该实例及其任何引用。<br><img src="http://image.astudyer.com/16002243673096.jpg" alt="-w924"><br>请注意指向 SearchResultsViewController 实例的箭头。似乎有一些 Swift 闭包上下文实例引用了相同的视图控制器实例。看起来有点怀疑，不是吗？细看。选择其中一个箭头，以在“实用程序”窗格中显示有关这些关闭实例之一与的引用的更多信息 SearchResultsViewController。<br><img src="http://image.astudyer.com/16002243673109.jpg" alt="-w859"><br>在内存检查，你可以看到 Swift 闭包上下文实例和 SearchResultsViewController 为强。如果在 SearchResultsCollectionViewCell 和闭包上下文之间选择引用，您也会看到它也标记为强。您还可以看到闭包的名称是 <strong>“heartToggleHandler”</strong>。哈！SearchResultsCollectionViewCell 表明这一点！</p>
+<p>SearchResultsCollectionViewCell 在主窗口中选择的实例，以在检查器窗格上显示更多信息。<br><img src="http://image.astudyer.com/16002243673118.jpg" alt="-w887"><br>在回溯中，您可以看到在中初始化了单元实例 <code>collectionView(_:cellForItemAt:)</code>。当您将鼠标悬停在回溯中的这一行上时，将出现一个小箭头。单击箭头将带您进入Xcode的代码编辑器中的此方法。</p>
+<p>在 <code>collectionView(_:cellForItemAt:)</code> 方法中，找到 <code>heartToggleHandler</code> 设置每个单元格属性的位置。您将看到以下代码行：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当用户在集合视图单元格中单击“心形”按钮时，将执行此关闭操作。这是强引用循环的所在，但是除非您之前遇到过，否则很难找到。但是由于有了Visual Memory Debugger，您才能够一直跟踪到这段代码！</p>
+<p>SearchResultsViewController 的闭包中使用了 self，它创建了一个强引用。闭包捕获了 self。Swift 实际上会强迫您在闭包中显式使用 self，而在引用当前对象的方法和属性时，通常可以将其删除。这可以帮助您更多地了解正在捕获的实例。SearchResultsViewController 通过collection view 还对 cells 具有强应用。</p>
+<h2 id="打破循环引用"><a href="#打破循环引用" class="headerlink" title="打破循环引用"></a>打破循环引用</h2><p>为了打破循环引用，您可以将捕获列表定义为闭包定义的一部分。捕获列表可用于将闭包捕获的实例声明为 <strong>weak</strong> 或 <strong>unowned</strong>：</p>
+<ul>
+<li><strong>Weak</strong>：捕获的变量将来可能为nil时使用。如果它所引用的对象被释放，则引用变为nil。因此，它们是可选类型。</li>
+<li><strong>Unowned</strong>：当闭包及其引用的对象始终具有相同的生存期并在同一时间被释放时，使用此属性。Unowned 引用的对象永远不会成为nil。</li>
+</ul>
+<p>要打破循环引用，请向其中添加捕获列表，<code>heartToggleHandler</code> 如下所示：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>?.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>声明 self 为 weak 意味着即使 collection view cells 拥有对 SearchResultsViewController 的引用，也可以将其释放，因为它们现在只是弱引用。同时释放了 SearchResultsViewController 也将会释放 collection view，进而释放 cells。</p>
+<p>在Xcode中，再次按 <strong>Command-I</strong> 在 Instruments 中构建并运行该应用程序。</p>
+<p>像以前一样，使用 <strong>Allocations</strong> instrument 在 <strong>Instruments</strong> 中再次查看该应用。记住要过滤结果以仅显示示例项目中的类。执行搜索，导航到结果并再次返回。SearchResultsViewController 向后导航时，您应该看到和其单元格已解除分配。它们显示瞬时实例，但没有持久实例。</p>
+<p>循环坏了！发货吧！</p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>您可以使用本教程顶部或底部的 <strong>“下载材料”</strong> 按钮下载示例项目。</p>
+<p>现在，您已经掌握了此 Instruments 教程的知识，现在就去尝试自己的代码，看看会出现什么有趣的事情！另外，请尝试使 Instruments 成为常规开发工作流程的一部分。</p>
+<p>您应该相对频繁地通过 Instruments 运行代码，并在发布前对应用程序进行全面扫描，以确保尽可能多地遇到内存管理和性能问题。</p>
+<p>现在，去制作一些很棒的，高效的应用程序吧！</p>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><a href="https://koenig-media.raywenderlich.com/uploads/2019/08/InstrumentsTutorial-3.zip" target="_blank" rel="noopener">下载材料</a><br><a href="https://www.raywenderlich.com/4784723-instruments-tutorial-getting-started" target="_blank" rel="noopener">原文链接</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Instruments/" rel="tag"># Instruments</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/java/java/如何在IDEA中创建web项目并部署到Tomcat中.html" rel="next" title="如何在IDEA中创建web项目并部署到Tomcat中">
+                <i class="fa fa-chevron-left"></i> 如何在IDEA中创建web项目并部署到Tomcat中
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/27911329?s=460&u=f4a261c55d714830a8c4dcb1ec64efbb1d9f0fd2&v=4" alt="匿名">
+            
+              <p class="site-author-name" itemprop="name">匿名</p>
+              <p class="site-description motion-element" itemprop="description">莫叹息，莫停留，莫让年华付水流！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/astudyer" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:astudyer@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Time-Profiler"><span class="nav-number">2.</span> <span class="nav-text">Time Profiler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仪器仪表"><span class="nav-number">3.</span> <span class="nav-text">仪器仪表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深钻"><span class="nav-number">4.</span> <span class="nav-text">深钻</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分担工作"><span class="nav-number">5.</span> <span class="nav-text">分担工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏"><span class="nav-number">6.</span> <span class="nav-text">内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allocations"><span class="nav-number">7.</span> <span class="nav-text">Allocations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#世代分析"><span class="nav-number">8.</span> <span class="nav-text">世代分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟内存警告"><span class="nav-number">9.</span> <span class="nav-text">模拟内存警告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强引用循环"><span class="nav-number">10.</span> <span class="nav-text">强引用循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找持久对象"><span class="nav-number">11.</span> <span class="nav-text">查找持久对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Memory-Debugger"><span class="nav-number">12.</span> <span class="nav-text">Visual Memory Debugger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打破循环引用"><span class="nav-number">13.</span> <span class="nav-text">打破循环引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来"><span class="nav-number">14.</span> <span class="nav-text">接下来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资源"><span class="nav-number">15.</span> <span class="nav-text">相关资源</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">匿名</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+	  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1262318393'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1262318393%26online%3D2' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://aStudyer.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.astudyer.com/iOS/译-Instruments-教程-入门.html';
+          this.page.identifier = 'iOS/译-Instruments-教程-入门.html';
+          this.page.title = '[译] Instruments 入门教程';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aStudyer.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('-1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
