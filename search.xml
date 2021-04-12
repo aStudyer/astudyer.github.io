@@ -1,190 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Mac安装Homebrew</title>
-    <url>/%E5%B7%A5%E5%85%B7/Mac%E5%AE%89%E8%A3%85Homebrew.html</url>
-    <content><![CDATA[<h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><p><a href="https://brew.sh" target="_blank" rel="noopener">https://brew.sh</a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="其他安装方法"><a href="#其他安装方法" class="headerlink" title="其他安装方法"></a>其他安装方法</h2><p>由于国内的网络环境等问题，使用官方的安装方法可能无法安装成功。可以尝试使用其他更适合国内网络环境的安装方法，参考地址：<a href="https://brew.idayer.com/。" target="_blank" rel="noopener">https://brew.idayer.com/。</a></p>
-<h2 id="安装homebrew-core"><a href="#安装homebrew-core" class="headerlink" title="安装homebrew-core"></a>安装homebrew-core</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="安装homebrew-cask"><a href="#安装homebrew-cask" class="headerlink" title="安装homebrew-cask"></a>安装homebrew-cask</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/"</span></span><br><span class="line"> </span><br><span class="line">git <span class="built_in">clone</span> https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br></pre></td></tr></table></figure>
-<h2 id="源"><a href="#源" class="headerlink" title="源"></a>源</h2><p>为了加速以后使用Homebrew安装其他软件的过程，建议设置软件源为国内源。</p>
-<h3 id="查看源"><a href="#查看源" class="headerlink" title="查看源"></a>查看源</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> &amp;&amp; git remote -v</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> &amp;&amp; git remote -v</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> &amp;&amp; git remote -v</span><br></pre></td></tr></table></figure>
-<h3 id="设置源"><a href="#设置源" class="headerlink" title="设置源"></a>设置源</h3><p>设置为中科大的源<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"> </span><br><span class="line">brew update</span><br></pre></td></tr></table></figure></p>
-<h3 id="设置bottles镜像"><a href="#设置bottles镜像" class="headerlink" title="设置bottles镜像"></a>设置bottles镜像</h3><p>从macOS Catalina(10.15.x) 版开始，Mac使用zsh作为默认shell，使用的配置文件：<code>.zprofile</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.zprofile</span><br><span class="line"> </span><br><span class="line"><span class="built_in">source</span> ~/.zprofile</span><br></pre></td></tr></table></figure></p>
-<p>如果是以前的macOS版本，Mac使用bash作为默认shell，使用的配置文件：<code>.bash_profile</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"> </span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
-<h3 id="重置为官方源"><a href="#重置为官方源" class="headerlink" title="重置为官方源"></a>重置为官方源</h3><p>可以通过以下命令还原回官方源。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-cask.git</span><br><span class="line"> </span><br><span class="line"><span class="comment"># zsh 注释掉 HOMEBREW_BOTTLE_DOMAIN 配置</span></span><br><span class="line">vi ~/.zprofile</span><br><span class="line"><span class="comment"># export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span></span><br><span class="line"><span class="built_in">source</span> ~/.zprofile</span><br><span class="line"> </span><br><span class="line"><span class="comment"># bash 注释掉 HOMEBREW_BOTTLE_DOMAIN 配置</span></span><br><span class="line">vi ~/.bash_profile</span><br><span class="line"><span class="comment"># export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"> </span><br><span class="line">brew update</span><br></pre></td></tr></table></figure></p>
-<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/uninstall)</span>"</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <a href="https://www.cnblogs.com/mjios/p/14497925.html" target="_blank" rel="noopener">Mac安装Homebrew</a></p>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>brew</tag>
-        <tag>homebrew</tag>
-        <tag>mac</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[译] Instruments 入门教程</title>
-    <url>/iOS/%E8%AF%91-Instruments-%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8.html</url>
-    <content><![CDATA[<p>了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。</p>
-<p>Version：Swift 5, iOS 13, Xcode 11</p>
-<p>除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！</p>
-<p>本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问题，参考周期和其他问题。</p>
-<p>可以了，好了？准备好进入迷人的 Instruments 世界！</p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>对于本教程，您将不会经历从头开始创建应用的过程。相反，下载资料包括一个完整的示例项目。您的任务是像使用自己的应用程序一样，以 Instruments 为指导来浏览并改进该应用程序！</p>
-<p>使用本教程底部的 <strong>“下载材料”</strong> 按钮下载项目材料。在 Xcode 中打开启动项目。</p>
-<p>此示例应用程序使用 <strong>Flickr API</strong> 搜索图像。要使用 API​​，您需要一个 API 密钥。对于演示项目，您可以在 Flickr 的网站上生成示例密钥。只需在 <a href="http://www.flickr.com/services/api/explore/?method=flickr.photos.search" target="_blank" rel="noopener">Flickr API Explorer</a> 中执行任何搜索，然后从底部的 URL 复制 API 密钥即可。它一直沿 “＆api_key =” 到下一个 “＆”。</p>
-<p>例如，如果URL为：<br><code>HTTP：//api.flickr.com/services/rest/?method=flickr.photos.search
-＆api_key = ff417a50b95180cb0c7e3b68a8749fba
-＆format = rest＆api_sig = f24f4e98063a9b8ecc8b522b238d5e2f</code></p>
-<p>然后，API 密钥为：ff417a50b95180cb0c7e3b68a8749fba。</p>
-<p>打开 <strong>FlickrAPI.swift</strong> 并将现有的 API 密钥值替换为新值。</p>
-<p>请注意，API 密钥每天都会更改，因此有时您不得不重新生成一个新密钥。只要密钥无效，该应用程序就会提醒您。</p>
-<p>生成并运行，执行搜索，单击结果，您将看到类似以下内容：<br><img src="http://image.astudyer.com/16001702844764.jpg" alt="-w258"><br>使用该应用程序并查看其基本功能。您可能会认为，一旦 UI 看起来不错，该应用就可以提交商店了。但是，您将看到使用 Instruments 可以为您的应用添加的价值。</p>
-<p>本教程的其余部分将向您展示如何查找和修复应用程序中仍然存在的问题。您将看到 Instruments 如何使调试问题大为简化！</p>
-<h2 id="Time-Profiler"><a href="#Time-Profiler" class="headerlink" title="Time Profiler"></a>Time Profiler</h2><p><img src="http://image.astudyer.com/16001702844792.jpg" alt="-w80"><br>您将要看的第一个乐器是 <strong>Time Profiler</strong>。每隔一定的时间间隔，Instruments 将暂停程序的执行，并在每个运行的线程上进行堆栈跟踪。可以将其视为单击 Xco​​de 调试器中的“暂停”按钮。</p>
-<p>这是 Time Profiler 的预览：<br><img src="http://image.astudyer.com/16001702844804.jpg" alt="-w889"><br>此界面显示 <strong>Call Tree</strong>。Call Tree 显示了在应用程序中执行各种方法所花费的时间。每一行都是程序执行路径遵循的不同方法。Instruments 通过计算分析器在每种方法中停止的次数来估算每种方法所花费的时间。</p>
-<p>例如，如果您以1毫秒的间隔进行100个采样，并且在10个采样中的某个特殊方法出现在堆栈的顶部，则可以推断出该方法花费了该应用大约10％的总执行时间（10毫秒）。这是一个很粗略的近似值，但是可以用！</p>
-<blockquote>
-<p>注意：通常，您应该始终在实际设备上而不是模拟器上对应用程序进行配置文件配置。iOS 模拟器具有Mac 的全部功能，而设备将具有移动硬件的所有限制。您的应用似乎可以在模拟器中正常运行，但是一旦它在真实设备上运行，您可能会发现性能问题。</p>
-</blockquote>
-<p>因此，事不宜迟，该花些时间进行检测了！</p>
-<h2 id="仪器仪表"><a href="#仪器仪表" class="headerlink" title="仪器仪表"></a>仪器仪表</h2><p>在 Xcode 的菜单栏中，选择 <strong>Product ▸ Profile</strong> 或按 <strong>Command-I</strong>。这将构建应用程序并启动 Instruments。您将看到一个选择窗口，如下所示：<br><img src="http://image.astudyer.com/16001702844815.jpg" alt="-w626"><br>这些是Instruments随附的所有不同模板。</p>
-<p>选择Time Profiler仪器，然后单击选择。这将打开一个新的Instruments文档。单击左上角的红色录制按钮开始录制并启动该应用程序。macOS可能会要求您输入密码以授权Instruments分析其他进程。别担心，可以在这里安全地提供！</p>
-<p>在“工具”窗口中，您可以看到时间在向上计数，并且在屏幕中心的图形上方有一个小箭头从左向右移动。这表明该应用程序正在运行。</p>
-<p>现在，开始使用该应用程序。搜索一些图像，然后向下钻取一个或多个搜索结果。您可能已经注意到，进入搜索结果的过程非常缓慢，并且滚动浏览搜索结果列表也非常令人讨厌。这是一个非常笨拙的应用程序！</p>
-<p>好吧，你很幸运。您即将着手修复它！但是，您首先要快速了解 Instruments 中的内容。</p>
-<p>首先，确保工具栏右侧的视图选择器同时选择了两个选项，如下所示：<br><img src="http://image.astudyer.com/16001702844824.jpg" alt="-w147"><br>这样可以确保所有面板均打开。现在，研究下面的屏幕截图以及下面每个部分的说明：<br><img src="http://image.astudyer.com/16001702844834.jpg" alt="-w648"></p>
-<ol>
-<li><strong>录制控件</strong>：红色的“录制”按钮停止并启动当前正在测试的应用。暂停按钮可暂停应用程序的当前执行。</li>
-<li><strong>运行计时器</strong>：计时器计算已配置应用程序已运行了多长时间以及已运行了多少次。单击停止按钮，然后重新启动应用程序。您将看到显示为 <strong>Run 2 of 2</strong> 的显示。</li>
-<li><strong>乐器音轨</strong>：对于您选择的 Time Profiler 模板，只有一架乐器，因此只有一条音轨。您将在本教程的后面部分中详细了解该图的细节。</li>
-<li><p><strong>详细信息面板</strong>：显示有关您正在使用的特定乐器的主要信息。在这种情况下，它显示了“最热”的方法，即使用最多CPU时间的方法。</p>
-<p> 在详细信息面板的顶部，单击 <strong>Profile</strong>，然后选择样本。在这里您可以查看每个样本。点击一些样本；您将看到捕获的堆栈跟踪显示在右侧的扩展详细信息检查器中。完成后，切换回个人资料。</p>
-</li>
-<li>检查器面板：有两个检查器- <strong>Extended Detail</strong> 和 <strong>Run Info</strong> -您将很快了解更多信息。</li>
-</ol>
-<h2 id="深钻"><a href="#深钻" class="headerlink" title="深钻"></a>深钻</h2><p>执行图像搜索，然后深入研究结果。我个人喜欢搜索“狗”，但是选择任何您想要的-您可能就是其中的猫人之一！</p>
-<p>现在，上下滚动列表几次，以便在 Time Profiler 中获得大量数据。您应该注意到屏幕中间的数字在变化，并且图形在填充。这表明您的应用程序正在使用CPU周期。</p>
-<p>直到滚动像黄油一样，任何收藏视图都无法交付！</p>
-<p>为了帮助查明问题，您将设置一些选项。单击 <strong>Stop</strong>，然后在详细信息面板下方，单击 <strong>Call Tree</strong>。在出现的弹出窗口中，选择 <strong>Separate by Thread</strong>，<strong>Invert Call Tree</strong> 和 <strong>Hide System Libraries</strong>。它看起来像这样：<br><img src="http://image.astudyer.com/16001702844843.jpg" alt="-w469"><br>以下是每个选项对左侧表格中显示的数据的处理方式：</p>
-<ul>
-<li><strong>Separate by State</strong>：此选项按应用程序的生命周期状态对结果进行分组，是一种检查应用程序正在执行的工作量和时间的有用方法。</li>
-<li><strong>Separate by Thread</strong>：分别对待每个线程。这使您能够了解哪些线程导致最大的 CPU 使用量。</li>
-<li><strong>Invert Call Tree</strong>：使用此选项，堆栈跟踪将首先显示最近的帧。</li>
-<li><strong>Hide System Libraries</strong>：选择此选项时，仅显示您自己的应用程序中的符号。选择此选项通常很有用，因为通常您只关心 CPU 在自己的代码中花费的时间，而对于系统库使用的 CPU 数量却做得不多！</li>
-<li><strong>Flatten Recursion</strong>：此选项显示递归函数，这些函数可以在每个堆栈跟踪中只有一个条目，而不是多次调用自己。</li>
-<li><strong>Top Functions</strong>：启用此功能可使仪器将在一个功能上花费的总时间视为该功能内直接花费的时间之和，以及该功能所调用的功能所花费的时间。因此，如果函数A 调用B ，则 Instruments 将A的时间报告为A所花费的时间加上B中所花费的时间。这非常有用，因为它使您每次下降到调用堆栈时都选择最大的时间数字，将其清零使用最耗​​时的方法。</li>
+    <title>OC语言系列——Category</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Category.html</url>
+    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>OC提供了一种与众不同的方式–Category，可以动态的为已经存在的类添加新的行为（方法）</li>
+<li>这样可以保证类的原始设计规模大小，功能增加时再逐步扩展</li>
+<li>使用Category对类进行扩展时，不需要创建子类</li>
+<li>Category使用简单的方式，实现了类的相关方法的模块化，把不同的类方法分配到不同的分类文件中</li>
 </ul>
-<p>扫描结果以识别 <strong>Weight</strong> 列中哪些行具有最高百分比。请注意，带有 <strong>Main Thread</strong> 的行正在消耗大量的 CPU 周期。通过单击文本左侧的小箭头来展开该行，然后向下钻取，直到看到您自己的方法之一，并标有“人”符号。尽管某些值可能会略有不同，但是条目的顺序应类似于下表：<br><img src="http://image.astudyer.com/16001702844853.jpg" alt="-w708"><br>好吧，那看起来当然不好。该应用程序将大部分时间用于将 <strong>“tonal”</strong> 滤镜应用于缩略图的方法。这对您来说应该不会太震惊，因为表格的加载和滚动是 UI 中最笨拙的部分，并且表格单元会不断更新。</p>
-<p>要了解有关该方法中发生的事情的更多信息，请双击表中的该行。这样做将显示以下视图：<br><img src="http://image.astudyer.com/16001702844863.jpg" alt="-w635"><br><code>applyTonalFilter()</code> 是 <code>UIImage</code> 扩展中添加的方法，并且 <code>CGImage</code> 在应用图像滤镜之后花费大量时间调用创建输出的方法。</p>
-<p>您实际上没有什么可以做来加快速度。创建映像是一个密集的过程，需要花费很长时间。尝试后退以查看应用程序的调用位置 <code>applyTonalFilter()</code>。在代码视图顶部的面包屑路径中单击 <strong>Root</strong> 以返回上一屏幕：<br><img src="http://image.astudyer.com/16001702844872.jpg" alt="-w473"><br>现在，单击 <code>applyTonalFilter</code> 表顶部行左侧的小箭头。这将显示呼叫者 <code>applyTonalFilter</code>-您可能也需要展开下一行。在对 Swift 进行性能分析时，有时会在 <strong>Call Tree</strong> 中有重复的行，并带有 <code>@objc</code>。您对第一行带有“人”图标的前缀感兴趣，这表明它属于您应用的目标：<br><img src="http://image.astudyer.com/16001702844882.jpg" alt="-w586"><br>在这种情况下，该行引用结果收集视图的 <code>(_:cellForItemAt:)</code>。双击该行以查看项目中的关联代码。</p>
-<p>现在您可以看到问题所在了。看一下第70行：应用 <code>tonal filter</code> 的方法要花很长时间才能执行，您可以直接从调用它 <code>collectionView(_:cellForItemAt:)</code>。这将在每次请求过滤图像时阻塞主线程，并因此阻塞整个UI。</p>
-<h2 id="分担工作"><a href="#分担工作" class="headerlink" title="分担工作"></a>分担工作</h2><p>要解决此问题，您将采取两个步骤：首先，将图像过滤的方法放到后台线程上 <code>DispatchQueue.global().async</code>。然后，在生成每个图像后对其进行缓存。<code>ImageCache</code> 入门项目中包含一个小型，简单的图像缓存类-具有易记的名称，该类仅将图像存储在内存中并使用给定的键检索它们。</p>
-<p>现在，您可以切换到 Xcode，并在 Instruments 中手动找到要查看的源文件。但是，在Instruments 中有一个方便的 <strong>Open in Xcode</strong> 按钮。在代码上方的面板中找到它，然后单击它：<br><img src="http://image.astudyer.com/16001702844895.jpg" alt="-w1782"><br>太棒了！Xcode刚好在正确的位置打开！</p>
-<p>现在，将 <code>collectionView(_:cellForItemAt:)</code> 中的 <code>loadThumbnail(for:completion:)</code> 方法替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">ImageCache</span>.shared.loadThumbnail(<span class="keyword">for</span>: flickrPhoto) &#123; result <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">switch</span> result &#123;</span><br><span class="line">  <span class="keyword">case</span> .success(<span class="keyword">let</span> image):</span><br><span class="line">    <span class="keyword">if</span> cell.flickrPhoto == flickrPhoto &#123;</span><br><span class="line">      <span class="keyword">if</span> flickrPhoto.isFavourite &#123;</span><br><span class="line">        cell.imageView.image = image</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedImage = </span><br><span class="line">          <span class="type">ImageCache</span>.shared.image(forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>) &#123;</span><br><span class="line">          cell.imageView.image = cachedImage</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 2</span></span><br><span class="line">          <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> filteredImage = image.applyTonalFilter() &#123;</span><br><span class="line">              <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(filteredImage, </span><br><span class="line">                                    forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>)</span><br><span class="line">            </span><br><span class="line">              <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                cell.imageView.image = filteredImage</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Error: \(error)"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该代码的第一部分与之前相同，并从网上加载了Flickr照片的缩略图。如果照片是收藏夹，则单元格将显示缩略图而无需修改。但是，如果照片不是您的最爱，则会应用色调滤镜。</p>
-<p>这是您更改内容的地方：</p>
-<ol>
-<li>检查图像缓存中是否存在针对该照片的过滤图像。如果是，那就太好了；显示该图像。</li>
-<li>如果不是，请分派将色调过滤器应用到后台队列的调用。这允许UI在过滤器运行时保持响应。筛选器完成后，将图像保存在缓存中并更新主队列上的图像视图。</li>
-</ol>
-<p>那是经过过滤的图像，但是仍然有原始的 Flickr 缩略图需要解决。打开 <strong>Cache.swift</strong> 并查找<code>loadThumbnail(for:completion:)</code>。将其替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadThumbnail</span><span class="params">(<span class="keyword">for</span> photo: FlickrPhoto,</span></span></span><br><span class="line"><span class="function"><span class="params">                   completion: @escaping FlickrAPI.FetchImageCompletion)</span></span> &#123;</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> image = <span class="type">ImageCache</span>.shared.image(forKey: photo.id) &#123;</span><br><span class="line">    completion(<span class="type">Result</span>.success(image))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="type">FlickrAPI</span>.loadImage(<span class="keyword">for</span>: photo, withSize: <span class="string">"m"</span>) &#123; result <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">case</span> .success(<span class="keyword">let</span> image) = result &#123;</span><br><span class="line">        <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(image, forKey: photo.id)</span><br><span class="line">      &#125;</span><br><span class="line">      completion(result)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这与您处理已过滤图像的方式非常相似。如果缓存中已存在图像，则可以立即与缓存的图像一起调用完 <code>completion closure</code>。否则，您将从 Flickr 加载图像并将其存储在缓存中。</p>
-<p>按 <strong>Command-I</strong> 再次在 Instruments 中运行该应用程序。请注意，这次 Xcode 不会询问您要使用哪种 instrument。这是因为您仍然为应用程序打开了一个窗口，并且 Instruments 假设您想使用相同的选项再次运行。</p>
-<p>再进行几次搜索。用户界面现在还不那么笨拙！该应用程序现在在后台应用图像过滤器并缓存结果，因此图像仅需过滤一次。您会在调用树中看到许多 <strong>dispatch_worker_threads</strong>。这些正在处理应用图像滤镜的繁重工作。</p>
-<p>看起来很棒！现在该发货了吗？还没！</p>
-<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>那么，接下来您要查找什么错误？</p>
-<p>项目中隐藏着一些您可能不知道的东西。您可能听说过内存泄漏。但是您可能不知道的是实际上存在两种泄漏：</p>
-<ol>
-<li><p>真正的内存泄漏：当对象不再被任何东西引用但仍被分配时发生。这意味着该内存将永远无法重复使用。</p>
-<p> 即使借助 Swift 和 ARC 帮助管理内存，最常见的内存泄漏类型仍然是 <strong>retain cycle</strong> 或 <strong>strong reference cycle</strong>。当两个对象相互之间保持强引用时，就会发生这种情况，从而使每个对象都不会释放另一个对象。结果，他们的内存永远不会释放。</p>
-</li>
-<li><p>无限的内存增长：在连续分配内存且从未释放过内存的情况下发生。如果继续不检查，将耗尽内存。在iOS上，这意味着系统将终止您的应用。</p>
-</li>
-</ol>
-<p>现在，您将探索 <strong>Allocations</strong> instrument。该工具为您提供有关应用程序创建的所有对象以及支持它们的内存的详细信息。它还显示您保留每个对象的计数。</p>
-<h2 id="Allocations"><a href="#Allocations" class="headerlink" title="Allocations"></a>Allocations</h2><p>要从新的 instruments 重新开始，请退出 Instruments 应用。不必担心保存此特定运行。现在，在Xcode 中按 <strong>Command-I</strong>，从列表中选择 <strong>Allocations</strong>，然后单击 <strong>Choose</strong>。<br><img src="http://image.astudyer.com/16001702844905.jpg" alt="-w637"><br>片刻之后，您将看到 <strong>Allocations</strong> 工具。它对您应该很熟悉，因为它看起来很像 Time Profiler。<br><img src="http://image.astudyer.com/16001702844916.jpg" alt="-w1518"><br>单击左上角的 <strong>Record</strong> 按钮以运行该应用程序。这次您会注意到两条音轨。出于本教程的目的，您只需要关注 <strong>All Heap and Anonymous VM</strong>。<br><img src="http://image.astudyer.com/16001702844927.jpg" alt="-w1341"><br>在应用程序上运行 <strong>Allocations</strong> 工具后，可以在应用程序中进行五次不同的搜索，但仍不深入查询结果。确保搜索得到一些结果。现在，让应用程序等待几秒钟来解决问题。<br><img src="http://image.astudyer.com/16001702844937.jpg" alt="-w266"><br>您应该已经注意到 <strong>All Heap and Anonymous VM</strong> 轨道中的图形一直在上升。这告诉您您的应用正在分配内存。正是这一功能将指导您找到无限的内存增长。</p>
-<h2 id="世代分析"><a href="#世代分析" class="headerlink" title="世代分析"></a>世代分析</h2><p>您将要执行的是<strong>世代分析</strong>。为此，请单击详细信息面板底部的 <strong>Mark Generation</strong> 按钮：<br><img src="http://image.astudyer.com/16001702844946.jpg" alt="-w476"><br>单击它，您将看到一条红旗出现在曲目中，如下所示：<br><img src="http://image.astudyer.com/16001702844955.jpg" alt="-w155"><br>生成分析的目的是多次执行一个动作，并查看内存是否以无限的方式增长。打开搜索结果，等待几秒钟以加载图像，然后返回主页。再次标记一代。重复执行此操作以进行不同的搜索。</p>
-<p>检查了几次搜索后，Instruments 将如下所示：<br><img src="http://image.astudyer.com/16001702844967.jpg" alt="-w1341"><br>此时，您应该变得可疑了。请注意，您每次进行深入的搜索时，蓝色图形都会随着上升。好吧，那当然不是很好。但是等等，内存警告呢？你知道这些吧？</p>
-<h2 id="模拟内存警告"><a href="#模拟内存警告" class="headerlink" title="模拟内存警告"></a>模拟内存警告</h2><p>内存警告是 iOS 告知应用程序内存部门越来越紧张并且需要清除一些内存的方式。</p>
-<p>这种增长可能不仅取决于您的应用程序。这可能是 UIKit 深入存储的东西。让系统框架和您的应用有机会先清除它们的内存，然后再将它们指向任何一个。</p>
-<p>通过在 Instruments 菜单栏中选择 <strong>Instrument ▸ Simulate Memory Warning</strong> 或从模拟器的菜单栏中选择 <strong>Hardware ▸ Simulate Memory Warning</strong> 来模拟内存警告。您会注意到内存使用量有所下降，或者根本没有下降。当然不会回到应该的位置。因此，某处仍存在无限的内存增长。</p>
-<p>您在检查搜索的每个迭代之后都标记了一个世代，这样您就可以看到每个世代之间分配了什么内存。在详细信息面板中查看，您会看到很多代。</p>
-<p>在每一代中，您将看到标记该代时已分配并仍驻留的所有对象。自从上一代被标记以来，后代将只包含对象。</p>
-<p>查看 <strong>Growth</strong> 列，您会发现肯定有某处发生了增长。打开其中几代，您将看到以下内容：<br><img src="http://image.astudyer.com/16001702844977.jpg" alt="-w588"><br>哇，有很多东西！从哪里开始？</p>
-<p>简单。单击 <strong>Growth</strong> 标题以按大小排序。确保最重的物体在顶部。在每一代的顶部附近，您会注意到一列标记为 <strong>VM：CoreImage</strong>，听起来确实很熟悉！单击 <strong>VM：CoreImage</strong> 左侧的箭头以显示与此项目关联的内存地址。选择第一个内存地址以在右侧面板上的扩展详细信息检查器中显示关联的堆栈跟踪：<br><img src="http://image.astudyer.com/16001702844989.jpg" alt="-w1343"><br>此堆栈跟踪显示了创建此特定对象的时间。灰色的堆栈跟踪部分位于系统库中。黑色部分在您应用的代码中。嗯，有些东西看起来很熟悉：有些黑字显示您的老朋友 <code>collectionView(_:cellForItemAt:)</code>。双击任何这些条目；Instruments 将在其上下文中显示代码。</p>
-<p>看一下该方法。它 <code>set(_:forKey:)</code> 在第79行进行调用。请记住，此方法将缓存图像，以防再次在应用程序中使用它。听起来确实是个问题！</p>
-<p>再次，单击 <strong>Open in Xcode</strong> 以跳回Xcode。打开 <strong>Cache.swift</strong> 并查看 <code>set(_:forKey:)</code> 方法实现：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">set</span><span class="params">(<span class="number">_</span> image: UIImage, forKey key: String)</span></span> &#123;</span><br><span class="line">  images[key] = image</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这会将图像添加到字典，并在 Flickr 照片的照片 ID 上键入。但是，您会注意到该图片从未从该词典中清除！</p>
-<p>那就是您无限内存增长的来源。一切都按预期进行，但该应用程序永远不会从缓存中删除内容-它只会添加内容！</p>
-<p>要解决此问题，您需要做的就是 <code>ImageCache</code> 监听内存警告通知 <code>UIApplication</code>。当 <code>ImageCache</code> 收到此消息时，它必须是好公民并清除其缓存。</p>
-<p>要ImageCache监听通知，请打开 <strong>Cache.swift</strong> 并将以下初始化程序添加到该类：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">init</span>() &#123;</span><br><span class="line">  <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(</span><br><span class="line">    forName: <span class="type">UIApplication</span>.didReceiveMemoryWarningNotification,</span><br><span class="line">    object: <span class="literal">nil</span>,</span><br><span class="line">    queue: .main) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] notification <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span>?.images.removeAll(keepingCapacity: <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这将注册一个观察者 <code>UIApplicationDidReceiveMemoryWarningNotification</code> 以执行闭包清理图片。</p>
-<p>该代码所需要做的就是删除缓存中的所有对象。这样可以确保不再保留任何图像并将它们释放。</p>
-<p>要测试此修复程序，请再次启动 Instruments，然后重复之前执行的步骤。不要忘了最后的模拟内存警告。</p>
-<blockquote>
-<p>注意：确保您从Xcode启动，触发构建，而不只是点击Instruments中的红色按钮，以确保您使用的是最新代码。您可能还需要先构建并运行，然后再进行性能分析。如果您只是进行Profile，有时Xcode似乎不会将模拟器中的应用程序版本更新为最新版本。</p>
-</blockquote>
-<p>这次，世代分析应如下所示：<br><img src="http://image.astudyer.com/16001702844999.jpg" alt="-w640"><br>您会注意到内存警告后内存使用率下降。总体而言，内存仍在增长，但远未达到以前。</p>
-<p>仍然有一定增长的原因实际上是由于系统库，您对此无能为力。看来系统库并未释放它们的所有内存，这可能是设计使然，也可能是错误。您在应用中可以做的就是释放尽可能多的内存，而您已经做到了！</p>
-<p>做得好！修补了另一个问题！现在一定是时候发货了！哦，等等-仍然存在您尚未解决的第一类泄漏问题。</p>
-<h2 id="强引用循环"><a href="#强引用循环" class="headerlink" title="强引用循环"></a>强引用循环</h2><p>如前所述，当两个对象彼此保持强引用时，就会发生强引用循环，从而防止两个对象都被释放。您可以使用 Allocations 工具以其他方式检测这些周期。</p>
-<p>关闭仪器并返回到Xcode。再次选择 <strong>Product ▸ Profile</strong>，然后选择 <strong>Allocations</strong>。<br><img src="http://image.astudyer.com/16001702845009.jpg" alt="-w637"><br>这次，您将不再使用世代分析。相反，您将查看在内存中徘徊的不同类型的对象的数量。单击 <strong>Record</strong> 按钮开始运行。您应该已经看到大量对象填充了详细信息面板-太多了！为了仅缩小目标对象的范围，请在左下角的字段中输入 <strong>“Instruments”</strong> 作为过滤器。<br><img src="http://image.astudyer.com/16001702845019.jpg" alt="-w641"><br>在 Instruments 中值得注意的两列是＃<strong>Persistent</strong>和＃<strong>Transient</strong>。＃Persistent 列保留内存中当前存在的每种类型的对象数。＃Transient 列显示了已存在但已释放的对象数。持久对象正在消耗内存；暂态对象不是。</p>
-<h2 id="查找持久对象"><a href="#查找持久对象" class="headerlink" title="查找持久对象"></a>查找持久对象</h2><p>您应该看到存在的持久实例 <code>ViewController</code>。这很有意义，因为这就是您当前正在查看的屏幕。还有一个应用程序实例 <code>AppDelegate</code>。</p>
-<p>回到应用程序！执行搜索并深入研究结果。请注意，Instruments 中现在显示了许多额外的对象：<code>SearchResultsViewController</code> 和 <code>ImageCache</code> 等。该 <code>ViewController</code> 实例仍然是持久性的，因为其导航控制器需要它。</p>
-<p>现在点击应用程序中的后退按钮。这将弹出 <code>SearchResultsViewController</code> 导航堆栈，因此应将其释放。但是它在分配摘要中仍显示＃Persistent1 ！为什么还在那里？</p>
-<p>尝试执行另外两个搜索，然后在每个搜索之后点击“后退”按钮。现在有三个<code>SearchResultsViewControllers</code>？！这些视图控制器在内存中徘徊的事实意味着某些东西一直在强烈地引用它们。看来您有很强的引用周期！<br><img src="http://image.astudyer.com/16001702845029.jpg" alt="-w637"><br>在这种情况下，您的主要线索不仅是 <code>SearchResultsViewController</code> 持久性，而且也包括所有 <code>SearchResultsCollectionViewCells</code>。引用周期很可能介于这两个类之间。</p>
-<p>幸运的是，Xcode 8中引入的 <strong>Visual Memory Debugger</strong> 是一个简洁的工具，可以帮助您进一步诊断内存泄漏并保留周期。<strong>Visual Memory Debugger</strong> 不是 Xcode 的 Instrument 套件的一部分，但是它是一个非常有用的工具，值得在本教程中包括。来自分配工具和可视内存调试器的交叉引用见解是一项强大的技术，可以使您的调试工作流更加有效。</p>
-<h2 id="Visual-Memory-Debugger"><a href="#Visual-Memory-Debugger" class="headerlink" title="Visual Memory Debugger"></a>Visual Memory Debugger</h2><p>退出 Instruments。</p>
-<p>在启动 <strong>Visual Memory Debugger</strong> 之前，请像下面这样在 Xcode 方案编辑器中启用 <strong>Malloc</strong> 堆栈日志记录：Option-单击窗口顶部（“停止”按钮旁边）的 <strong>InstrumentsTutorial</strong> scheme。在出现的弹出窗口中，选择 <strong>Run</strong>，然后切换到 <strong>Diagnostics</strong> 选项卡。选中显示 <strong>Malloc Stack</strong> 的框，然后选择 <strong>Live Allocations Only</strong> 选项，然后单击 <strong>Close</strong>。<br><img src="http://image.astudyer.com/16001702845039.jpg" alt="-w626"><br>直接从 Xcode 启动应用程序。和以前一样，至少执行三个搜索以累积一些数据。</p>
-<p>现在，像这样激活可视内存调试器：<br><img src="http://image.astudyer.com/16001702845051.jpg" alt="-w861"></p>
-<ol>
-<li>切换到 <strong>Debug</strong> 导航器。</li>
-<li>单击此图标，然后从弹出窗口中选择 <strong>View Memory Graph Hierarchy</strong>。</li>
-<li>单击的条目 <code>SearchResultsCollectionViewCell</code>。</li>
-<li>您可以单击图形上的任何对象，以在检查器窗格中查看详细信息。</li>
-<li>您可以在此区域中查看详细信息。在此处切换到内存检查器。</li>
-</ol>
-<p><strong>Visual Memory Debugger</strong> 会暂停您的应用程序，并以直观的方式显示内存中的对象及其之间的引用。</p>
-<p>如上面的屏幕快照中突出显示的那样，Visual Memory Debugger显示以下信息：</p>
-<ul>
-<li><strong>堆内容</strong>（调试导航器窗格）：这将显示您暂停应用程序时在内存中分配的所有类型和实例的列表。单击一种类型将展开该行，以向您显示该类型在内存中的单独实例。</li>
-<li><strong>内存图</strong>（主窗口）：主窗口以可视方式表示内存中的对象。对象之间的箭头表示它们之间的引用（强关系和弱关系）。</li>
-<li><strong>内存检查器</strong>（实用程序窗格）：这包括详细信息，例如类名和层次结构，以及引用是强还是弱。</li>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>在定义类时的某些情况下（例如需求变更），你可能想要为其中的某个或几个类中添加新的方法</li>
+<li>一个类中包含了许多不同种类的方法需要实现，而这些方法需要不同团队的成员实现</li>
+<li>在使用基础类库中的类时，有可能希望这些类实现一些自己需要的方法，比如写个NSString+JSON.h为NSString这个类拓展一些解析JSON的方法</li>
 </ul>
-<p>请注意，调试导航器中的某些行旁边如果带有括号。括号中的数字表示内存中有多少个特定类型的实例。在上面的屏幕截图中，您可以看到经过几次搜索后，Visual Memory Debugger 会确认您在 <strong>Allocations</strong> 工具中看到的结果。换句话说，从20到（如果您滚动到搜索结果的末尾）的任何位置SearchResultsCollectionViewCell，每个 SearchResultsViewController 实例的60个实例都将保留在内存中。</p>
-<p>使用该行左侧的箭头展开该类型并显示 SearchResultsViewController 内存中的每个实例。单击单个实例将在主窗口中显示该实例及其任何引用。<br><img src="http://image.astudyer.com/16002243673096.jpg" alt="-w924"><br>请注意指向 SearchResultsViewController 实例的箭头。似乎有一些 Swift 闭包上下文实例引用了相同的视图控制器实例。看起来有点怀疑，不是吗？细看。选择其中一个箭头，以在“实用程序”窗格中显示有关这些关闭实例之一与的引用的更多信息 SearchResultsViewController。<br><img src="http://image.astudyer.com/16002243673109.jpg" alt="-w859"><br>在内存检查，你可以看到 Swift 闭包上下文实例和 SearchResultsViewController 为强。如果在 SearchResultsCollectionViewCell 和闭包上下文之间选择引用，您也会看到它也标记为强。您还可以看到闭包的名称是 <strong>“heartToggleHandler”</strong>。哈！SearchResultsCollectionViewCell 表明这一点！</p>
-<p>SearchResultsCollectionViewCell 在主窗口中选择的实例，以在检查器窗格上显示更多信息。<br><img src="http://image.astudyer.com/16002243673118.jpg" alt="-w887"><br>在回溯中，您可以看到在中初始化了单元实例 <code>collectionView(_:cellForItemAt:)</code>。当您将鼠标悬停在回溯中的这一行上时，将出现一个小箭头。单击箭头将带您进入Xcode的代码编辑器中的此方法。</p>
-<p>在 <code>collectionView(_:cellForItemAt:)</code> 方法中，找到 <code>heartToggleHandler</code> 设置每个单元格属性的位置。您将看到以下代码行：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当用户在集合视图单元格中单击“心形”按钮时，将执行此关闭操作。这是强引用循环的所在，但是除非您之前遇到过，否则很难找到。但是由于有了Visual Memory Debugger，您才能够一直跟踪到这段代码！</p>
-<p>SearchResultsViewController 的闭包中使用了 self，它创建了一个强引用。闭包捕获了 self。Swift 实际上会强迫您在闭包中显式使用 self，而在引用当前对象的方法和属性时，通常可以将其删除。这可以帮助您更多地了解正在捕获的实例。SearchResultsViewController 通过collection view 还对 cells 具有强应用。</p>
-<h2 id="打破循环引用"><a href="#打破循环引用" class="headerlink" title="打破循环引用"></a>打破循环引用</h2><p>为了打破循环引用，您可以将捕获列表定义为闭包定义的一部分。捕获列表可用于将闭包捕获的实例声明为 <strong>weak</strong> 或 <strong>unowned</strong>：</p>
-<ul>
-<li><strong>Weak</strong>：捕获的变量将来可能为nil时使用。如果它所引用的对象被释放，则引用变为nil。因此，它们是可选类型。</li>
-<li><strong>Unowned</strong>：当闭包及其引用的对象始终具有相同的生存期并在同一时间被释放时，使用此属性。Unowned 引用的对象永远不会成为nil。</li>
+<h2 id="使用注意"><a href="#使用注意" class="headerlink" title="使用注意"></a>使用注意</h2><ul>
+<li>Category可以访问原始类的实例变量，但不能添加变量，如果想添加变量，可以考虑通过继承创建子类</li>
+<li>Category可以重载原始类的方法，但不推荐这么做，因为它是直接替换掉原来的方法，这么做的后果是再也不能访问原来的方法。如果确实需要重载，正确的选择是创建子类</li>
 </ul>
-<p>要打破循环引用，请向其中添加捕获列表，<code>heartToggleHandler</code> 如下所示：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>?.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>声明 self 为 weak 意味着即使 collection view cells 拥有对 SearchResultsViewController 的引用，也可以将其释放，因为它们现在只是弱引用。同时释放了 SearchResultsViewController 也将会释放 collection view，进而释放 cells。</p>
-<p>在Xcode中，再次按 <strong>Command-I</strong> 在 Instruments 中构建并运行该应用程序。</p>
-<p>像以前一样，使用 <strong>Allocations</strong> instrument 在 <strong>Instruments</strong> 中再次查看该应用。记住要过滤结果以仅显示示例项目中的类。执行搜索，导航到结果并再次返回。SearchResultsViewController 向后导航时，您应该看到和其单元格已解除分配。它们显示瞬时实例，但没有持久实例。</p>
-<p>循环坏了！发货吧！</p>
-<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>您可以使用本教程顶部或底部的 <strong>“下载材料”</strong> 按钮下载示例项目。</p>
-<p>现在，您已经掌握了此 Instruments 教程的知识，现在就去尝试自己的代码，看看会出现什么有趣的事情！另外，请尝试使 Instruments 成为常规开发工作流程的一部分。</p>
-<p>您应该相对频繁地通过 Instruments 运行代码，并在发布前对应用程序进行全面扫描，以确保尽可能多地遇到内存管理和性能问题。</p>
-<p>现在，去制作一些很棒的，高效的应用程序吧！</p>
-<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><a href="https://koenig-media.raywenderlich.com/uploads/2019/08/InstrumentsTutorial-3.zip" target="_blank" rel="noopener">下载材料</a><br><a href="https://www.raywenderlich.com/4784723-instruments-tutorial-getting-started" target="_blank" rel="noopener">原文链接</a></p>
+<h2 id="类的私有方法"><a href="#类的私有方法" class="headerlink" title="类的私有方法"></a>类的私有方法</h2><ul>
+<li>第一种方式：直接在.m文件中写方法实现，不要在.h文件中进行方法声明</li>
+<li>第二种方式：在.m文件中定义一个Category，在Category中声明一些方法，然后在@implementation跟@end之间作方法实现</li>
+</ul>
+<h2 id="与类扩展-extension-的区别"><a href="#与类扩展-extension-的区别" class="headerlink" title="与类扩展(extension)的区别"></a>与类扩展(extension)的区别</h2><p>类扩展(extension）是category的一个特例，有时候也被称为<code>匿名分类</code>。它的作用是为一个类添加一些私有的成员变量和方法。</p>
+<ul>
+<li>和分类不同，类扩展即可以声明成员变量又可以声明方法。</li>
+<li>类扩展可以定义在.m文件中，这种扩展方式中定义的变量都是私有的，也可以定义在.h文件中，这样定义的代码就是共有的，类扩展在.m文件中声明私有方法是非常好的方式。</li>
+<li>类扩展中添加的新方法，一定要实现。Category中没有这种限制。</li>
+</ul>
+<h2 id="Category中为什么不能添加属性？"><a href="#Category中为什么不能添加属性？" class="headerlink" title="Category中为什么不能添加属性？"></a>Category中为什么不能添加属性？</h2><p>在分类里使用@property声明属性，只是将该属性添加到该类的属性列表，并声明了setter和getter方法，但是没有生成相应的成员变量，也没有实现setter和getter方法（可以用runtime机制在程序运行时打印该类的所有属性和方法，可以发现并没有为分类中的属性生成带下划线的同名成员变量）。所以说分类不能添加属性。<code>Category中不能添加属性的本质是Category中不允许添加成员变量</code>。</p>
+<h2 id="Category如何添加成员变量"><a href="#Category如何添加成员变量" class="headerlink" title="Category如何添加成员变量"></a>Category如何添加成员变量</h2><p>虽然上面说Category不能添加属性，但是我们可以在分类的.h文件中使用@property声明属性后，在.m中手动的实现setter和getter方法，并且用runtime机制在程序运行时动态的为该属性关联对象，可以认为给这个类添加上了属性。</p>
 ]]></content>
       <categories>
         <category>iOS</category>
       </categories>
       <tags>
-        <tag>Instruments</tag>
-        <tag>Swift</tag>
-        <tag>性能优化</tag>
+        <tag>Objective-C</tag>
       </tags>
   </entry>
   <entry>
@@ -377,45 +229,6 @@ __block在ARC下只有一个作用
       </tags>
   </entry>
   <entry>
-    <title>OC语言系列——Category</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Category.html</url>
-    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li>OC提供了一种与众不同的方式–Category，可以动态的为已经存在的类添加新的行为（方法）</li>
-<li>这样可以保证类的原始设计规模大小，功能增加时再逐步扩展</li>
-<li>使用Category对类进行扩展时，不需要创建子类</li>
-<li>Category使用简单的方式，实现了类的相关方法的模块化，把不同的类方法分配到不同的分类文件中</li>
-</ul>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>在定义类时的某些情况下（例如需求变更），你可能想要为其中的某个或几个类中添加新的方法</li>
-<li>一个类中包含了许多不同种类的方法需要实现，而这些方法需要不同团队的成员实现</li>
-<li>在使用基础类库中的类时，有可能希望这些类实现一些自己需要的方法，比如写个NSString+JSON.h为NSString这个类拓展一些解析JSON的方法</li>
-</ul>
-<h2 id="使用注意"><a href="#使用注意" class="headerlink" title="使用注意"></a>使用注意</h2><ul>
-<li>Category可以访问原始类的实例变量，但不能添加变量，如果想添加变量，可以考虑通过继承创建子类</li>
-<li>Category可以重载原始类的方法，但不推荐这么做，因为它是直接替换掉原来的方法，这么做的后果是再也不能访问原来的方法。如果确实需要重载，正确的选择是创建子类</li>
-</ul>
-<h2 id="类的私有方法"><a href="#类的私有方法" class="headerlink" title="类的私有方法"></a>类的私有方法</h2><ul>
-<li>第一种方式：直接在.m文件中写方法实现，不要在.h文件中进行方法声明</li>
-<li>第二种方式：在.m文件中定义一个Category，在Category中声明一些方法，然后在@implementation跟@end之间作方法实现</li>
-</ul>
-<h2 id="与类扩展-extension-的区别"><a href="#与类扩展-extension-的区别" class="headerlink" title="与类扩展(extension)的区别"></a>与类扩展(extension)的区别</h2><p>类扩展(extension）是category的一个特例，有时候也被称为<code>匿名分类</code>。它的作用是为一个类添加一些私有的成员变量和方法。</p>
-<ul>
-<li>和分类不同，类扩展即可以声明成员变量又可以声明方法。</li>
-<li>类扩展可以定义在.m文件中，这种扩展方式中定义的变量都是私有的，也可以定义在.h文件中，这样定义的代码就是共有的，类扩展在.m文件中声明私有方法是非常好的方式。</li>
-<li>类扩展中添加的新方法，一定要实现。Category中没有这种限制。</li>
-</ul>
-<h2 id="Category中为什么不能添加属性？"><a href="#Category中为什么不能添加属性？" class="headerlink" title="Category中为什么不能添加属性？"></a>Category中为什么不能添加属性？</h2><p>在分类里使用@property声明属性，只是将该属性添加到该类的属性列表，并声明了setter和getter方法，但是没有生成相应的成员变量，也没有实现setter和getter方法（可以用runtime机制在程序运行时打印该类的所有属性和方法，可以发现并没有为分类中的属性生成带下划线的同名成员变量）。所以说分类不能添加属性。<code>Category中不能添加属性的本质是Category中不允许添加成员变量</code>。</p>
-<h2 id="Category如何添加成员变量"><a href="#Category如何添加成员变量" class="headerlink" title="Category如何添加成员变量"></a>Category如何添加成员变量</h2><p>虽然上面说Category不能添加属性，但是我们可以在分类的.h文件中使用@property声明属性后，在.m中手动的实现setter和getter方法，并且用runtime机制在程序运行时动态的为该属性关联对象，可以认为给这个类添加上了属性。</p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>OC语言系列——关于变量</title>
     <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F.html</url>
     <content><![CDATA[<p>变量可以分为全局变量、静态全局变量、静态局部变量和局部变量</p>
@@ -488,29 +301,129 @@ __block在ARC下只有一个作用
       </tags>
   </entry>
   <entry>
-    <title>OC语言系列——Protocol(协议)及Delegate(委托代理)</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Protocol(%E5%8D%8F%E8%AE%AE)%E5%8F%8ADelegate(%E5%A7%94%E6%89%98%E4%BB%A3%E7%90%86).html</url>
-    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt><br>因为Objective-C是不支持多继承的，所以很多时候都是用Protocol代替。Protocol（协议）只是定义公用的一套接口，但不提供具体的实现方法。当一个类要使用某个Protocol（协议）时，就必须要遵守协议，实现协议需要用到委托代理（Delegate）。<br>Protocol（协议）的作用：</p>
-<ol>
-<li><p>定义一套公用的接口（Public）</p>
+    <title>OC语言系列——内存管理</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.html</url>
+    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt></p>
+<h1 id="MRC内存管理"><a href="#MRC内存管理" class="headerlink" title="MRC内存管理"></a>MRC内存管理</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。<br>但是，对于iOS开发来说，内存管理是个很重要的概念，如果想要写出内存使用效率高而又没有bug的代码，就得掌握其内存管理模型的细节。</p>
+<blockquote>
+<p><strong>如何在开启MRC环境</strong>：<br>1、整个项目改为MRC：<code>Building Settings</code>-&gt;<code>Objective-C Automatic Reference Counting</code>设置为<code>NO</code><br>2、某个文件改为MRC：<code>Build Phases</code>-&gt;<code>Compile Sources</code>双击需要修改为MRC的文件在弹出的输入框中输入<code>-fno-objc-arc</code><br><strong>MRC转ARC</strong>：<br>选中需要被转换为ARC的文件，然后选择菜单栏中的<code>Edit</code>-&gt;<code>Convert</code>-&gt;<code>To Objective-C ARC...</code></p>
+</blockquote>
+<p><strong>几个概念</strong>：</p>
 <ul>
-<li>@required：必须实现的方法（实际上也可以不实现，程序依然也可以运行，只是会有警告）</li>
-<li><p>@optional：可选 实现的方法</p>
-<pre><code>//conformsToProtocol：判断是否遵守了某个协议
-if ([conformsToProtocol:@protocol(协议名)]){
-}
-//respondsToSelector：判断是否实现了某个方法
-if([stu respondsToSelector:@selector(方法名)]){
-}
-</code></pre></li>
+<li>僵尸对象: 所占用的内存已经被回收的对象,僵尸对象不能再使用</li>
+<li>野指针: 指向僵尸对象的指针,给野指针发送消息会报错EXC_BAD_ACCESS错误:访问了一块已经被回收的内存</li>
+<li>空指针: 没有指向任何对象的指针(存储的东西是nil,NULL,0),给空指针发送消息不会报错,系统什么也不会做,所以在对象被释放时将指针设置为nil可以避免野指针错误</li>
 </ul>
-</li>
-<li><p>委托代理（Delegate）传值：<br>它本身是一个设计模式，它的意思是委托别人去做某事。 </p>
-</li>
+<blockquote>
+<p>默认情况下，Xcode是不会监听僵尸对象的,所以需要我们自己手动开启,开启监听僵尸对象步骤为: <code>Edit Scheme</code>-&gt;<code>Run</code>-&gt;<code>Diagnostics</code>-&gt;<code>Memory Management</code>-&gt;<code>Zombie Objects</code>打钩,这样便可以在因为僵尸对象报错的时候给出更多错误信息</p>
+</blockquote>
+<p>示例：<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">Person *p = [[Person alloc] init]; <span class="comment">// 引用计数器 = 1</span></span><br><span class="line">[p release]; <span class="comment">// 引用计数器 = 0,指针所指向的对象的内存被释放</span></span><br><span class="line">[p release]; <span class="comment">// 这句向一块已经被释放的内存发送release消息，会报野指针错误,开启监听僵尸对象会给出错误信息-[Person release]: message sent to deallocated instance 0x100206fd0</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注: 如果在第一次给对象发送release消息后，立刻将指针置空，便不会出现野指针错误，因为给空指针发送消息不会报错，系统什么也不会做，所以在对象被释放时将指针设置为nil可以避免野指针错误</p>
+</blockquote>
+<h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><p>任何继承了NSObject的对象，对基本数据类型无效</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="引用计数介绍"><a href="#引用计数介绍" class="headerlink" title="引用计数介绍"></a>引用计数介绍</h3><p>引用计数（Reference Count），也叫保留计数（retain count），表示对象被引用的次数。一个简单而有效的管理对象生命周期的方式。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
+<li>当使用<code>alloc</code>、<code>new</code>或者(mutable)<code>copy</code>创建一个对象时，对象的引用计数器被设置为1</li>
+<li>给对象发送一条<code>retain</code>消息，可以使引用计数器值<code>+1</code></li>
+<li>给对象发送一条<code>release</code>消息，可以使引用计数器值<code>-1</code></li>
+<li>当一个对象的引用计数器值为<code>0</code>时，说明这个对象不再被任何对象(指针)指向(引用)了,那么它将会被销毁，其占用的内存被系统回收，OC会自动向该对象发送一条<code>dealloc</code>消息。</li>
+</ul>
+<p>流程参考图如下：<br><img src="/img/2018/OC/mrc.png" alt></p>
+<h3 id="操作引用计数的方法"><a href="#操作引用计数的方法" class="headerlink" title="操作引用计数的方法"></a>操作引用计数的方法</h3><p>以下是NSObject协议中声明的3个用于操作计数器的方法：</p>
+<ul>
+<li><code>retain</code>：引用计数<code>+1</code></li>
+<li><code>release</code>：引用计数<code>-1</code></li>
+<li><code>autorelease</code>：稍后(清理<code>自动释放池</code>时)，再使引用计数<code>-1</code>，所以作用是延迟对象的release</li>
+<li><code>retainCount</code>：给对象发送该消息可以获取对象当前的引用计数值</li>
+</ul>
+<h3 id="dealloc方法"><a href="#dealloc方法" class="headerlink" title="dealloc方法"></a>dealloc方法</h3><p>当引用计数为0的时候对象会自动收到一条dealloc消息。而我们可以在dealloc方法做的，就是释放对其他对象的引用，以及取消已经订阅的KVO、通知等，相当于对象的<code>遗言</code>，在<code>死</code>之前有什么想说的都赶紧说完；（<code>注意点</code>：我们不能手动给对象发送dealloc消息，因为一旦调用dealloc方法，对象就不再有效）</p>
+<h2 id="内存管理原则"><a href="#内存管理原则" class="headerlink" title="内存管理原则"></a>内存管理原则</h2><ol>
+<li>谁创建，谁释放。如果你通过<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy创建一个对象，那么你必须调用<code>release</code>或<code>autorelease</code>。换句话说，不是你创建的，不需要你去释放</li>
+<li>一般来说，除了<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy之外的方法创建的对象都声明了<code>autorelease</code></li>
+<li>谁retain，谁release。只要你调用了retain，无论这个对象是如何生成的，你都要调用release</li>
 </ol>
 <blockquote>
-<p>1、当需要定义一套公用的接口，实现方法可以是不同的时候，可以使用Protocol协议。<br>2、当需要进行类与类之间的传值时，可以基于Protocol协议，使用代理设计模式进行传值。</p>
+<p>1、对已经释放的对象发送<code>release</code>消息，会产生<code>野指针</code>错误（<code>EXC_BAD_ACCESS</code>）<br>2、对<code>nil</code>发送<code>release</code>消息，不会报错（和<code>野指针</code>有本质区别，<code>nil</code>指的是不指向任何存储空间的指针，并不是野指针，而野指针错误指的是对已经被系统回收的存储空间发送release消息）<br>3、<code>autorelease</code>：在适当的时刻自动使引用计数器<code>-1</code>（注意：不一定是释放）</p>
 </blockquote>
+<h2 id="property参数详解"><a href="#property参数详解" class="headerlink" title="@property参数详解"></a>@property参数详解</h2><h3 id="retain"><a href="#retain" class="headerlink" title="retain"></a>retain</h3><p><strong>含义</strong>：在setter方法中release旧值，retain新值<br><strong>示例</strong>：<code>@proterty (retain) Book *book;</code>编译器编译到这句代码会自动帮我们实现如下形式的setter方法<br>    <figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setBook:(Book *)book&#123;</span><br><span class="line">	<span class="keyword">if</span> (_book != book) &#123;</span><br><span class="line">	 	 [_book release];</span><br><span class="line">	  	 [_book <span class="keyword">retain</span>];</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="assign"><a href="#assign" class="headerlink" title="assign"></a>assign</h3><p><code>默认类型</code>，setter方法直接赋值，而不进行retain操作，不会改变引用计数，写不写都一样，一般用于基本数据类型</p>
+<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><p><strong>含义</strong>：编译器只会帮我们生成get方法的声明（我们依然可以手动实现set方法的声明）<br><strong>默认值</strong>：readwrite（同时生成get和set方法的声明）</p>
+<h3 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h3><ul>
+<li>@property属性<code>默认为atomic</code>，提供多线程安全</li>
+<li>在多线程环境下，原子操作是必要的，否则有可能引起错误的结果</li>
+<li>加了atomic，setter/getter是一个原子操作。如果多个线程同时调用setter的话，不会出现某一个线程执行完setter全部语句之前，另一个线程开始执行setter的情况，相当于函数头尾加了锁一样</li>
+<li>加了atomic，setter函数会变成下面这样：  <figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">&#123;lock&#125;</span><br><span class="line"><span class="keyword">if</span> (property != newValue) &#123; </span><br><span class="line">[property release]; </span><br><span class="line">property = [newValue <span class="keyword">retain</span>]; </span><br><span class="line">&#125;</span><br><span class="line">&#123;unlock&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="nonatomic"><a href="#nonatomic" class="headerlink" title="nonatomic"></a>nonatomic</h3><ul>
+<li>禁止多线程，变量保护，提高性能</li>
+<li>atomic是OC使用的一种线程保护技术，防止在写入未完成的时候被另外一个线程读取，造成数据错误。而这种机制是耗费系统资源的，所以在iPhone这种小型设备上，如果没有使用多线程间的通讯编程，那么nonatomic是一个非常好的选择</li>
+<li>如果不需要多线程支持的话，用nonatomic就够了，另外由于不涉及锁操作，所以执行速度相对快点</li>
+</ul>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p><strong>含义</strong>：setter方法release旧值，再copy新值</p>
+<h3 id="getter"><a href="#getter" class="headerlink" title="getter"></a>getter</h3><p><strong>含义</strong>：指定getter方法的方法名，一般用于BOOL值</p>
+<h2 id="自动释放池（autorelease-pool）"><a href="#自动释放池（autorelease-pool）" class="headerlink" title="自动释放池（autorelease pool）"></a>自动释放池（autorelease pool）</h2><p><strong>创建</strong>：<code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</code><br><strong>释放</strong>：<code>[pool release]</code> 或者 <code>[pool drain]</code>;</p>
+<ul>
+<li>自动释放池是OC里面的一种内存自动回收机制，一般可以将一些临时变量添加到自动释放池中，统一回收释放</li>
+<li>当自动释放池销毁时，池里面的所有对象都会调用一次release方法</li>
+<li>OC对象只需要发送一条autorelease消息，就会把这个对象添加到最近的自动释放池中（栈顶的释放池）（<code>注意：该操作不会改变引用计数</code>）</li>
+<li>autorelease实际上只是把对release的调用延迟了，对于每一次autorelease，系统只是把该对象放入了当前的autorelease pool中，当该pool被释放时，该pool中的所有对象都会被调用release（<code>注意：该操作不一定能释放掉对象</code>）</li>
+</ul>
+<p><strong>释放时机</strong><br>每个Runloop中都创建一个autorelease pool（自动释放池），并在Runloop的末尾进行释放，而当该pool被释放时，该pool中的所有Object会接收到一个release消息。 所以，一般情况下，每个接受autorelease消息的对象，都会在下个Runloop开始前被释放。<br><strong>注意点</strong></p>
+<ol>
+<li>在ARC下，不能使用<code>[[NSAutoreleasePool alloc] init]</code>，而应当使用<code>@autoreleasepool{}</code>创建自动释放池</li>
+<li>不要把大量循环操作放到同一个NSAutoreleasePool之间，这样会造成内存峰值的上升（此时应该手动调用release方法或者手动创建自动释放池，自己管理内存）</li>
+<li>尽量避免对大内存使用该方法，对于这种延迟释放机制，还是尽量少用</li>
+<li>SDK中一般利用静态方法创建并返回的对象都是autorelease的，不需要再进行release操作<br> 如[NSNumber numberWithInt:10];返回的对象是不需要再release的。<br> 但是通过[[NSNumber alloc] initWithInt:10];创建的对象需要release</li>
+</ol>
+<h1 id="ARC内存管理"><a href="#ARC内存管理" class="headerlink" title="ARC内存管理"></a>ARC内存管理</h1><h2 id="ARC简介"><a href="#ARC简介" class="headerlink" title="ARC简介"></a>ARC简介</h2><p>ARC自动引用计数（automatic reference counting）是iOS5推出的新功能。需要注意的是，ARC并不是GC（Garbage Collection 垃圾回收器），仍然是需要用引用计数管理内存的，只不过是隐式的管理。它背后依赖的是编译器的静态分析能力，通过在编译时在合适的位置插入引用计数管理代码，从而提高iOS开发人员的开发效率。是<code>编译器特性</code>，并不是OC的运行时特性。</p>
+<blockquote>
+<p>在ARC中栈变量会被初始化为nil，即使不进行赋值,程序也不会造成崩溃,示例如下<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)test &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *name;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name: %@"</span>, name);</span><br><span class="line">    <span class="comment">// 打印结果为nil,不会崩溃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="ARC判断标准"><a href="#ARC判断标准" class="headerlink" title="ARC判断标准"></a>ARC判断标准</h2><p>只要有强指针指向一个对象，那个这个对象就不会被释放，只要没有强指针指向一个对象，那么这个对象就被立即回收</p>
+<h2 id="指针分类"><a href="#指针分类" class="headerlink" title="指针分类"></a>指针分类</h2><p>1、<strong>强指针</strong>：默认所有的指针都是强指针，关键字<code>__strong</code><br>2、<strong>弱指针</strong>：一般在两个对象相互引用而导致循环引用无法释放的时候用<code>__weak</code>修饰其中一个对象对另一个对象的应用，避免循环应用</p>
+<h2 id="ARC注意点"><a href="#ARC注意点" class="headerlink" title="ARC注意点"></a>ARC注意点</h2><p>1、不能显示调用release、retain、retainCount、autorelease、zone等消息<br>2、不能再使用NSAutoreleasePool对象，ARC提供了@autoreleasepool块来代替它，这样更有效率<br>3、可以重写dealloc，但是不允许调用<code>[super dealloc];</code><br>4、一般来说用类方法直接创建的对象编译器默认会在后面插入<code>autorelease</code>方法</p>
+<h2 id="property参数"><a href="#property参数" class="headerlink" title="@property参数"></a>@property参数</h2><h3 id="strong"><a href="#strong" class="headerlink" title="strong"></a>strong</h3><p>相当于MRC中的retain（适用于OC对象），对对象进行强引用</p>
+<h3 id="weak"><a href="#weak" class="headerlink" title="weak"></a>weak</h3><p>不改变对象的引用计数，也不持有对象，对对象进行弱引用，比assign多了一个功能，当对象消失后自动把指针变成nil（适用于OC对象）</p>
+<h3 id="assign-1"><a href="#assign-1" class="headerlink" title="assign"></a>assign</h3><p>对对象进行弱引用，和weak类似，适用于非OC对象（基本数据类型）</p>
+<h3 id="copy-1"><a href="#copy-1" class="headerlink" title="copy"></a>copy</h3><p>对于不可变对象来说相当于strong，开辟一块新的内存空间</p>
+<h2 id="关于Copy"><a href="#关于Copy" class="headerlink" title="关于Copy"></a>关于Copy</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>copy(复制、拷贝)是产生一个副本对象的过程,只要是通过拷贝产生的副本对象,副本对象中的内容与源对象中的内容就完全一致</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>修改源对象的属性和行为,不会影响副本对象</li>
+<li>修改副本对象的属性和行为,不会影响源对象</li>
+</ul>
+<h3 id="copy与mutableCopy"><a href="#copy与mutableCopy" class="headerlink" title="copy与mutableCopy"></a>copy与mutableCopy</h3><ul>
+<li>使用copy产生的副本对象是不可变的(如NSString、NSArray)</li>
+<li>使用mutableCopy产生的副本对象是可变的(如NSMutableString、NSMutableArray)</li>
+</ul>
+<h3 id="通过拷贝是否会产生新的对象"><a href="#通过拷贝是否会产生新的对象" class="headerlink" title="通过拷贝是否会产生新的对象"></a>通过拷贝是否会产生新的对象</h3><p>通过拷贝是否会产生新对象,就要看源对象与副本对象是否满足拷贝的特点</p>
+<ul>
+<li>可变对象通过mutableCopy,会生成新的对象</li>
+<li>可变对象通过copy,会生成新的对象</li>
+<li>不可变对象通过mutableCopy,会生成新的对象</li>
+<li>不可变对象通过copy,不会生成新的对象</li>
+</ul>
+<h3 id="深拷贝-内容拷贝-与浅拷贝-指针拷贝"><a href="#深拷贝-内容拷贝-与浅拷贝-指针拷贝" class="headerlink" title="深拷贝(内容拷贝)与浅拷贝(指针拷贝)"></a>深拷贝(内容拷贝)与浅拷贝(指针拷贝)</h3><ul>
+<li>深拷贝: 如果通过拷贝生成了新对象,就称为深拷贝(内容拷贝)</li>
+<li>浅拷贝: 如果通过拷贝没生成新对象,就称为浅拷贝(指针拷贝)</li>
+</ul>
+<blockquote>
+<p>注意：<br>1、通过深拷贝，源对象的引用计数器不变，副本对象的引用计数器为1，所以需要对副本对象进行一次release操作<br>2、通过浅拷贝,源对象的引用计数器+1,所以需要对源对象再进行一次release操作</p>
+</blockquote>
+<h2 id="自定义类实现copy与mutableCopy功能"><a href="#自定义类实现copy与mutableCopy功能" class="headerlink" title="自定义类实现copy与mutableCopy功能"></a>自定义类实现copy与mutableCopy功能</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>一个类的对象想拥有copy与mutableCopy功能，都需要拥有一个前提</p>
+<ul>
+<li>使用copy的前提: 对应类需要遵守NSCopying协议,并实现copyWithZone:方法</li>
+<li>使用mutableCopy的前提: 对应类需要遵守NSMutableCopying协议,并实现mutableCopyWithZone:方法</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Person类的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//实现Student类(继承自Person类)的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> copyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> mutableCopyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="几个经典面试题"><a href="#几个经典面试题" class="headerlink" title="几个经典面试题"></a>几个经典面试题</h2><p>1、在ARC中以下代码有没有问题？如果有问题，怎么写才正确？<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于stringWithFormat创建出来的对象调用了autorelease方法，所以不会立即释放，创建出来的大量对象一直在内存中，会导致内存在短时间内暴涨。所以有问题。正确的写法如下<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">       [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、strong和weak作为属性修饰符的区别？<br>都指向原来数据地址，区别是前者会对数据地址进行引用计数+1，后者不会<br>3、assing和weak作为属性修饰符的区别？<br>assign和weak都指向引用对象地址并且计数不+1，但当对象地址引用计数为0时，assign不会对该地址进行数据的抹除操作，只是进行值释放。容易导致野指针现象（指针还在，指针指向的内存已经释放，访问不属于自己的内存），即当这块地址还没写上其他值前，能输出正常值，但一旦重新写上数据，该指针随时可能没有值，造成奔溃。而weak会在对象消失（引用计数为0）时自动把指针变成nil，防止野指针问题。一般assign常用语基本数据类型，而weak用于OC对象（基于NSObject的对象）。<br>4、copy与retain作为属性修饰符的区别？</p>
+<ul>
+<li>通过copy作为属性修饰符来修饰对象的属性，是对传入变量进行了一次copy操作，在外界变量进行修改之后，对象的属性不会随之发生变化</li>
+<li>通过retain作为属性修饰符来修饰对象的属性,是对传入变量进行了一次retain操作,在外界变量进行修改之后,对象的属性会随之发生了变化</li>
+</ul>
 ]]></content>
       <categories>
         <category>iOS</category>
@@ -648,135 +561,31 @@ if([stu respondsToSelector:@selector(方法名)]){
       </tags>
   </entry>
   <entry>
-    <title>OC语言系列——内存管理</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.html</url>
-    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt></p>
-<h1 id="MRC内存管理"><a href="#MRC内存管理" class="headerlink" title="MRC内存管理"></a>MRC内存管理</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>自动引用计数（ARC）是在MacOS X 10.7与iOS 5中引入一项新技术，用于代替之前的手动引用计数MRC（Manual Reference Counting）管理Objective-C中的对象【官方也叫MRR（Manual Retain Release）】。如今，ARC下的iOS项目几乎把所有内存管理事宜都交给编译器来决定，而开发者只需专注于业务逻辑。<br>但是，对于iOS开发来说，内存管理是个很重要的概念，如果想要写出内存使用效率高而又没有bug的代码，就得掌握其内存管理模型的细节。</p>
-<blockquote>
-<p><strong>如何在开启MRC环境</strong>：<br>1、整个项目改为MRC：<code>Building Settings</code>-&gt;<code>Objective-C Automatic Reference Counting</code>设置为<code>NO</code><br>2、某个文件改为MRC：<code>Build Phases</code>-&gt;<code>Compile Sources</code>双击需要修改为MRC的文件在弹出的输入框中输入<code>-fno-objc-arc</code><br><strong>MRC转ARC</strong>：<br>选中需要被转换为ARC的文件，然后选择菜单栏中的<code>Edit</code>-&gt;<code>Convert</code>-&gt;<code>To Objective-C ARC...</code></p>
-</blockquote>
-<p><strong>几个概念</strong>：</p>
-<ul>
-<li>僵尸对象: 所占用的内存已经被回收的对象,僵尸对象不能再使用</li>
-<li>野指针: 指向僵尸对象的指针,给野指针发送消息会报错EXC_BAD_ACCESS错误:访问了一块已经被回收的内存</li>
-<li>空指针: 没有指向任何对象的指针(存储的东西是nil,NULL,0),给空指针发送消息不会报错,系统什么也不会做,所以在对象被释放时将指针设置为nil可以避免野指针错误</li>
-</ul>
-<blockquote>
-<p>默认情况下，Xcode是不会监听僵尸对象的,所以需要我们自己手动开启,开启监听僵尸对象步骤为: <code>Edit Scheme</code>-&gt;<code>Run</code>-&gt;<code>Diagnostics</code>-&gt;<code>Memory Management</code>-&gt;<code>Zombie Objects</code>打钩,这样便可以在因为僵尸对象报错的时候给出更多错误信息</p>
-</blockquote>
-<p>示例：<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">Person *p = [[Person alloc] init]; <span class="comment">// 引用计数器 = 1</span></span><br><span class="line">[p release]; <span class="comment">// 引用计数器 = 0,指针所指向的对象的内存被释放</span></span><br><span class="line">[p release]; <span class="comment">// 这句向一块已经被释放的内存发送release消息，会报野指针错误,开启监听僵尸对象会给出错误信息-[Person release]: message sent to deallocated instance 0x100206fd0</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注: 如果在第一次给对象发送release消息后，立刻将指针置空，便不会出现野指针错误，因为给空指针发送消息不会报错，系统什么也不会做，所以在对象被释放时将指针设置为nil可以避免野指针错误</p>
-</blockquote>
-<h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><p>任何继承了NSObject的对象，对基本数据类型无效</p>
-<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><h3 id="引用计数介绍"><a href="#引用计数介绍" class="headerlink" title="引用计数介绍"></a>引用计数介绍</h3><p>引用计数（Reference Count），也叫保留计数（retain count），表示对象被引用的次数。一个简单而有效的管理对象生命周期的方式。</p>
-<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
-<li>当使用<code>alloc</code>、<code>new</code>或者(mutable)<code>copy</code>创建一个对象时，对象的引用计数器被设置为1</li>
-<li>给对象发送一条<code>retain</code>消息，可以使引用计数器值<code>+1</code></li>
-<li>给对象发送一条<code>release</code>消息，可以使引用计数器值<code>-1</code></li>
-<li>当一个对象的引用计数器值为<code>0</code>时，说明这个对象不再被任何对象(指针)指向(引用)了,那么它将会被销毁，其占用的内存被系统回收，OC会自动向该对象发送一条<code>dealloc</code>消息。</li>
-</ul>
-<p>流程参考图如下：<br><img src="/img/2018/OC/mrc.png" alt></p>
-<h3 id="操作引用计数的方法"><a href="#操作引用计数的方法" class="headerlink" title="操作引用计数的方法"></a>操作引用计数的方法</h3><p>以下是NSObject协议中声明的3个用于操作计数器的方法：</p>
-<ul>
-<li><code>retain</code>：引用计数<code>+1</code></li>
-<li><code>release</code>：引用计数<code>-1</code></li>
-<li><code>autorelease</code>：稍后(清理<code>自动释放池</code>时)，再使引用计数<code>-1</code>，所以作用是延迟对象的release</li>
-<li><code>retainCount</code>：给对象发送该消息可以获取对象当前的引用计数值</li>
-</ul>
-<h3 id="dealloc方法"><a href="#dealloc方法" class="headerlink" title="dealloc方法"></a>dealloc方法</h3><p>当引用计数为0的时候对象会自动收到一条dealloc消息。而我们可以在dealloc方法做的，就是释放对其他对象的引用，以及取消已经订阅的KVO、通知等，相当于对象的<code>遗言</code>，在<code>死</code>之前有什么想说的都赶紧说完；（<code>注意点</code>：我们不能手动给对象发送dealloc消息，因为一旦调用dealloc方法，对象就不再有效）</p>
-<h2 id="内存管理原则"><a href="#内存管理原则" class="headerlink" title="内存管理原则"></a>内存管理原则</h2><ol>
-<li>谁创建，谁释放。如果你通过<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy创建一个对象，那么你必须调用<code>release</code>或<code>autorelease</code>。换句话说，不是你创建的，不需要你去释放</li>
-<li>一般来说，除了<code>alloc</code>、<code>new</code>或(<code>mutable</code>)copy之外的方法创建的对象都声明了<code>autorelease</code></li>
-<li>谁retain，谁release。只要你调用了retain，无论这个对象是如何生成的，你都要调用release</li>
+    <title>如何在IDEA中创建web项目并部署到Tomcat中</title>
+    <url>/java/java/%E5%A6%82%E4%BD%95%E5%9C%A8IDEA%E4%B8%AD%E5%88%9B%E5%BB%BAweb%E9%A1%B9%E7%9B%AE%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0Tomcat%E4%B8%AD.html</url>
+    <content><![CDATA[<h2 id="新建Web工程"><a href="#新建Web工程" class="headerlink" title="新建Web工程"></a>新建Web工程</h2><p><img src="http://images.astudyer.com/new_project.jpg" alt></p>
+<h2 id="创建classes和lib文件"><a href="#创建classes和lib文件" class="headerlink" title="创建classes和lib文件"></a>创建classes和lib文件</h2><p>classes用来存放编译后输出的class文件，lib用于存放第三方jar包<br><img src="http://images.astudyer.com/classes_lib.jpg" alt></p>
+<h2 id="配置文件夹路径"><a href="#配置文件夹路径" class="headerlink" title="配置文件夹路径"></a>配置文件夹路径</h2><ol>
+<li>File -&gt; Project Structure<br><img src="http://images.astudyer.com/file_project_structure.jpg" alt></li>
+<li>Modules -&gt; Paths -&gt; Use module compile output path<br>将Output path和Test output path都选择为刚刚创建的classes文件夹<br><img src="http://images.astudyer.com/java_jsp_output_path.jpg" alt></li>
+<li>在当前界面选择Dependencies -&gt; 选择Module SDK -&gt; 点击下面的“+”号 -&gt; 选择1 “Jars or Directories” -&gt; 选择刚刚创建的lib文件夹 -&gt; 选择“Jar Directory” -&gt; OK -&gt; Apply -&gt; OK<br><img src="http://images.astudyer.com/java_jsp_dependencies.jpg" alt><br><img src="http://images.astudyer.com/java_jsp_jar_directory.jpg" alt></li>
 </ol>
-<blockquote>
-<p>1、对已经释放的对象发送<code>release</code>消息，会产生<code>野指针</code>错误（<code>EXC_BAD_ACCESS</code>）<br>2、对<code>nil</code>发送<code>release</code>消息，不会报错（和<code>野指针</code>有本质区别，<code>nil</code>指的是不指向任何存储空间的指针，并不是野指针，而野指针错误指的是对已经被系统回收的存储空间发送release消息）<br>3、<code>autorelease</code>：在适当的时刻自动使引用计数器<code>-1</code>（注意：不一定是释放）</p>
-</blockquote>
-<h2 id="property参数详解"><a href="#property参数详解" class="headerlink" title="@property参数详解"></a>@property参数详解</h2><h3 id="retain"><a href="#retain" class="headerlink" title="retain"></a>retain</h3><p><strong>含义</strong>：在setter方法中release旧值，retain新值<br><strong>示例</strong>：<code>@proterty (retain) Book *book;</code>编译器编译到这句代码会自动帮我们实现如下形式的setter方法<br>    <figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setBook:(Book *)book&#123;</span><br><span class="line">	<span class="keyword">if</span> (_book != book) &#123;</span><br><span class="line">	 	 [_book release];</span><br><span class="line">	  	 [_book <span class="keyword">retain</span>];</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="assign"><a href="#assign" class="headerlink" title="assign"></a>assign</h3><p><code>默认类型</code>，setter方法直接赋值，而不进行retain操作，不会改变引用计数，写不写都一样，一般用于基本数据类型</p>
-<h3 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h3><p><strong>含义</strong>：编译器只会帮我们生成get方法的声明（我们依然可以手动实现set方法的声明）<br><strong>默认值</strong>：readwrite（同时生成get和set方法的声明）</p>
-<h3 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h3><ul>
-<li>@property属性<code>默认为atomic</code>，提供多线程安全</li>
-<li>在多线程环境下，原子操作是必要的，否则有可能引起错误的结果</li>
-<li>加了atomic，setter/getter是一个原子操作。如果多个线程同时调用setter的话，不会出现某一个线程执行完setter全部语句之前，另一个线程开始执行setter的情况，相当于函数头尾加了锁一样</li>
-<li>加了atomic，setter函数会变成下面这样：  <figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">&#123;lock&#125;</span><br><span class="line"><span class="keyword">if</span> (property != newValue) &#123; </span><br><span class="line">[property release]; </span><br><span class="line">property = [newValue <span class="keyword">retain</span>]; </span><br><span class="line">&#125;</span><br><span class="line">&#123;unlock&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="nonatomic"><a href="#nonatomic" class="headerlink" title="nonatomic"></a>nonatomic</h3><ul>
-<li>禁止多线程，变量保护，提高性能</li>
-<li>atomic是OC使用的一种线程保护技术，防止在写入未完成的时候被另外一个线程读取，造成数据错误。而这种机制是耗费系统资源的，所以在iPhone这种小型设备上，如果没有使用多线程间的通讯编程，那么nonatomic是一个非常好的选择</li>
-<li>如果不需要多线程支持的话，用nonatomic就够了，另外由于不涉及锁操作，所以执行速度相对快点</li>
-</ul>
-<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p><strong>含义</strong>：setter方法release旧值，再copy新值</p>
-<h3 id="getter"><a href="#getter" class="headerlink" title="getter"></a>getter</h3><p><strong>含义</strong>：指定getter方法的方法名，一般用于BOOL值</p>
-<h2 id="自动释放池（autorelease-pool）"><a href="#自动释放池（autorelease-pool）" class="headerlink" title="自动释放池（autorelease pool）"></a>自动释放池（autorelease pool）</h2><p><strong>创建</strong>：<code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</code><br><strong>释放</strong>：<code>[pool release]</code> 或者 <code>[pool drain]</code>;</p>
-<ul>
-<li>自动释放池是OC里面的一种内存自动回收机制，一般可以将一些临时变量添加到自动释放池中，统一回收释放</li>
-<li>当自动释放池销毁时，池里面的所有对象都会调用一次release方法</li>
-<li>OC对象只需要发送一条autorelease消息，就会把这个对象添加到最近的自动释放池中（栈顶的释放池）（<code>注意：该操作不会改变引用计数</code>）</li>
-<li>autorelease实际上只是把对release的调用延迟了，对于每一次autorelease，系统只是把该对象放入了当前的autorelease pool中，当该pool被释放时，该pool中的所有对象都会被调用release（<code>注意：该操作不一定能释放掉对象</code>）</li>
-</ul>
-<p><strong>释放时机</strong><br>每个Runloop中都创建一个autorelease pool（自动释放池），并在Runloop的末尾进行释放，而当该pool被释放时，该pool中的所有Object会接收到一个release消息。 所以，一般情况下，每个接受autorelease消息的对象，都会在下个Runloop开始前被释放。<br><strong>注意点</strong></p>
-<ol>
-<li>在ARC下，不能使用<code>[[NSAutoreleasePool alloc] init]</code>，而应当使用<code>@autoreleasepool{}</code>创建自动释放池</li>
-<li>不要把大量循环操作放到同一个NSAutoreleasePool之间，这样会造成内存峰值的上升（此时应该手动调用release方法或者手动创建自动释放池，自己管理内存）</li>
-<li>尽量避免对大内存使用该方法，对于这种延迟释放机制，还是尽量少用</li>
-<li>SDK中一般利用静态方法创建并返回的对象都是autorelease的，不需要再进行release操作<br> 如[NSNumber numberWithInt:10];返回的对象是不需要再release的。<br> 但是通过[[NSNumber alloc] initWithInt:10];创建的对象需要release</li>
+<h2 id="配置Tomcat容器"><a href="#配置Tomcat容器" class="headerlink" title="配置Tomcat容器"></a>配置Tomcat容器</h2><ol>
+<li>打开菜单Run -&gt; 选择Edit Configuration</li>
+<li>点击“+”号 -&gt; 选择“Tomcat Server” -&gt; 选择“Local”<br><img src="http://images.astudyer.com/java_jsp_run_configurations.jpg" alt></li>
+<li>在”Name”处输入新的服务名，点击”Application server”后面的”Configure…”，弹出Tomcat Server窗口，选择本地安装的Tomcat目录 -&gt; OK </li>
+<li>取消勾选”After launch”，设置”HTTP port”和”JMX port”（默认值即可），点击 Apply -&gt; OK， 至此Tomcat配置完成<br><img src="http://images.astudyer.com/java_jsp_tomcat_server.jpg" alt></li>
 </ol>
-<h1 id="ARC内存管理"><a href="#ARC内存管理" class="headerlink" title="ARC内存管理"></a>ARC内存管理</h1><h2 id="ARC简介"><a href="#ARC简介" class="headerlink" title="ARC简介"></a>ARC简介</h2><p>ARC自动引用计数（automatic reference counting）是iOS5推出的新功能。需要注意的是，ARC并不是GC（Garbage Collection 垃圾回收器），仍然是需要用引用计数管理内存的，只不过是隐式的管理。它背后依赖的是编译器的静态分析能力，通过在编译时在合适的位置插入引用计数管理代码，从而提高iOS开发人员的开发效率。是<code>编译器特性</code>，并不是OC的运行时特性。</p>
-<blockquote>
-<p>在ARC中栈变量会被初始化为nil，即使不进行赋值,程序也不会造成崩溃,示例如下<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)test &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *name;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"name: %@"</span>, name);</span><br><span class="line">    <span class="comment">// 打印结果为nil,不会崩溃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="ARC判断标准"><a href="#ARC判断标准" class="headerlink" title="ARC判断标准"></a>ARC判断标准</h2><p>只要有强指针指向一个对象，那个这个对象就不会被释放，只要没有强指针指向一个对象，那么这个对象就被立即回收</p>
-<h2 id="指针分类"><a href="#指针分类" class="headerlink" title="指针分类"></a>指针分类</h2><p>1、<strong>强指针</strong>：默认所有的指针都是强指针，关键字<code>__strong</code><br>2、<strong>弱指针</strong>：一般在两个对象相互引用而导致循环引用无法释放的时候用<code>__weak</code>修饰其中一个对象对另一个对象的应用，避免循环应用</p>
-<h2 id="ARC注意点"><a href="#ARC注意点" class="headerlink" title="ARC注意点"></a>ARC注意点</h2><p>1、不能显示调用release、retain、retainCount、autorelease、zone等消息<br>2、不能再使用NSAutoreleasePool对象，ARC提供了@autoreleasepool块来代替它，这样更有效率<br>3、可以重写dealloc，但是不允许调用<code>[super dealloc];</code><br>4、一般来说用类方法直接创建的对象编译器默认会在后面插入<code>autorelease</code>方法</p>
-<h2 id="property参数"><a href="#property参数" class="headerlink" title="@property参数"></a>@property参数</h2><h3 id="strong"><a href="#strong" class="headerlink" title="strong"></a>strong</h3><p>相当于MRC中的retain（适用于OC对象），对对象进行强引用</p>
-<h3 id="weak"><a href="#weak" class="headerlink" title="weak"></a>weak</h3><p>不改变对象的引用计数，也不持有对象，对对象进行弱引用，比assign多了一个功能，当对象消失后自动把指针变成nil（适用于OC对象）</p>
-<h3 id="assign-1"><a href="#assign-1" class="headerlink" title="assign"></a>assign</h3><p>对对象进行弱引用，和weak类似，适用于非OC对象（基本数据类型）</p>
-<h3 id="copy-1"><a href="#copy-1" class="headerlink" title="copy"></a>copy</h3><p>对于不可变对象来说相当于strong，开辟一块新的内存空间</p>
-<h2 id="关于Copy"><a href="#关于Copy" class="headerlink" title="关于Copy"></a>关于Copy</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>copy(复制、拷贝)是产生一个副本对象的过程,只要是通过拷贝产生的副本对象,副本对象中的内容与源对象中的内容就完全一致</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>修改源对象的属性和行为,不会影响副本对象</li>
-<li>修改副本对象的属性和行为,不会影响源对象</li>
-</ul>
-<h3 id="copy与mutableCopy"><a href="#copy与mutableCopy" class="headerlink" title="copy与mutableCopy"></a>copy与mutableCopy</h3><ul>
-<li>使用copy产生的副本对象是不可变的(如NSString、NSArray)</li>
-<li>使用mutableCopy产生的副本对象是可变的(如NSMutableString、NSMutableArray)</li>
-</ul>
-<h3 id="通过拷贝是否会产生新的对象"><a href="#通过拷贝是否会产生新的对象" class="headerlink" title="通过拷贝是否会产生新的对象"></a>通过拷贝是否会产生新的对象</h3><p>通过拷贝是否会产生新对象,就要看源对象与副本对象是否满足拷贝的特点</p>
-<ul>
-<li>可变对象通过mutableCopy,会生成新的对象</li>
-<li>可变对象通过copy,会生成新的对象</li>
-<li>不可变对象通过mutableCopy,会生成新的对象</li>
-<li>不可变对象通过copy,不会生成新的对象</li>
-</ul>
-<h3 id="深拷贝-内容拷贝-与浅拷贝-指针拷贝"><a href="#深拷贝-内容拷贝-与浅拷贝-指针拷贝" class="headerlink" title="深拷贝(内容拷贝)与浅拷贝(指针拷贝)"></a>深拷贝(内容拷贝)与浅拷贝(指针拷贝)</h3><ul>
-<li>深拷贝: 如果通过拷贝生成了新对象,就称为深拷贝(内容拷贝)</li>
-<li>浅拷贝: 如果通过拷贝没生成新对象,就称为浅拷贝(指针拷贝)</li>
-</ul>
-<blockquote>
-<p>注意：<br>1、通过深拷贝，源对象的引用计数器不变，副本对象的引用计数器为1，所以需要对副本对象进行一次release操作<br>2、通过浅拷贝,源对象的引用计数器+1,所以需要对源对象再进行一次release操作</p>
-</blockquote>
-<h2 id="自定义类实现copy与mutableCopy功能"><a href="#自定义类实现copy与mutableCopy功能" class="headerlink" title="自定义类实现copy与mutableCopy功能"></a>自定义类实现copy与mutableCopy功能</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>一个类的对象想拥有copy与mutableCopy功能，都需要拥有一个前提</p>
-<ul>
-<li>使用copy的前提: 对应类需要遵守NSCopying协议,并实现copyWithZone:方法</li>
-<li>使用mutableCopy的前提: 对应类需要遵守NSMutableCopying协议,并实现mutableCopyWithZone:方法</li>
-</ul>
-<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Person类的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>, <span class="title">NSMutableCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    Person *p = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    p.name = _name;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//实现Student类(继承自Person类)的copy与mutableCopy功能</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> copyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="built_in">NSZone</span> *)zone</span><br><span class="line">&#123;</span><br><span class="line">	 <span class="comment">// 1.创建一个新对象</span></span><br><span class="line">    <span class="keyword">id</span> stu = [<span class="keyword">super</span> mutableCopyWithZone:zone];</span><br><span class="line">    <span class="comment">// 2.设置当前对象的内容给新的对象</span></span><br><span class="line">    stu.age = _age;</span><br><span class="line">    <span class="comment">// 3.返回新的对象</span></span><br><span class="line">    <span class="keyword">return</span> stu;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<h2 id="几个经典面试题"><a href="#几个经典面试题" class="headerlink" title="几个经典面试题"></a>几个经典面试题</h2><p>1、在ARC中以下代码有没有问题？如果有问题，怎么写才正确？<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>由于stringWithFormat创建出来的对象调用了autorelease方法，所以不会立即释放，创建出来的大量对象一直在内存中，会导致内存在短时间内暴涨。所以有问题。正确的写法如下<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; <span class="built_in">NSIntegerMax</span>; i++) &#123;</span><br><span class="line">   <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">       [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,<span class="string">@"哈哈"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、strong和weak作为属性修饰符的区别？<br>都指向原来数据地址，区别是前者会对数据地址进行引用计数+1，后者不会<br>3、assing和weak作为属性修饰符的区别？<br>assign和weak都指向引用对象地址并且计数不+1，但当对象地址引用计数为0时，assign不会对该地址进行数据的抹除操作，只是进行值释放。容易导致野指针现象（指针还在，指针指向的内存已经释放，访问不属于自己的内存），即当这块地址还没写上其他值前，能输出正常值，但一旦重新写上数据，该指针随时可能没有值，造成奔溃。而weak会在对象消失（引用计数为0）时自动把指针变成nil，防止野指针问题。一般assign常用语基本数据类型，而weak用于OC对象（基于NSObject的对象）。<br>4、copy与retain作为属性修饰符的区别？</p>
-<ul>
-<li>通过copy作为属性修饰符来修饰对象的属性，是对传入变量进行了一次copy操作，在外界变量进行修改之后，对象的属性不会随之发生变化</li>
-<li>通过retain作为属性修饰符来修饰对象的属性,是对传入变量进行了一次retain操作,在外界变量进行修改之后,对象的属性会随之发生了变化</li>
-</ul>
+<h2 id="在Tomcat中部署并运行项目"><a href="#在Tomcat中部署并运行项目" class="headerlink" title="在Tomcat中部署并运行项目"></a>在Tomcat中部署并运行项目</h2><p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact -&gt; 选择web项目 -&gt; Application context可以填“/hello”(此处随意，可以填写项目名，也可以不填) -&gt; Apply -&gt; OK<br><img src="http://images.astudyer.com/java_jsp_tomcat_deployment.jpg" alt></p>
+<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><p>修改index.jsp页面，然后直接在tomcat上面运行这个项目就可以了，运行成功后在浏览器中输入<a href="http://localhost:8080/javaweb/" target="_blank" rel="noopener">http://localhost:8080/javaweb/</a>就可以查看运行效果了<br><img src="http://images.astudyer.com/java_jsp_run_result.jpg" alt></p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p><img src="http://images.astudyer.com/java_jsp_result_failure.jpg" alt><br>运行后如果出现以上错误，原因是在终端里面启动了Tomcat，在idea中又再次启动后冲突了。只需要把终端里面启动的Tomcat关闭后再次运行项目即可</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>[1].<a href="https://www.cnblogs.com/1314wamm/p/7471164.html" target="_blank" rel="noopener">如何在IDEA中创建web项目并且部署到Tomcat中</a><br>[2].<a href="https://www.cnblogs.com/tongfukezhan/p/7729043.html" target="_blank" rel="noopener">Mac OS中IDEA配置完Tomcat后启动显示404</a></p>
 ]]></content>
       <categories>
-        <category>iOS</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>Objective-C</tag>
+        <tag>JSP基础</tag>
       </tags>
   </entry>
   <entry>
@@ -840,31 +649,16 @@ _server = [[GCDWebUploader alloc] initWithUploadDirectory:myDocPath];
       </tags>
   </entry>
   <entry>
-    <title>如何在IDEA中创建web项目并部署到Tomcat中</title>
-    <url>/java/java/%E5%A6%82%E4%BD%95%E5%9C%A8IDEA%E4%B8%AD%E5%88%9B%E5%BB%BAweb%E9%A1%B9%E7%9B%AE%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0Tomcat%E4%B8%AD.html</url>
-    <content><![CDATA[<h2 id="新建Web工程"><a href="#新建Web工程" class="headerlink" title="新建Web工程"></a>新建Web工程</h2><p><img src="http://images.astudyer.com/new_project.jpg" alt></p>
-<h2 id="创建classes和lib文件"><a href="#创建classes和lib文件" class="headerlink" title="创建classes和lib文件"></a>创建classes和lib文件</h2><p>classes用来存放编译后输出的class文件，lib用于存放第三方jar包<br><img src="http://images.astudyer.com/classes_lib.jpg" alt></p>
-<h2 id="配置文件夹路径"><a href="#配置文件夹路径" class="headerlink" title="配置文件夹路径"></a>配置文件夹路径</h2><ol>
-<li>File -&gt; Project Structure<br><img src="http://images.astudyer.com/file_project_structure.jpg" alt></li>
-<li>Modules -&gt; Paths -&gt; Use module compile output path<br>将Output path和Test output path都选择为刚刚创建的classes文件夹<br><img src="http://images.astudyer.com/java_jsp_output_path.jpg" alt></li>
-<li>在当前界面选择Dependencies -&gt; 选择Module SDK -&gt; 点击下面的“+”号 -&gt; 选择1 “Jars or Directories” -&gt; 选择刚刚创建的lib文件夹 -&gt; 选择“Jar Directory” -&gt; OK -&gt; Apply -&gt; OK<br><img src="http://images.astudyer.com/java_jsp_dependencies.jpg" alt><br><img src="http://images.astudyer.com/java_jsp_jar_directory.jpg" alt></li>
-</ol>
-<h2 id="配置Tomcat容器"><a href="#配置Tomcat容器" class="headerlink" title="配置Tomcat容器"></a>配置Tomcat容器</h2><ol>
-<li>打开菜单Run -&gt; 选择Edit Configuration</li>
-<li>点击“+”号 -&gt; 选择“Tomcat Server” -&gt; 选择“Local”<br><img src="http://images.astudyer.com/java_jsp_run_configurations.jpg" alt></li>
-<li>在”Name”处输入新的服务名，点击”Application server”后面的”Configure…”，弹出Tomcat Server窗口，选择本地安装的Tomcat目录 -&gt; OK </li>
-<li>取消勾选”After launch”，设置”HTTP port”和”JMX port”（默认值即可），点击 Apply -&gt; OK， 至此Tomcat配置完成<br><img src="http://images.astudyer.com/java_jsp_tomcat_server.jpg" alt></li>
-</ol>
-<h2 id="在Tomcat中部署并运行项目"><a href="#在Tomcat中部署并运行项目" class="headerlink" title="在Tomcat中部署并运行项目"></a>在Tomcat中部署并运行项目</h2><p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact -&gt; 选择web项目 -&gt; Application context可以填“/hello”(此处随意，可以填写项目名，也可以不填) -&gt; Apply -&gt; OK<br><img src="http://images.astudyer.com/java_jsp_tomcat_deployment.jpg" alt></p>
-<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><p>修改index.jsp页面，然后直接在tomcat上面运行这个项目就可以了，运行成功后在浏览器中输入<a href="http://localhost:8080/javaweb/" target="_blank" rel="noopener">http://localhost:8080/javaweb/</a>就可以查看运行效果了<br><img src="http://images.astudyer.com/java_jsp_run_result.jpg" alt></p>
-<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p><img src="http://images.astudyer.com/java_jsp_result_failure.jpg" alt><br>运行后如果出现以上错误，原因是在终端里面启动了Tomcat，在idea中又再次启动后冲突了。只需要把终端里面启动的Tomcat关闭后再次运行项目即可</p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>[1].<a href="https://www.cnblogs.com/1314wamm/p/7471164.html" target="_blank" rel="noopener">如何在IDEA中创建web项目并且部署到Tomcat中</a><br>[2].<a href="https://www.cnblogs.com/tongfukezhan/p/7729043.html" target="_blank" rel="noopener">Mac OS中IDEA配置完Tomcat后启动显示404</a></p>
+    <title>第三方库踩坑系列</title>
+    <url>/iOS/%E5%85%B6%E5%AE%83/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97.html</url>
+    <content><![CDATA[<p><strong>坑是无限的，而生命是有限的，坑虽多，但在我们的努力下终归会越踩越少。所以我们的格言就是：生命不息，踩坑不止。</strong><br><img src="/img/2018/iOS/caikeng.jpg" alt></p>
+<h2 id="IQKeyboardManager"><a href="#IQKeyboardManager" class="headerlink" title="IQKeyboardManager"></a><a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="noopener">IQKeyboardManager</a></h2><p>笔者所用<strong>版本</strong>：4.0.13<br>出现的<strong>问题</strong>：每次打开项目项目都会自动断在如下图所示的地方<br><img src="/img/2018/iOS/IQKeyBoardManager1.png" alt><br><strong>解决方案</strong>：编辑<code>All Exceptions</code>这个断点，把<code>Exception</code>那一栏由<code>All</code>改为<code>Objective-C</code>即可<br>注意：如果没有<code>All Exceptions</code>这个断点，则不会出现该情况<br><img src="/img/2018/iOS/IQKeyBoardManager2.png" alt><br><img src="/img/2018/iOS/IQKeyBoardManager3.png" alt></p>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>iOS</category>
       </categories>
       <tags>
-        <tag>JSP基础</tag>
+        <tag>踩坑</tag>
       </tags>
   </entry>
   <entry>
@@ -925,6 +719,226 @@ git push
       </categories>
       <tags>
         <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac安装Homebrew</title>
+    <url>/%E5%B7%A5%E5%85%B7/%E5%B7%A5%E5%85%B7/Mac%E5%AE%89%E8%A3%85Homebrew.html</url>
+    <content><![CDATA[<h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><p><a href="https://brew.sh" target="_blank" rel="noopener">https://brew.sh</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="其他安装方法"><a href="#其他安装方法" class="headerlink" title="其他安装方法"></a>其他安装方法</h2><p>由于国内的网络环境等问题，使用官方的安装方法可能无法安装成功。可以尝试使用其他更适合国内网络环境的安装方法，参考地址：<a href="https://brew.idayer.com/。" target="_blank" rel="noopener">https://brew.idayer.com/。</a></p>
+<h2 id="安装homebrew-core"><a href="#安装homebrew-core" class="headerlink" title="安装homebrew-core"></a>安装homebrew-core</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装homebrew-cask"><a href="#安装homebrew-cask" class="headerlink" title="安装homebrew-cask"></a>安装homebrew-cask</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/"</span></span><br><span class="line"> </span><br><span class="line">git <span class="built_in">clone</span> https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br></pre></td></tr></table></figure>
+<h2 id="源"><a href="#源" class="headerlink" title="源"></a>源</h2><p>为了加速以后使用Homebrew安装其他软件的过程，建议设置软件源为国内源。</p>
+<h3 id="查看源"><a href="#查看源" class="headerlink" title="查看源"></a>查看源</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span> &amp;&amp; git remote -v</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> &amp;&amp; git remote -v</span><br><span class="line"> </span><br><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> &amp;&amp; git remote -v</span><br></pre></td></tr></table></figure>
+<h3 id="设置源"><a href="#设置源" class="headerlink" title="设置源"></a>设置源</h3><p>设置为中科大的源<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git</span><br><span class="line"> </span><br><span class="line">brew update</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置bottles镜像"><a href="#设置bottles镜像" class="headerlink" title="设置bottles镜像"></a>设置bottles镜像</h3><p>从macOS Catalina(10.15.x) 版开始，Mac使用zsh作为默认shell，使用的配置文件：<code>.zprofile</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.zprofile</span><br><span class="line"> </span><br><span class="line"><span class="built_in">source</span> ~/.zprofile</span><br></pre></td></tr></table></figure></p>
+<p>如果是以前的macOS版本，Mac使用bash作为默认shell，使用的配置文件：<code>.bash_profile</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"> </span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<h3 id="重置为官方源"><a href="#重置为官方源" class="headerlink" title="重置为官方源"></a>重置为官方源</h3><p>可以通过以下命令还原回官方源。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/brew.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/core)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-core.git</span><br><span class="line"> </span><br><span class="line">git -C <span class="string">"<span class="variable">$(brew --repo homebrew/cask)</span>"</span> remote <span class="built_in">set</span>-url origin https://github.com/Homebrew/homebrew-cask.git</span><br><span class="line"> </span><br><span class="line"><span class="comment"># zsh 注释掉 HOMEBREW_BOTTLE_DOMAIN 配置</span></span><br><span class="line">vi ~/.zprofile</span><br><span class="line"><span class="comment"># export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span></span><br><span class="line"><span class="built_in">source</span> ~/.zprofile</span><br><span class="line"> </span><br><span class="line"><span class="comment"># bash 注释掉 HOMEBREW_BOTTLE_DOMAIN 配置</span></span><br><span class="line">vi ~/.bash_profile</span><br><span class="line"><span class="comment"># export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles</span></span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br><span class="line"> </span><br><span class="line">brew update</span><br></pre></td></tr></table></figure></p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/uninstall)</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <a href="https://www.cnblogs.com/mjios/p/14497925.html" target="_blank" rel="noopener">Mac安装Homebrew</a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>brew</tag>
+        <tag>homebrew</tag>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OC语言系列——Protocol(协议)及Delegate(委托代理)</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Protocol(%E5%8D%8F%E8%AE%AE)%E5%8F%8ADelegate(%E5%A7%94%E6%89%98%E4%BB%A3%E7%90%86).html</url>
+    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt><br>因为Objective-C是不支持多继承的，所以很多时候都是用Protocol代替。Protocol（协议）只是定义公用的一套接口，但不提供具体的实现方法。当一个类要使用某个Protocol（协议）时，就必须要遵守协议，实现协议需要用到委托代理（Delegate）。<br>Protocol（协议）的作用：</p>
+<ol>
+<li><p>定义一套公用的接口（Public）</p>
+<ul>
+<li>@required：必须实现的方法（实际上也可以不实现，程序依然也可以运行，只是会有警告）</li>
+<li><p>@optional：可选 实现的方法</p>
+<pre><code>//conformsToProtocol：判断是否遵守了某个协议
+if ([conformsToProtocol:@protocol(协议名)]){
+}
+//respondsToSelector：判断是否实现了某个方法
+if([stu respondsToSelector:@selector(方法名)]){
+}
+</code></pre></li>
+</ul>
+</li>
+<li><p>委托代理（Delegate）传值：<br>它本身是一个设计模式，它的意思是委托别人去做某事。 </p>
+</li>
+</ol>
+<blockquote>
+<p>1、当需要定义一套公用的接口，实现方法可以是不同的时候，可以使用Protocol协议。<br>2、当需要进行类与类之间的传值时，可以基于Protocol协议，使用代理设计模式进行传值。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[译] Instruments 入门教程</title>
+    <url>/%E5%B7%A5%E5%85%B7/%E5%B7%A5%E5%85%B7/%E8%AF%91-Instruments-%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8.html</url>
+    <content><![CDATA[<p>了解如何使用 Instruments 来捕获和修复应用程序中的内存问题和性能错误，以使其更快，响应速度更快。</p>
+<p>Version：Swift 5, iOS 13, Xcode 11</p>
+<p>除了通过添加功能来改进其应用程序外，所有优秀的应用程序开发人员还应该做一件事：编写代码！</p>
+<p>本教程将向您展示如何使用 Xcode 随附的 Instruments 工具的最重要功能。它使您可以检查代码中是否存在性能问题，内存问题，参考周期和其他问题。</p>
+<p>可以了，好了？准备好进入迷人的 Instruments 世界！</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>对于本教程，您将不会经历从头开始创建应用的过程。相反，下载资料包括一个完整的示例项目。您的任务是像使用自己的应用程序一样，以 Instruments 为指导来浏览并改进该应用程序！</p>
+<p>使用本教程底部的 <strong>“下载材料”</strong> 按钮下载项目材料。在 Xcode 中打开启动项目。</p>
+<p>此示例应用程序使用 <strong>Flickr API</strong> 搜索图像。要使用 API​​，您需要一个 API 密钥。对于演示项目，您可以在 Flickr 的网站上生成示例密钥。只需在 <a href="http://www.flickr.com/services/api/explore/?method=flickr.photos.search" target="_blank" rel="noopener">Flickr API Explorer</a> 中执行任何搜索，然后从底部的 URL 复制 API 密钥即可。它一直沿 “＆api_key =” 到下一个 “＆”。</p>
+<p>例如，如果URL为：<br><code>HTTP：//api.flickr.com/services/rest/?method=flickr.photos.search
+＆api_key = ff417a50b95180cb0c7e3b68a8749fba
+＆format = rest＆api_sig = f24f4e98063a9b8ecc8b522b238d5e2f</code></p>
+<p>然后，API 密钥为：ff417a50b95180cb0c7e3b68a8749fba。</p>
+<p>打开 <strong>FlickrAPI.swift</strong> 并将现有的 API 密钥值替换为新值。</p>
+<p>请注意，API 密钥每天都会更改，因此有时您不得不重新生成一个新密钥。只要密钥无效，该应用程序就会提醒您。</p>
+<p>生成并运行，执行搜索，单击结果，您将看到类似以下内容：<br><img src="http://image.astudyer.com/16001702844764.jpg" alt="-w258"><br>使用该应用程序并查看其基本功能。您可能会认为，一旦 UI 看起来不错，该应用就可以提交商店了。但是，您将看到使用 Instruments 可以为您的应用添加的价值。</p>
+<p>本教程的其余部分将向您展示如何查找和修复应用程序中仍然存在的问题。您将看到 Instruments 如何使调试问题大为简化！</p>
+<h2 id="Time-Profiler"><a href="#Time-Profiler" class="headerlink" title="Time Profiler"></a>Time Profiler</h2><p><img src="http://image.astudyer.com/16001702844792.jpg" alt="-w80"><br>您将要看的第一个乐器是 <strong>Time Profiler</strong>。每隔一定的时间间隔，Instruments 将暂停程序的执行，并在每个运行的线程上进行堆栈跟踪。可以将其视为单击 Xco​​de 调试器中的“暂停”按钮。</p>
+<p>这是 Time Profiler 的预览：<br><img src="http://image.astudyer.com/16001702844804.jpg" alt="-w889"><br>此界面显示 <strong>Call Tree</strong>。Call Tree 显示了在应用程序中执行各种方法所花费的时间。每一行都是程序执行路径遵循的不同方法。Instruments 通过计算分析器在每种方法中停止的次数来估算每种方法所花费的时间。</p>
+<p>例如，如果您以1毫秒的间隔进行100个采样，并且在10个采样中的某个特殊方法出现在堆栈的顶部，则可以推断出该方法花费了该应用大约10％的总执行时间（10毫秒）。这是一个很粗略的近似值，但是可以用！</p>
+<blockquote>
+<p>注意：通常，您应该始终在实际设备上而不是模拟器上对应用程序进行配置文件配置。iOS 模拟器具有Mac 的全部功能，而设备将具有移动硬件的所有限制。您的应用似乎可以在模拟器中正常运行，但是一旦它在真实设备上运行，您可能会发现性能问题。</p>
+</blockquote>
+<p>因此，事不宜迟，该花些时间进行检测了！</p>
+<h2 id="仪器仪表"><a href="#仪器仪表" class="headerlink" title="仪器仪表"></a>仪器仪表</h2><p>在 Xcode 的菜单栏中，选择 <strong>Product ▸ Profile</strong> 或按 <strong>Command-I</strong>。这将构建应用程序并启动 Instruments。您将看到一个选择窗口，如下所示：<br><img src="http://image.astudyer.com/16001702844815.jpg" alt="-w626"><br>这些是Instruments随附的所有不同模板。</p>
+<p>选择Time Profiler仪器，然后单击选择。这将打开一个新的Instruments文档。单击左上角的红色录制按钮开始录制并启动该应用程序。macOS可能会要求您输入密码以授权Instruments分析其他进程。别担心，可以在这里安全地提供！</p>
+<p>在“工具”窗口中，您可以看到时间在向上计数，并且在屏幕中心的图形上方有一个小箭头从左向右移动。这表明该应用程序正在运行。</p>
+<p>现在，开始使用该应用程序。搜索一些图像，然后向下钻取一个或多个搜索结果。您可能已经注意到，进入搜索结果的过程非常缓慢，并且滚动浏览搜索结果列表也非常令人讨厌。这是一个非常笨拙的应用程序！</p>
+<p>好吧，你很幸运。您即将着手修复它！但是，您首先要快速了解 Instruments 中的内容。</p>
+<p>首先，确保工具栏右侧的视图选择器同时选择了两个选项，如下所示：<br><img src="http://image.astudyer.com/16001702844824.jpg" alt="-w147"><br>这样可以确保所有面板均打开。现在，研究下面的屏幕截图以及下面每个部分的说明：<br><img src="http://image.astudyer.com/16001702844834.jpg" alt="-w648"></p>
+<ol>
+<li><strong>录制控件</strong>：红色的“录制”按钮停止并启动当前正在测试的应用。暂停按钮可暂停应用程序的当前执行。</li>
+<li><strong>运行计时器</strong>：计时器计算已配置应用程序已运行了多长时间以及已运行了多少次。单击停止按钮，然后重新启动应用程序。您将看到显示为 <strong>Run 2 of 2</strong> 的显示。</li>
+<li><strong>乐器音轨</strong>：对于您选择的 Time Profiler 模板，只有一架乐器，因此只有一条音轨。您将在本教程的后面部分中详细了解该图的细节。</li>
+<li><p><strong>详细信息面板</strong>：显示有关您正在使用的特定乐器的主要信息。在这种情况下，它显示了“最热”的方法，即使用最多CPU时间的方法。</p>
+<p> 在详细信息面板的顶部，单击 <strong>Profile</strong>，然后选择样本。在这里您可以查看每个样本。点击一些样本；您将看到捕获的堆栈跟踪显示在右侧的扩展详细信息检查器中。完成后，切换回个人资料。</p>
+</li>
+<li>检查器面板：有两个检查器- <strong>Extended Detail</strong> 和 <strong>Run Info</strong> -您将很快了解更多信息。</li>
+</ol>
+<h2 id="深钻"><a href="#深钻" class="headerlink" title="深钻"></a>深钻</h2><p>执行图像搜索，然后深入研究结果。我个人喜欢搜索“狗”，但是选择任何您想要的-您可能就是其中的猫人之一！</p>
+<p>现在，上下滚动列表几次，以便在 Time Profiler 中获得大量数据。您应该注意到屏幕中间的数字在变化，并且图形在填充。这表明您的应用程序正在使用CPU周期。</p>
+<p>直到滚动像黄油一样，任何收藏视图都无法交付！</p>
+<p>为了帮助查明问题，您将设置一些选项。单击 <strong>Stop</strong>，然后在详细信息面板下方，单击 <strong>Call Tree</strong>。在出现的弹出窗口中，选择 <strong>Separate by Thread</strong>，<strong>Invert Call Tree</strong> 和 <strong>Hide System Libraries</strong>。它看起来像这样：<br><img src="http://image.astudyer.com/16001702844843.jpg" alt="-w469"><br>以下是每个选项对左侧表格中显示的数据的处理方式：</p>
+<ul>
+<li><strong>Separate by State</strong>：此选项按应用程序的生命周期状态对结果进行分组，是一种检查应用程序正在执行的工作量和时间的有用方法。</li>
+<li><strong>Separate by Thread</strong>：分别对待每个线程。这使您能够了解哪些线程导致最大的 CPU 使用量。</li>
+<li><strong>Invert Call Tree</strong>：使用此选项，堆栈跟踪将首先显示最近的帧。</li>
+<li><strong>Hide System Libraries</strong>：选择此选项时，仅显示您自己的应用程序中的符号。选择此选项通常很有用，因为通常您只关心 CPU 在自己的代码中花费的时间，而对于系统库使用的 CPU 数量却做得不多！</li>
+<li><strong>Flatten Recursion</strong>：此选项显示递归函数，这些函数可以在每个堆栈跟踪中只有一个条目，而不是多次调用自己。</li>
+<li><strong>Top Functions</strong>：启用此功能可使仪器将在一个功能上花费的总时间视为该功能内直接花费的时间之和，以及该功能所调用的功能所花费的时间。因此，如果函数A 调用B ，则 Instruments 将A的时间报告为A所花费的时间加上B中所花费的时间。这非常有用，因为它使您每次下降到调用堆栈时都选择最大的时间数字，将其清零使用最耗​​时的方法。</li>
+</ul>
+<p>扫描结果以识别 <strong>Weight</strong> 列中哪些行具有最高百分比。请注意，带有 <strong>Main Thread</strong> 的行正在消耗大量的 CPU 周期。通过单击文本左侧的小箭头来展开该行，然后向下钻取，直到看到您自己的方法之一，并标有“人”符号。尽管某些值可能会略有不同，但是条目的顺序应类似于下表：<br><img src="http://image.astudyer.com/16001702844853.jpg" alt="-w708"><br>好吧，那看起来当然不好。该应用程序将大部分时间用于将 <strong>“tonal”</strong> 滤镜应用于缩略图的方法。这对您来说应该不会太震惊，因为表格的加载和滚动是 UI 中最笨拙的部分，并且表格单元会不断更新。</p>
+<p>要了解有关该方法中发生的事情的更多信息，请双击表中的该行。这样做将显示以下视图：<br><img src="http://image.astudyer.com/16001702844863.jpg" alt="-w635"><br><code>applyTonalFilter()</code> 是 <code>UIImage</code> 扩展中添加的方法，并且 <code>CGImage</code> 在应用图像滤镜之后花费大量时间调用创建输出的方法。</p>
+<p>您实际上没有什么可以做来加快速度。创建映像是一个密集的过程，需要花费很长时间。尝试后退以查看应用程序的调用位置 <code>applyTonalFilter()</code>。在代码视图顶部的面包屑路径中单击 <strong>Root</strong> 以返回上一屏幕：<br><img src="http://image.astudyer.com/16001702844872.jpg" alt="-w473"><br>现在，单击 <code>applyTonalFilter</code> 表顶部行左侧的小箭头。这将显示呼叫者 <code>applyTonalFilter</code>-您可能也需要展开下一行。在对 Swift 进行性能分析时，有时会在 <strong>Call Tree</strong> 中有重复的行，并带有 <code>@objc</code>。您对第一行带有“人”图标的前缀感兴趣，这表明它属于您应用的目标：<br><img src="http://image.astudyer.com/16001702844882.jpg" alt="-w586"><br>在这种情况下，该行引用结果收集视图的 <code>(_:cellForItemAt:)</code>。双击该行以查看项目中的关联代码。</p>
+<p>现在您可以看到问题所在了。看一下第70行：应用 <code>tonal filter</code> 的方法要花很长时间才能执行，您可以直接从调用它 <code>collectionView(_:cellForItemAt:)</code>。这将在每次请求过滤图像时阻塞主线程，并因此阻塞整个UI。</p>
+<h2 id="分担工作"><a href="#分担工作" class="headerlink" title="分担工作"></a>分担工作</h2><p>要解决此问题，您将采取两个步骤：首先，将图像过滤的方法放到后台线程上 <code>DispatchQueue.global().async</code>。然后，在生成每个图像后对其进行缓存。<code>ImageCache</code> 入门项目中包含一个小型，简单的图像缓存类-具有易记的名称，该类仅将图像存储在内存中并使用给定的键检索它们。</p>
+<p>现在，您可以切换到 Xcode，并在 Instruments 中手动找到要查看的源文件。但是，在Instruments 中有一个方便的 <strong>Open in Xcode</strong> 按钮。在代码上方的面板中找到它，然后单击它：<br><img src="http://image.astudyer.com/16001702844895.jpg" alt="-w1782"><br>太棒了！Xcode刚好在正确的位置打开！</p>
+<p>现在，将 <code>collectionView(_:cellForItemAt:)</code> 中的 <code>loadThumbnail(for:completion:)</code> 方法替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">ImageCache</span>.shared.loadThumbnail(<span class="keyword">for</span>: flickrPhoto) &#123; result <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">switch</span> result &#123;</span><br><span class="line">  <span class="keyword">case</span> .success(<span class="keyword">let</span> image):</span><br><span class="line">    <span class="keyword">if</span> cell.flickrPhoto == flickrPhoto &#123;</span><br><span class="line">      <span class="keyword">if</span> flickrPhoto.isFavourite &#123;</span><br><span class="line">        cell.imageView.image = image</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cachedImage = </span><br><span class="line">          <span class="type">ImageCache</span>.shared.image(forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>) &#123;</span><br><span class="line">          cell.imageView.image = cachedImage</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 2</span></span><br><span class="line">          <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> filteredImage = image.applyTonalFilter() &#123;</span><br><span class="line">              <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(filteredImage, </span><br><span class="line">                                    forKey: <span class="string">"\(flickrPhoto.id)-filtered"</span>)</span><br><span class="line">            </span><br><span class="line">              <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">                cell.imageView.image = filteredImage</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Error: \(error)"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该代码的第一部分与之前相同，并从网上加载了Flickr照片的缩略图。如果照片是收藏夹，则单元格将显示缩略图而无需修改。但是，如果照片不是您的最爱，则会应用色调滤镜。</p>
+<p>这是您更改内容的地方：</p>
+<ol>
+<li>检查图像缓存中是否存在针对该照片的过滤图像。如果是，那就太好了；显示该图像。</li>
+<li>如果不是，请分派将色调过滤器应用到后台队列的调用。这允许UI在过滤器运行时保持响应。筛选器完成后，将图像保存在缓存中并更新主队列上的图像视图。</li>
+</ol>
+<p>那是经过过滤的图像，但是仍然有原始的 Flickr 缩略图需要解决。打开 <strong>Cache.swift</strong> 并查找<code>loadThumbnail(for:completion:)</code>。将其替换为以下内容：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadThumbnail</span><span class="params">(<span class="keyword">for</span> photo: FlickrPhoto,</span></span></span><br><span class="line"><span class="function"><span class="params">                   completion: @escaping FlickrAPI.FetchImageCompletion)</span></span> &#123;</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> image = <span class="type">ImageCache</span>.shared.image(forKey: photo.id) &#123;</span><br><span class="line">    completion(<span class="type">Result</span>.success(image))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="type">FlickrAPI</span>.loadImage(<span class="keyword">for</span>: photo, withSize: <span class="string">"m"</span>) &#123; result <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">case</span> .success(<span class="keyword">let</span> image) = result &#123;</span><br><span class="line">        <span class="type">ImageCache</span>.shared.<span class="keyword">set</span>(image, forKey: photo.id)</span><br><span class="line">      &#125;</span><br><span class="line">      completion(result)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这与您处理已过滤图像的方式非常相似。如果缓存中已存在图像，则可以立即与缓存的图像一起调用完 <code>completion closure</code>。否则，您将从 Flickr 加载图像并将其存储在缓存中。</p>
+<p>按 <strong>Command-I</strong> 再次在 Instruments 中运行该应用程序。请注意，这次 Xcode 不会询问您要使用哪种 instrument。这是因为您仍然为应用程序打开了一个窗口，并且 Instruments 假设您想使用相同的选项再次运行。</p>
+<p>再进行几次搜索。用户界面现在还不那么笨拙！该应用程序现在在后台应用图像过滤器并缓存结果，因此图像仅需过滤一次。您会在调用树中看到许多 <strong>dispatch_worker_threads</strong>。这些正在处理应用图像滤镜的繁重工作。</p>
+<p>看起来很棒！现在该发货了吗？还没！</p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>那么，接下来您要查找什么错误？</p>
+<p>项目中隐藏着一些您可能不知道的东西。您可能听说过内存泄漏。但是您可能不知道的是实际上存在两种泄漏：</p>
+<ol>
+<li><p>真正的内存泄漏：当对象不再被任何东西引用但仍被分配时发生。这意味着该内存将永远无法重复使用。</p>
+<p> 即使借助 Swift 和 ARC 帮助管理内存，最常见的内存泄漏类型仍然是 <strong>retain cycle</strong> 或 <strong>strong reference cycle</strong>。当两个对象相互之间保持强引用时，就会发生这种情况，从而使每个对象都不会释放另一个对象。结果，他们的内存永远不会释放。</p>
+</li>
+<li><p>无限的内存增长：在连续分配内存且从未释放过内存的情况下发生。如果继续不检查，将耗尽内存。在iOS上，这意味着系统将终止您的应用。</p>
+</li>
+</ol>
+<p>现在，您将探索 <strong>Allocations</strong> instrument。该工具为您提供有关应用程序创建的所有对象以及支持它们的内存的详细信息。它还显示您保留每个对象的计数。</p>
+<h2 id="Allocations"><a href="#Allocations" class="headerlink" title="Allocations"></a>Allocations</h2><p>要从新的 instruments 重新开始，请退出 Instruments 应用。不必担心保存此特定运行。现在，在Xcode 中按 <strong>Command-I</strong>，从列表中选择 <strong>Allocations</strong>，然后单击 <strong>Choose</strong>。<br><img src="http://image.astudyer.com/16001702844905.jpg" alt="-w637"><br>片刻之后，您将看到 <strong>Allocations</strong> 工具。它对您应该很熟悉，因为它看起来很像 Time Profiler。<br><img src="http://image.astudyer.com/16001702844916.jpg" alt="-w1518"><br>单击左上角的 <strong>Record</strong> 按钮以运行该应用程序。这次您会注意到两条音轨。出于本教程的目的，您只需要关注 <strong>All Heap and Anonymous VM</strong>。<br><img src="http://image.astudyer.com/16001702844927.jpg" alt="-w1341"><br>在应用程序上运行 <strong>Allocations</strong> 工具后，可以在应用程序中进行五次不同的搜索，但仍不深入查询结果。确保搜索得到一些结果。现在，让应用程序等待几秒钟来解决问题。<br><img src="http://image.astudyer.com/16001702844937.jpg" alt="-w266"><br>您应该已经注意到 <strong>All Heap and Anonymous VM</strong> 轨道中的图形一直在上升。这告诉您您的应用正在分配内存。正是这一功能将指导您找到无限的内存增长。</p>
+<h2 id="世代分析"><a href="#世代分析" class="headerlink" title="世代分析"></a>世代分析</h2><p>您将要执行的是<strong>世代分析</strong>。为此，请单击详细信息面板底部的 <strong>Mark Generation</strong> 按钮：<br><img src="http://image.astudyer.com/16001702844946.jpg" alt="-w476"><br>单击它，您将看到一条红旗出现在曲目中，如下所示：<br><img src="http://image.astudyer.com/16001702844955.jpg" alt="-w155"><br>生成分析的目的是多次执行一个动作，并查看内存是否以无限的方式增长。打开搜索结果，等待几秒钟以加载图像，然后返回主页。再次标记一代。重复执行此操作以进行不同的搜索。</p>
+<p>检查了几次搜索后，Instruments 将如下所示：<br><img src="http://image.astudyer.com/16001702844967.jpg" alt="-w1341"><br>此时，您应该变得可疑了。请注意，您每次进行深入的搜索时，蓝色图形都会随着上升。好吧，那当然不是很好。但是等等，内存警告呢？你知道这些吧？</p>
+<h2 id="模拟内存警告"><a href="#模拟内存警告" class="headerlink" title="模拟内存警告"></a>模拟内存警告</h2><p>内存警告是 iOS 告知应用程序内存部门越来越紧张并且需要清除一些内存的方式。</p>
+<p>这种增长可能不仅取决于您的应用程序。这可能是 UIKit 深入存储的东西。让系统框架和您的应用有机会先清除它们的内存，然后再将它们指向任何一个。</p>
+<p>通过在 Instruments 菜单栏中选择 <strong>Instrument ▸ Simulate Memory Warning</strong> 或从模拟器的菜单栏中选择 <strong>Hardware ▸ Simulate Memory Warning</strong> 来模拟内存警告。您会注意到内存使用量有所下降，或者根本没有下降。当然不会回到应该的位置。因此，某处仍存在无限的内存增长。</p>
+<p>您在检查搜索的每个迭代之后都标记了一个世代，这样您就可以看到每个世代之间分配了什么内存。在详细信息面板中查看，您会看到很多代。</p>
+<p>在每一代中，您将看到标记该代时已分配并仍驻留的所有对象。自从上一代被标记以来，后代将只包含对象。</p>
+<p>查看 <strong>Growth</strong> 列，您会发现肯定有某处发生了增长。打开其中几代，您将看到以下内容：<br><img src="http://image.astudyer.com/16001702844977.jpg" alt="-w588"><br>哇，有很多东西！从哪里开始？</p>
+<p>简单。单击 <strong>Growth</strong> 标题以按大小排序。确保最重的物体在顶部。在每一代的顶部附近，您会注意到一列标记为 <strong>VM：CoreImage</strong>，听起来确实很熟悉！单击 <strong>VM：CoreImage</strong> 左侧的箭头以显示与此项目关联的内存地址。选择第一个内存地址以在右侧面板上的扩展详细信息检查器中显示关联的堆栈跟踪：<br><img src="http://image.astudyer.com/16001702844989.jpg" alt="-w1343"><br>此堆栈跟踪显示了创建此特定对象的时间。灰色的堆栈跟踪部分位于系统库中。黑色部分在您应用的代码中。嗯，有些东西看起来很熟悉：有些黑字显示您的老朋友 <code>collectionView(_:cellForItemAt:)</code>。双击任何这些条目；Instruments 将在其上下文中显示代码。</p>
+<p>看一下该方法。它 <code>set(_:forKey:)</code> 在第79行进行调用。请记住，此方法将缓存图像，以防再次在应用程序中使用它。听起来确实是个问题！</p>
+<p>再次，单击 <strong>Open in Xcode</strong> 以跳回Xcode。打开 <strong>Cache.swift</strong> 并查看 <code>set(_:forKey:)</code> 方法实现：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">set</span><span class="params">(<span class="number">_</span> image: UIImage, forKey key: String)</span></span> &#123;</span><br><span class="line">  images[key] = image</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这会将图像添加到字典，并在 Flickr 照片的照片 ID 上键入。但是，您会注意到该图片从未从该词典中清除！</p>
+<p>那就是您无限内存增长的来源。一切都按预期进行，但该应用程序永远不会从缓存中删除内容-它只会添加内容！</p>
+<p>要解决此问题，您需要做的就是 <code>ImageCache</code> 监听内存警告通知 <code>UIApplication</code>。当 <code>ImageCache</code> 收到此消息时，它必须是好公民并清除其缓存。</p>
+<p>要ImageCache监听通知，请打开 <strong>Cache.swift</strong> 并将以下初始化程序添加到该类：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">init</span>() &#123;</span><br><span class="line">  <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(</span><br><span class="line">    forName: <span class="type">UIApplication</span>.didReceiveMemoryWarningNotification,</span><br><span class="line">    object: <span class="literal">nil</span>,</span><br><span class="line">    queue: .main) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] notification <span class="keyword">in</span></span><br><span class="line">      <span class="keyword">self</span>?.images.removeAll(keepingCapacity: <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这将注册一个观察者 <code>UIApplicationDidReceiveMemoryWarningNotification</code> 以执行闭包清理图片。</p>
+<p>该代码所需要做的就是删除缓存中的所有对象。这样可以确保不再保留任何图像并将它们释放。</p>
+<p>要测试此修复程序，请再次启动 Instruments，然后重复之前执行的步骤。不要忘了最后的模拟内存警告。</p>
+<blockquote>
+<p>注意：确保您从Xcode启动，触发构建，而不只是点击Instruments中的红色按钮，以确保您使用的是最新代码。您可能还需要先构建并运行，然后再进行性能分析。如果您只是进行Profile，有时Xcode似乎不会将模拟器中的应用程序版本更新为最新版本。</p>
+</blockquote>
+<p>这次，世代分析应如下所示：<br><img src="http://image.astudyer.com/16001702844999.jpg" alt="-w640"><br>您会注意到内存警告后内存使用率下降。总体而言，内存仍在增长，但远未达到以前。</p>
+<p>仍然有一定增长的原因实际上是由于系统库，您对此无能为力。看来系统库并未释放它们的所有内存，这可能是设计使然，也可能是错误。您在应用中可以做的就是释放尽可能多的内存，而您已经做到了！</p>
+<p>做得好！修补了另一个问题！现在一定是时候发货了！哦，等等-仍然存在您尚未解决的第一类泄漏问题。</p>
+<h2 id="强引用循环"><a href="#强引用循环" class="headerlink" title="强引用循环"></a>强引用循环</h2><p>如前所述，当两个对象彼此保持强引用时，就会发生强引用循环，从而防止两个对象都被释放。您可以使用 Allocations 工具以其他方式检测这些周期。</p>
+<p>关闭仪器并返回到Xcode。再次选择 <strong>Product ▸ Profile</strong>，然后选择 <strong>Allocations</strong>。<br><img src="http://image.astudyer.com/16001702845009.jpg" alt="-w637"><br>这次，您将不再使用世代分析。相反，您将查看在内存中徘徊的不同类型的对象的数量。单击 <strong>Record</strong> 按钮开始运行。您应该已经看到大量对象填充了详细信息面板-太多了！为了仅缩小目标对象的范围，请在左下角的字段中输入 <strong>“Instruments”</strong> 作为过滤器。<br><img src="http://image.astudyer.com/16001702845019.jpg" alt="-w641"><br>在 Instruments 中值得注意的两列是＃<strong>Persistent</strong>和＃<strong>Transient</strong>。＃Persistent 列保留内存中当前存在的每种类型的对象数。＃Transient 列显示了已存在但已释放的对象数。持久对象正在消耗内存；暂态对象不是。</p>
+<h2 id="查找持久对象"><a href="#查找持久对象" class="headerlink" title="查找持久对象"></a>查找持久对象</h2><p>您应该看到存在的持久实例 <code>ViewController</code>。这很有意义，因为这就是您当前正在查看的屏幕。还有一个应用程序实例 <code>AppDelegate</code>。</p>
+<p>回到应用程序！执行搜索并深入研究结果。请注意，Instruments 中现在显示了许多额外的对象：<code>SearchResultsViewController</code> 和 <code>ImageCache</code> 等。该 <code>ViewController</code> 实例仍然是持久性的，因为其导航控制器需要它。</p>
+<p>现在点击应用程序中的后退按钮。这将弹出 <code>SearchResultsViewController</code> 导航堆栈，因此应将其释放。但是它在分配摘要中仍显示＃Persistent1 ！为什么还在那里？</p>
+<p>尝试执行另外两个搜索，然后在每个搜索之后点击“后退”按钮。现在有三个<code>SearchResultsViewControllers</code>？！这些视图控制器在内存中徘徊的事实意味着某些东西一直在强烈地引用它们。看来您有很强的引用周期！<br><img src="http://image.astudyer.com/16001702845029.jpg" alt="-w637"><br>在这种情况下，您的主要线索不仅是 <code>SearchResultsViewController</code> 持久性，而且也包括所有 <code>SearchResultsCollectionViewCells</code>。引用周期很可能介于这两个类之间。</p>
+<p>幸运的是，Xcode 8中引入的 <strong>Visual Memory Debugger</strong> 是一个简洁的工具，可以帮助您进一步诊断内存泄漏并保留周期。<strong>Visual Memory Debugger</strong> 不是 Xcode 的 Instrument 套件的一部分，但是它是一个非常有用的工具，值得在本教程中包括。来自分配工具和可视内存调试器的交叉引用见解是一项强大的技术，可以使您的调试工作流更加有效。</p>
+<h2 id="Visual-Memory-Debugger"><a href="#Visual-Memory-Debugger" class="headerlink" title="Visual Memory Debugger"></a>Visual Memory Debugger</h2><p>退出 Instruments。</p>
+<p>在启动 <strong>Visual Memory Debugger</strong> 之前，请像下面这样在 Xcode 方案编辑器中启用 <strong>Malloc</strong> 堆栈日志记录：Option-单击窗口顶部（“停止”按钮旁边）的 <strong>InstrumentsTutorial</strong> scheme。在出现的弹出窗口中，选择 <strong>Run</strong>，然后切换到 <strong>Diagnostics</strong> 选项卡。选中显示 <strong>Malloc Stack</strong> 的框，然后选择 <strong>Live Allocations Only</strong> 选项，然后单击 <strong>Close</strong>。<br><img src="http://image.astudyer.com/16001702845039.jpg" alt="-w626"><br>直接从 Xcode 启动应用程序。和以前一样，至少执行三个搜索以累积一些数据。</p>
+<p>现在，像这样激活可视内存调试器：<br><img src="http://image.astudyer.com/16001702845051.jpg" alt="-w861"></p>
+<ol>
+<li>切换到 <strong>Debug</strong> 导航器。</li>
+<li>单击此图标，然后从弹出窗口中选择 <strong>View Memory Graph Hierarchy</strong>。</li>
+<li>单击的条目 <code>SearchResultsCollectionViewCell</code>。</li>
+<li>您可以单击图形上的任何对象，以在检查器窗格中查看详细信息。</li>
+<li>您可以在此区域中查看详细信息。在此处切换到内存检查器。</li>
+</ol>
+<p><strong>Visual Memory Debugger</strong> 会暂停您的应用程序，并以直观的方式显示内存中的对象及其之间的引用。</p>
+<p>如上面的屏幕快照中突出显示的那样，Visual Memory Debugger显示以下信息：</p>
+<ul>
+<li><strong>堆内容</strong>（调试导航器窗格）：这将显示您暂停应用程序时在内存中分配的所有类型和实例的列表。单击一种类型将展开该行，以向您显示该类型在内存中的单独实例。</li>
+<li><strong>内存图</strong>（主窗口）：主窗口以可视方式表示内存中的对象。对象之间的箭头表示它们之间的引用（强关系和弱关系）。</li>
+<li><strong>内存检查器</strong>（实用程序窗格）：这包括详细信息，例如类名和层次结构，以及引用是强还是弱。</li>
+</ul>
+<p>请注意，调试导航器中的某些行旁边如果带有括号。括号中的数字表示内存中有多少个特定类型的实例。在上面的屏幕截图中，您可以看到经过几次搜索后，Visual Memory Debugger 会确认您在 <strong>Allocations</strong> 工具中看到的结果。换句话说，从20到（如果您滚动到搜索结果的末尾）的任何位置SearchResultsCollectionViewCell，每个 SearchResultsViewController 实例的60个实例都将保留在内存中。</p>
+<p>使用该行左侧的箭头展开该类型并显示 SearchResultsViewController 内存中的每个实例。单击单个实例将在主窗口中显示该实例及其任何引用。<br><img src="http://image.astudyer.com/16002243673096.jpg" alt="-w924"><br>请注意指向 SearchResultsViewController 实例的箭头。似乎有一些 Swift 闭包上下文实例引用了相同的视图控制器实例。看起来有点怀疑，不是吗？细看。选择其中一个箭头，以在“实用程序”窗格中显示有关这些关闭实例之一与的引用的更多信息 SearchResultsViewController。<br><img src="http://image.astudyer.com/16002243673109.jpg" alt="-w859"><br>在内存检查，你可以看到 Swift 闭包上下文实例和 SearchResultsViewController 为强。如果在 SearchResultsCollectionViewCell 和闭包上下文之间选择引用，您也会看到它也标记为强。您还可以看到闭包的名称是 <strong>“heartToggleHandler”</strong>。哈！SearchResultsCollectionViewCell 表明这一点！</p>
+<p>SearchResultsCollectionViewCell 在主窗口中选择的实例，以在检查器窗格上显示更多信息。<br><img src="http://image.astudyer.com/16002243673118.jpg" alt="-w887"><br>在回溯中，您可以看到在中初始化了单元实例 <code>collectionView(_:cellForItemAt:)</code>。当您将鼠标悬停在回溯中的这一行上时，将出现一个小箭头。单击箭头将带您进入Xcode的代码编辑器中的此方法。</p>
+<p>在 <code>collectionView(_:cellForItemAt:)</code> 方法中，找到 <code>heartToggleHandler</code> 设置每个单元格属性的位置。您将看到以下代码行：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当用户在集合视图单元格中单击“心形”按钮时，将执行此关闭操作。这是强引用循环的所在，但是除非您之前遇到过，否则很难找到。但是由于有了Visual Memory Debugger，您才能够一直跟踪到这段代码！</p>
+<p>SearchResultsViewController 的闭包中使用了 self，它创建了一个强引用。闭包捕获了 self。Swift 实际上会强迫您在闭包中显式使用 self，而在引用当前对象的方法和属性时，通常可以将其删除。这可以帮助您更多地了解正在捕获的实例。SearchResultsViewController 通过collection view 还对 cells 具有强应用。</p>
+<h2 id="打破循环引用"><a href="#打破循环引用" class="headerlink" title="打破循环引用"></a>打破循环引用</h2><p>为了打破循环引用，您可以将捕获列表定义为闭包定义的一部分。捕获列表可用于将闭包捕获的实例声明为 <strong>weak</strong> 或 <strong>unowned</strong>：</p>
+<ul>
+<li><strong>Weak</strong>：捕获的变量将来可能为nil时使用。如果它所引用的对象被释放，则引用变为nil。因此，它们是可选类型。</li>
+<li><strong>Unowned</strong>：当闭包及其引用的对象始终具有相同的生存期并在同一时间被释放时，使用此属性。Unowned 引用的对象永远不会成为nil。</li>
+</ul>
+<p>要打破循环引用，请向其中添加捕获列表，<code>heartToggleHandler</code> 如下所示：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">cell.heartToggleHandler = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] isStarred <span class="keyword">in</span></span><br><span class="line">  <span class="keyword">self</span>?.collectionView.reloadItems(at: [indexPath])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>声明 self 为 weak 意味着即使 collection view cells 拥有对 SearchResultsViewController 的引用，也可以将其释放，因为它们现在只是弱引用。同时释放了 SearchResultsViewController 也将会释放 collection view，进而释放 cells。</p>
+<p>在Xcode中，再次按 <strong>Command-I</strong> 在 Instruments 中构建并运行该应用程序。</p>
+<p>像以前一样，使用 <strong>Allocations</strong> instrument 在 <strong>Instruments</strong> 中再次查看该应用。记住要过滤结果以仅显示示例项目中的类。执行搜索，导航到结果并再次返回。SearchResultsViewController 向后导航时，您应该看到和其单元格已解除分配。它们显示瞬时实例，但没有持久实例。</p>
+<p>循环坏了！发货吧！</p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>您可以使用本教程顶部或底部的 <strong>“下载材料”</strong> 按钮下载示例项目。</p>
+<p>现在，您已经掌握了此 Instruments 教程的知识，现在就去尝试自己的代码，看看会出现什么有趣的事情！另外，请尝试使 Instruments 成为常规开发工作流程的一部分。</p>
+<p>您应该相对频繁地通过 Instruments 运行代码，并在发布前对应用程序进行全面扫描，以确保尽可能多地遇到内存管理和性能问题。</p>
+<p>现在，去制作一些很棒的，高效的应用程序吧！</p>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p><a href="https://koenig-media.raywenderlich.com/uploads/2019/08/InstrumentsTutorial-3.zip" target="_blank" rel="noopener">下载材料</a><br><a href="https://www.raywenderlich.com/4784723-instruments-tutorial-getting-started" target="_blank" rel="noopener">原文链接</a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>Instruments</tag>
+        <tag>Swift</tag>
+        <tag>性能优化</tag>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
@@ -998,6 +1012,53 @@ return 0;
       </tags>
   </entry>
   <entry>
+    <title>CocoaPods创建私有库</title>
+    <url>/%E6%9E%B6%E6%9E%84/%E7%BB%84%E4%BB%B6%E5%8C%96/CocoaPods%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89%E5%BA%93.html</url>
+    <content><![CDATA[<h2 id="关于CocoaPods"><a href="#关于CocoaPods" class="headerlink" title="关于CocoaPods"></a>关于CocoaPods</h2><p>做过iOS开发的小伙伴一定对CocoaPods不会陌生，其实CocoaPods不仅可以作为第三方库的管理工具，还可以很方便的创建和维护自己的私有仓库，实现复杂项目的插件化开发模式。不文不介绍CocoaPods的安装和基本用法，以及如何把代码提交到CocoaPods的公有仓库，想了解这些的小伙伴可以查看笔者<a href="http://localhost:4000/tags/CocoaPods/" target="_blank" rel="noopener"><code>CocoaPods标签</code></a>下的其它相关文章。</p>
+<blockquote>
+<p><strong>注意</strong>：本文的所有代码以创建在Github上面为例，其它的Git服务器原理一样。如果你不想让别人看到你的仓库代码，实现仓库的完全私有化，可以使用其它的可以创建私有项目的Git服务器，比如<a href="https://gitee.com/" target="_blank" rel="noopener">码云</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">GitLab</a>等。</p>
+</blockquote>
+<blockquote>
+<p><strong>本文适用场景</strong>：假设你所在的团队项目中想要开发一个名为<code>CSTools</code>的插件，该插件可以使用CocoaPods进行管理，并且只有你自己的团队可以使用（别人用pod search命令搜索不到）。</p>
+</blockquote>
+<h2 id="创建私有仓库"><a href="#创建私有仓库" class="headerlink" title="创建私有仓库"></a>创建私有仓库</h2><p>1、在Github上创建一个新的Project，名字任意（比如名为private_pods_spec）作为私有仓库地址。<br>2、拷贝该项目的地址（http或者ssh的都可以）<br>3、在终端输入<code>pod repo add private_pods_spec 上一步的git地址</code>，其中<code>private_pods_spec</code>是仓库名字，可以随便起。<br>这几步完成之后，将会在你电脑上的<code>~/.cocoapods/repos</code>目录下生成一个名为private_pods_spec的文件夹，这个就是你创建出来的私有仓库，你随后开发的准备私有化的插件都可以放在这里面。</p>
+<h2 id="在Github上创建插件工程"><a href="#在Github上创建插件工程" class="headerlink" title="在Github上创建插件工程"></a>在Github上创建插件工程</h2><p>在Github上创建一个新的Project，名为CSTools</p>
+<h2 id="本地创建一个准备私有化的插件工程"><a href="#本地创建一个准备私有化的插件工程" class="headerlink" title="本地创建一个准备私有化的插件工程"></a>本地创建一个准备私有化的插件工程</h2><h3 id="利用模板自动创建"><a href="#利用模板自动创建" class="headerlink" title="利用模板自动创建"></a>利用模板自动创建</h3><p>在终端执行<code>pod lib create CSTools</code>，接下来的选项我们可以根据自己的情况酌情选择，无关紧要，这里笔者的选择示例如下。<br><img src="http://p2utrpfbk.bkt.clouddn.com/cocoapods_private_pod.png" alt><br>执行完以上操作，将会自动生成一个名为CSTools的示例Xcode工程，并已经以开发形式（以<code>pod &#39;CSTools&#39;, :path =&gt; &#39;../&#39;</code>的方式进行引用）引用了你想要开发的CSTools库。<br>删除掉<code>Pods/Development Pods/CSTools/CSTools/Classes</code>里面的ReplaceMe.m文件，并在这里创建一个Person类<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)sayHelloTo:(<span class="built_in">NSString</span> *)to;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)sayHelloTo:(<span class="built_in">NSString</span> *)to&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Hello, %@！"</span>,to);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：这个时候，在示例项目里面是找不到Person类和类里面写的方法的，需要在示例项目的Podfile路径下，执行<code>pod install</code>命令</p>
+</blockquote>
+<p>执行完<code>pod install</code>命令之后，在示例项目的<code>CSViewController.m</code>里面引用CSTools插件库测试所写插件的功能<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CSViewController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;CSTools/Person.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CSViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CSViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//运行项目，正确的打印出：Hello,Lucy！</span></span><br><span class="line">    [Person sayHelloTo:<span class="string">@"Lucy"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="手动创建"><a href="#手动创建" class="headerlink" title="手动创建"></a>手动创建</h3><p>手动创建的时候可以利用<code>pod spec create [NAME].spec</code>的方式创建插件的描述文件</p>
+<h2 id="把插件推送到私有仓库"><a href="#把插件推送到私有仓库" class="headerlink" title="把插件推送到私有仓库"></a>把插件推送到私有仓库</h2><h3 id="修改-podspec文件"><a href="#修改-podspec文件" class="headerlink" title="修改.podspec文件"></a>修改.podspec文件</h3><p>打开.podspec文件，可以发现里面已经写了好多信息，我们只需要进行简单修改即可使用。<br><code>s.version</code>：插件版本，和Git服务器上最新的tag对应。<br><code>s.summary</code>：插件简介<br><code>s.description</code>：插件详细描述（字数要比s.summary写的长一点）<br><code>s.license</code>：遵循的开源协议，可以写为（s.license = ‘MIT’）<br><code>s.author</code>：开发者信息，你的用户名和邮箱<br><code>s.source</code>：插件地址，即上面第3步在Github上的插件地址<br>其它的参数这里不需要修改，不再逐一进行介绍，想要详细了解的可以自己百度</p>
+<h3 id="验证-podspec文件的正确性"><a href="#验证-podspec文件的正确性" class="headerlink" title="验证.podspec文件的正确性"></a>验证.podspec文件的正确性</h3><p>在<code>CSTools.podspec</code>所在路径下，在终端执行命令：<code>pod lib lint CSTools.podspec</code><br>如果出现以下结果证明通过验证<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bogon:CSTools shc$ pod lib lint CSTools.podspec </span><br><span class="line"></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> CSTools (0.1.0)</span></span><br><span class="line"></span><br><span class="line">CSTools passed validation.</span><br></pre></td></tr></table></figure></p>
+<h3 id="把示例项目打一个tag推送到Github上"><a href="#把示例项目打一个tag推送到Github上" class="headerlink" title="把示例项目打一个tag推送到Github上"></a>把示例项目打一个tag推送到Github上</h3><p>在示例项目根目录下，依次执行如下命令</p>
+<ol>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;init&quot;</code></li>
+<li><code>git remote add origin 插件在Github上面的地址（第3步生成）</code></li>
+<li><code>git push origin master</code></li>
+<li><code>git tag -m &quot;the first release&quot; &quot;0.1.0&quot;</code></li>
+<li><code>git push --tags</code></li>
+</ol>
+<blockquote>
+<p>这些命令属于git基本语法，此处不做过多解释</p>
+</blockquote>
+<h3 id="把插件推送到私有仓库-1"><a href="#把插件推送到私有仓库-1" class="headerlink" title="把插件推送到私有仓库"></a>把插件推送到私有仓库</h3><p>在终端执行命令：<code>pod repo push REPO [NAME.podspec]</code><br>此命令将会首先检验NAME.podspec文件的合法性，然后会把NAME.podspec及对应的版本信息推送到私有仓库<br><code>REPO</code>：<code>~/.cocoapods/repos/</code>目录下私有私有仓库名字，本文示例工程为<code>private_pods_spec</code><br><code>NAME.podspec</code>：需要推送到私有插件库的插件描述信息文件，即本例工程里面的<code>CSTools.podspec</code>文件</p>
+<blockquote>
+<p>执行完命令将会在你电脑上的<code>~/.cocoapods/repos/private_pods_spec/</code>目录下新增加一个CSTools文件夹，里面有其对应的版本和描述文件。此时在命令行输入<code>pod search</code>命令发现已经可以找到刚刚生成的插件了。</p>
+</blockquote>
+<h2 id="使用私有插件库里面的插件"><a href="#使用私有插件库里面的插件" class="headerlink" title="使用私有插件库里面的插件"></a>使用私有插件库里面的插件</h2><p>新建一个iOS项目，在项目根目录下执行命令 <code>pod init</code>，打开生成的Podfile文件，在<code>platform</code>和<code>target</code>之间添加<code>source &#39;私有库git地址&#39;</code>，然后添加<code>pod &#39;CSTools&#39;</code>，最后执行<code>pod install</code>命令即可把之前写好的CSTool这个插件添加到工程中，具体配置如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line">platform :ios, &apos;9.0&apos;</span><br><span class="line"></span><br><span class="line">#优先使用私有库，避免从github下载三方库</span><br><span class="line">source &apos;git@github.com:aStudyer/private_pods_spec.git&apos;</span><br><span class="line">#如果私有库找不到，再去Github下载开源库</span><br><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line"></span><br><span class="line">target &apos;private_pods_test&apos; do</span><br><span class="line">  </span><br><span class="line">	pod &apos;CSTools&apos;</span><br><span class="line">	pod &apos;SDWebImage&apos;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>架构</category>
+      </categories>
+      <tags>
+        <tag>组件化</tag>
+        <tag>CocoaPods</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CocoaPods的安装和使用</title>
     <url>/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87/%E7%BB%84%E4%BB%B6%E5%8C%96/CocoaPods%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8.html</url>
     <content><![CDATA[<p><img src="/img/2018/Tools/cocoapods.jpg" alt></p>
@@ -1046,53 +1107,6 @@ end
       </tags>
   </entry>
   <entry>
-    <title>CocoaPods创建私有库</title>
-    <url>/%E6%9E%B6%E6%9E%84/%E7%BB%84%E4%BB%B6%E5%8C%96/CocoaPods%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89%E5%BA%93.html</url>
-    <content><![CDATA[<h2 id="关于CocoaPods"><a href="#关于CocoaPods" class="headerlink" title="关于CocoaPods"></a>关于CocoaPods</h2><p>做过iOS开发的小伙伴一定对CocoaPods不会陌生，其实CocoaPods不仅可以作为第三方库的管理工具，还可以很方便的创建和维护自己的私有仓库，实现复杂项目的插件化开发模式。不文不介绍CocoaPods的安装和基本用法，以及如何把代码提交到CocoaPods的公有仓库，想了解这些的小伙伴可以查看笔者<a href="http://localhost:4000/tags/CocoaPods/" target="_blank" rel="noopener"><code>CocoaPods标签</code></a>下的其它相关文章。</p>
-<blockquote>
-<p><strong>注意</strong>：本文的所有代码以创建在Github上面为例，其它的Git服务器原理一样。如果你不想让别人看到你的仓库代码，实现仓库的完全私有化，可以使用其它的可以创建私有项目的Git服务器，比如<a href="https://gitee.com/" target="_blank" rel="noopener">码云</a>、<a href="https://about.gitlab.com/" target="_blank" rel="noopener">GitLab</a>等。</p>
-</blockquote>
-<blockquote>
-<p><strong>本文适用场景</strong>：假设你所在的团队项目中想要开发一个名为<code>CSTools</code>的插件，该插件可以使用CocoaPods进行管理，并且只有你自己的团队可以使用（别人用pod search命令搜索不到）。</p>
-</blockquote>
-<h2 id="创建私有仓库"><a href="#创建私有仓库" class="headerlink" title="创建私有仓库"></a>创建私有仓库</h2><p>1、在Github上创建一个新的Project，名字任意（比如名为private_pods_spec）作为私有仓库地址。<br>2、拷贝该项目的地址（http或者ssh的都可以）<br>3、在终端输入<code>pod repo add private_pods_spec 上一步的git地址</code>，其中<code>private_pods_spec</code>是仓库名字，可以随便起。<br>这几步完成之后，将会在你电脑上的<code>~/.cocoapods/repos</code>目录下生成一个名为private_pods_spec的文件夹，这个就是你创建出来的私有仓库，你随后开发的准备私有化的插件都可以放在这里面。</p>
-<h2 id="在Github上创建插件工程"><a href="#在Github上创建插件工程" class="headerlink" title="在Github上创建插件工程"></a>在Github上创建插件工程</h2><p>在Github上创建一个新的Project，名为CSTools</p>
-<h2 id="本地创建一个准备私有化的插件工程"><a href="#本地创建一个准备私有化的插件工程" class="headerlink" title="本地创建一个准备私有化的插件工程"></a>本地创建一个准备私有化的插件工程</h2><h3 id="利用模板自动创建"><a href="#利用模板自动创建" class="headerlink" title="利用模板自动创建"></a>利用模板自动创建</h3><p>在终端执行<code>pod lib create CSTools</code>，接下来的选项我们可以根据自己的情况酌情选择，无关紧要，这里笔者的选择示例如下。<br><img src="http://p2utrpfbk.bkt.clouddn.com/cocoapods_private_pod.png" alt><br>执行完以上操作，将会自动生成一个名为CSTools的示例Xcode工程，并已经以开发形式（以<code>pod &#39;CSTools&#39;, :path =&gt; &#39;../&#39;</code>的方式进行引用）引用了你想要开发的CSTools库。<br>删除掉<code>Pods/Development Pods/CSTools/CSTools/Classes</code>里面的ReplaceMe.m文件，并在这里创建一个Person类<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)sayHelloTo:(<span class="built_in">NSString</span> *)to;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)sayHelloTo:(<span class="built_in">NSString</span> *)to&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Hello, %@！"</span>,to);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意：这个时候，在示例项目里面是找不到Person类和类里面写的方法的，需要在示例项目的Podfile路径下，执行<code>pod install</code>命令</p>
-</blockquote>
-<p>执行完<code>pod install</code>命令之后，在示例项目的<code>CSViewController.m</code>里面引用CSTools插件库测试所写插件的功能<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"CSViewController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;CSTools/Person.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CSViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CSViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//运行项目，正确的打印出：Hello,Lucy！</span></span><br><span class="line">    [Person sayHelloTo:<span class="string">@"Lucy"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="手动创建"><a href="#手动创建" class="headerlink" title="手动创建"></a>手动创建</h3><p>手动创建的时候可以利用<code>pod spec create [NAME].spec</code>的方式创建插件的描述文件</p>
-<h2 id="把插件推送到私有仓库"><a href="#把插件推送到私有仓库" class="headerlink" title="把插件推送到私有仓库"></a>把插件推送到私有仓库</h2><h3 id="修改-podspec文件"><a href="#修改-podspec文件" class="headerlink" title="修改.podspec文件"></a>修改.podspec文件</h3><p>打开.podspec文件，可以发现里面已经写了好多信息，我们只需要进行简单修改即可使用。<br><code>s.version</code>：插件版本，和Git服务器上最新的tag对应。<br><code>s.summary</code>：插件简介<br><code>s.description</code>：插件详细描述（字数要比s.summary写的长一点）<br><code>s.license</code>：遵循的开源协议，可以写为（s.license = ‘MIT’）<br><code>s.author</code>：开发者信息，你的用户名和邮箱<br><code>s.source</code>：插件地址，即上面第3步在Github上的插件地址<br>其它的参数这里不需要修改，不再逐一进行介绍，想要详细了解的可以自己百度</p>
-<h3 id="验证-podspec文件的正确性"><a href="#验证-podspec文件的正确性" class="headerlink" title="验证.podspec文件的正确性"></a>验证.podspec文件的正确性</h3><p>在<code>CSTools.podspec</code>所在路径下，在终端执行命令：<code>pod lib lint CSTools.podspec</code><br>如果出现以下结果证明通过验证<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bogon:CSTools shc$ pod lib lint CSTools.podspec </span><br><span class="line"></span><br><span class="line"><span class="meta"> -&gt;</span><span class="bash"> CSTools (0.1.0)</span></span><br><span class="line"></span><br><span class="line">CSTools passed validation.</span><br></pre></td></tr></table></figure></p>
-<h3 id="把示例项目打一个tag推送到Github上"><a href="#把示例项目打一个tag推送到Github上" class="headerlink" title="把示例项目打一个tag推送到Github上"></a>把示例项目打一个tag推送到Github上</h3><p>在示例项目根目录下，依次执行如下命令</p>
-<ol>
-<li><code>git add .</code></li>
-<li><code>git commit -m &quot;init&quot;</code></li>
-<li><code>git remote add origin 插件在Github上面的地址（第3步生成）</code></li>
-<li><code>git push origin master</code></li>
-<li><code>git tag -m &quot;the first release&quot; &quot;0.1.0&quot;</code></li>
-<li><code>git push --tags</code></li>
-</ol>
-<blockquote>
-<p>这些命令属于git基本语法，此处不做过多解释</p>
-</blockquote>
-<h3 id="把插件推送到私有仓库-1"><a href="#把插件推送到私有仓库-1" class="headerlink" title="把插件推送到私有仓库"></a>把插件推送到私有仓库</h3><p>在终端执行命令：<code>pod repo push REPO [NAME.podspec]</code><br>此命令将会首先检验NAME.podspec文件的合法性，然后会把NAME.podspec及对应的版本信息推送到私有仓库<br><code>REPO</code>：<code>~/.cocoapods/repos/</code>目录下私有私有仓库名字，本文示例工程为<code>private_pods_spec</code><br><code>NAME.podspec</code>：需要推送到私有插件库的插件描述信息文件，即本例工程里面的<code>CSTools.podspec</code>文件</p>
-<blockquote>
-<p>执行完命令将会在你电脑上的<code>~/.cocoapods/repos/private_pods_spec/</code>目录下新增加一个CSTools文件夹，里面有其对应的版本和描述文件。此时在命令行输入<code>pod search</code>命令发现已经可以找到刚刚生成的插件了。</p>
-</blockquote>
-<h2 id="使用私有插件库里面的插件"><a href="#使用私有插件库里面的插件" class="headerlink" title="使用私有插件库里面的插件"></a>使用私有插件库里面的插件</h2><p>新建一个iOS项目，在项目根目录下执行命令 <code>pod init</code>，打开生成的Podfile文件，在<code>platform</code>和<code>target</code>之间添加<code>source &#39;私有库git地址&#39;</code>，然后添加<code>pod &#39;CSTools&#39;</code>，最后执行<code>pod install</code>命令即可把之前写好的CSTool这个插件添加到工程中，具体配置如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Uncomment the next line to define a global platform for your project</span><br><span class="line">platform :ios, &apos;9.0&apos;</span><br><span class="line"></span><br><span class="line">#优先使用私有库，避免从github下载三方库</span><br><span class="line">source &apos;git@github.com:aStudyer/private_pods_spec.git&apos;</span><br><span class="line">#如果私有库找不到，再去Github下载开源库</span><br><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line"></span><br><span class="line">target &apos;private_pods_test&apos; do</span><br><span class="line">  </span><br><span class="line">	pod &apos;CSTools&apos;</span><br><span class="line">	pod &apos;SDWebImage&apos;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>架构</category>
-      </categories>
-      <tags>
-        <tag>CocoaPods</tag>
-        <tag>组件化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何把自己写的框架上传至CocoaPods</title>
     <url>/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87/%E7%BB%84%E4%BB%B6%E5%8C%96/%E5%A6%82%E4%BD%95%E6%8A%8A%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E6%A1%86%E6%9E%B6%E4%B8%8A%E4%BC%A0%E8%87%B3CocoaPods.html</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>作为一名iOS应用开发者，我们在实际工作中经常会用到各种各样的第三方库,比如我们常用的AFNetworking,SDWebimage等.这些类库一般都可以通过一款叫做Cocoapods的工具进行管理，非常的便利。当享受着Cocoapods带给我们的这种便利的同时，你是否想过让自己封装的常用的工具类也添加Cocoapods支持?本文将会一步步揭开CocoaPods的神秘面纱,教你把自己封装的一些工具类上传至CocoaPods,以后你就可以通过CocoaPods来使用自己封装的工具类了,听起来是不是很酷,那么就让我们开始我们的CocoaPods之旅吧.</p>
@@ -1134,19 +1148,6 @@ end
       </categories>
       <tags>
         <tag>CocoaPods</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>第三方库踩坑系列</title>
-    <url>/iOS/%E5%85%B6%E5%AE%83/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E8%B8%A9%E5%9D%91%E7%B3%BB%E5%88%97.html</url>
-    <content><![CDATA[<p><strong>坑是无限的，而生命是有限的，坑虽多，但在我们的努力下终归会越踩越少。所以我们的格言就是：生命不息，踩坑不止。</strong><br><img src="/img/2018/iOS/caikeng.jpg" alt></p>
-<h2 id="IQKeyboardManager"><a href="#IQKeyboardManager" class="headerlink" title="IQKeyboardManager"></a><a href="https://github.com/hackiftekhar/IQKeyboardManager" target="_blank" rel="noopener">IQKeyboardManager</a></h2><p>笔者所用<strong>版本</strong>：4.0.13<br>出现的<strong>问题</strong>：每次打开项目项目都会自动断在如下图所示的地方<br><img src="/img/2018/iOS/IQKeyBoardManager1.png" alt><br><strong>解决方案</strong>：编辑<code>All Exceptions</code>这个断点，把<code>Exception</code>那一栏由<code>All</code>改为<code>Objective-C</code>即可<br>注意：如果没有<code>All Exceptions</code>这个断点，则不会出现该情况<br><img src="/img/2018/iOS/IQKeyBoardManager2.png" alt><br><img src="/img/2018/iOS/IQKeyBoardManager3.png" alt></p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>踩坑</tag>
       </tags>
   </entry>
 </search>
