@@ -351,51 +351,6 @@ __block在ARC下只有一个作用
       </tags>
   </entry>
   <entry>
-    <title>OC语言系列——关于变量</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F.html</url>
-    <content><![CDATA[<p>变量可以分为全局变量、静态全局变量、静态局部变量和局部变量</p>
-<p>按存储区域分：全局变量、静态全局变量和静态局部变量都存放在内存的全局数据区，局部变量存放在内存的栈区<br>按作用域分：全局变量在整个工程文件内都有效；静态全局变量只在定义它的文件内有效；静态局部变量只在定义它的函数内有效，只是程序仅分配一次内存，函数返回后，该变量不会消失；局部变量在定义它的函数内有效，但是函数返回后失效。</p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OC语言系列——Protocol(协议)及Delegate(委托代理)</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Protocol(%E5%8D%8F%E8%AE%AE)%E5%8F%8ADelegate(%E5%A7%94%E6%89%98%E4%BB%A3%E7%90%86).html</url>
-    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt><br>因为Objective-C是不支持多继承的，所以很多时候都是用Protocol代替。Protocol（协议）只是定义公用的一套接口，但不提供具体的实现方法。当一个类要使用某个Protocol（协议）时，就必须要遵守协议，实现协议需要用到委托代理（Delegate）。<br>Protocol（协议）的作用：</p>
-<ol>
-<li><p>定义一套公用的接口（Public）</p>
-<ul>
-<li>@required：必须实现的方法（实际上也可以不实现，程序依然也可以运行，只是会有警告）</li>
-<li><p>@optional：可选 实现的方法</p>
-<pre><code>//conformsToProtocol：判断是否遵守了某个协议
-if ([conformsToProtocol:@protocol(协议名)]){
-}
-//respondsToSelector：判断是否实现了某个方法
-if([stu respondsToSelector:@selector(方法名)]){
-}
-</code></pre></li>
-</ul>
-</li>
-<li><p>委托代理（Delegate）传值：<br>它本身是一个设计模式，它的意思是委托别人去做某事。 </p>
-</li>
-</ol>
-<blockquote>
-<p>1、当需要定义一套公用的接口，实现方法可以是不同的时候，可以使用Protocol协议。<br>2、当需要进行类与类之间的传值时，可以基于Protocol协议，使用代理设计模式进行传值。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>OC语言系列——Category</title>
     <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Category.html</url>
     <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt></p>
@@ -426,65 +381,6 @@ if([stu respondsToSelector:@selector(方法名)]){
 </ul>
 <h2 id="Category中为什么不能添加属性？"><a href="#Category中为什么不能添加属性？" class="headerlink" title="Category中为什么不能添加属性？"></a>Category中为什么不能添加属性？</h2><p>在分类里使用@property声明属性，只是将该属性添加到该类的属性列表，并声明了setter和getter方法，但是没有生成相应的成员变量，也没有实现setter和getter方法（可以用runtime机制在程序运行时打印该类的所有属性和方法，可以发现并没有为分类中的属性生成带下划线的同名成员变量）。所以说分类不能添加属性。<code>Category中不能添加属性的本质是Category中不允许添加成员变量</code>。</p>
 <h2 id="Category如何添加成员变量"><a href="#Category如何添加成员变量" class="headerlink" title="Category如何添加成员变量"></a>Category如何添加成员变量</h2><p>虽然上面说Category不能添加属性，但是我们可以在分类的.h文件中使用@property声明属性后，在.m中手动的实现setter和getter方法，并且用runtime机制在程序运行时动态的为该属性关联对象，可以认为给这个类添加上了属性。</p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OC语言系列——基础篇</title>
-    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%AF%87.html</url>
-    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt>    </p>
-<h2 id="面向对象性"><a href="#面向对象性" class="headerlink" title="面向对象性"></a>面向对象性</h2><p>OC语言是面对对象的</p>
-<h2 id="关于类"><a href="#关于类" class="headerlink" title="关于类"></a>关于类</h2><p>OC中类的设计包括三个方面：类名、类的属性和方法</p>
-<h2 id="关于对象"><a href="#关于对象" class="headerlink" title="关于对象"></a>关于对象</h2><p>每个对象内部都默认有一个隐藏的isa指针指向这个对象所使用的类<br><code>创建过程</code>：调用alloc方法在内存中为对象开辟一块内存空间，调用init方法进行初始化，每个对象都有一份属于自己的单独的成员变量，所有的对象公用类的成员方法，方法在整个内存中只有一份，类本身在内存中占据一份存储空间，类的方法存储于此。</p>
-<h2 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h2><p>在OC中，对象对方法的调用称为消息机制，即向既定的对象发送了什么消息。<br><code>[p eat];</code>表示给p所指向的对象发送一条eat消息，调用对象的eat方法，此时对象会顺着内部的isa指针找到存储于类中的方法(先去缓存中去取，缓存中没有再去类的内存中找)，执行。<br><code>点语法的本质</code>：调用属性的setter和getter方法</p>
-<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2><p><strong>@public</strong>：全局可以访问<br><strong>@protected</strong>：只能在类内部和子类中访问<br><strong>@private</strong>：只能在类内部访问</p>
-<blockquote>
-<p>注意：<code>.h</code>中的成员变量的默认作用域是<code>@protected</code><br><code>.m</code>中的成员变量不管作用域写为什么，子类都不能访问，即被强制为<code>@private</code></p>
-</blockquote>
-<h2 id="property关键字"><a href="#property关键字" class="headerlink" title="@property关键字"></a>@property关键字</h2><ul>
-<li><p>在xcode4.5之前，可以让编译器自动生成属性的setter和getter方法的<code>声明</code></p>
-<pre><code>@proterty int age;// 等价于下面2行
-- (void)setAge:(int)newAge;// setter
-- (int)age;    // getter
-</code></pre></li>
-<li><p>在xcode4.5(包括)之后，可以让编译器自动生成属性的setter和getter方法的<code>声明</code>和<code>实现</code>(会访问带下划线的同名的成员变量，如果没有则自动创建一个带下划线的同名的私有成员变量，并为该变量生成getter和setter方法)</p>
-<pre><code>@proterty int age;// 等价于下面8行
-- (void)setAge:(int)newAge;// setter声明
-- (int)age;    // getter声明
-- (void)setAge:(int)newAge{// setter实现
-    _age = newAge;
-}
-- (int)age{// getter实现
-    return _age;
-}        
-</code></pre></li>
-</ul>
-<h2 id="synthesize关键字"><a href="#synthesize关键字" class="headerlink" title="@synthesize关键字"></a>@synthesize关键字</h2><p><strong>示例用法</strong>：<code>@synthesize name = _goodName;</code><br><strong>默认情况</strong>：<code>@synthesize name;</code>等价于<code>@synthesize name = _name;</code><br>让编译器自动生成同名属性<code>name</code>的setter和getter方法的<code>声明</code>和<code>实现</code>，并访问成员变量<code>_goodName</code>，如果没有则创建一个私有成员变量<code>_goodName</code>，默认情况访问成员变量<code>_name</code>;</p>
-<pre><code>@synthesize age;// 等价于下面6行
-- (void)setAge:(int)newAge{// setter实现
-    _age = newAge;
-}
-- (int)age{// getter实现
-    return _age;
-}
-
-@synthesize age = _goodName;// 等价于下面6行
-- (void)setAge:(int)newAge{// setter实现
-    _goodName = newAge;
-}
-- (int)age{// getter实现
-    return _goodName;
-}
-</code></pre><blockquote>
-<p><strong>注意</strong>：<br>1、如果实现自定义的setter方法，@property就不会帮我们生成它的setter方法，但仍然会帮我们生成getter方法和私有的成员变量<br>2、如果实现自定义的getter方法，@property就不会帮我们生成它的getter方法，但仍然会帮我们生成setter方法和私有的成员变量<br>3、如果你实现了setter和getter方法，@property就不会帮我们生成它的setter和getter方法，同时也不会生成私有成员变量了，需要自己手动添加该成员变量或者手动实现@synthesize name = _name方法。</p>
-</blockquote>
-<h2 id="关于self"><a href="#关于self" class="headerlink" title="关于self"></a>关于self</h2><p><strong>在对象方法中使用</strong>：指的是该对象<br><strong>在类方法中使用</strong>：指的是该类本身</p>
-<h2 id="成员变量和属性的区别"><a href="#成员变量和属性的区别" class="headerlink" title="成员变量和属性的区别"></a>成员变量和属性的区别</h2><p>操作成员变量需要用<code>-&gt;</code>，@property生成属性仅仅是帮我们自动生成了私有成员变量和set和get方法，而set和get方法本质还是操作成员变量，而属性则可以让我们方便的用点语法访问该属性（本质也就是操作成员变量），@synthesize则可以通过@synthesize name = alias_name的方式改变set和get方法操作的具体成员变量。</p>
 ]]></content>
       <categories>
         <category>iOS</category>
@@ -626,6 +522,97 @@ if([stu respondsToSelector:@selector(方法名)]){
       </tags>
   </entry>
   <entry>
+    <title>OC语言系列——Protocol(协议)及Delegate(委托代理)</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Protocol(%E5%8D%8F%E8%AE%AE)%E5%8F%8ADelegate(%E5%A7%94%E6%89%98%E4%BB%A3%E7%90%86).html</url>
+    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt><br>因为Objective-C是不支持多继承的，所以很多时候都是用Protocol代替。Protocol（协议）只是定义公用的一套接口，但不提供具体的实现方法。当一个类要使用某个Protocol（协议）时，就必须要遵守协议，实现协议需要用到委托代理（Delegate）。<br>Protocol（协议）的作用：</p>
+<ol>
+<li><p>定义一套公用的接口（Public）</p>
+<ul>
+<li>@required：必须实现的方法（实际上也可以不实现，程序依然也可以运行，只是会有警告）</li>
+<li><p>@optional：可选 实现的方法</p>
+<pre><code>//conformsToProtocol：判断是否遵守了某个协议
+if ([conformsToProtocol:@protocol(协议名)]){
+}
+//respondsToSelector：判断是否实现了某个方法
+if([stu respondsToSelector:@selector(方法名)]){
+}
+</code></pre></li>
+</ul>
+</li>
+<li><p>委托代理（Delegate）传值：<br>它本身是一个设计模式，它的意思是委托别人去做某事。 </p>
+</li>
+</ol>
+<blockquote>
+<p>1、当需要定义一套公用的接口，实现方法可以是不同的时候，可以使用Protocol协议。<br>2、当需要进行类与类之间的传值时，可以基于Protocol协议，使用代理设计模式进行传值。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OC语言系列——基础篇</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%AF%87.html</url>
+    <content><![CDATA[<p><img src="/img/2018/OC/logo.jpg" alt>    </p>
+<h2 id="面向对象性"><a href="#面向对象性" class="headerlink" title="面向对象性"></a>面向对象性</h2><p>OC语言是面对对象的</p>
+<h2 id="关于类"><a href="#关于类" class="headerlink" title="关于类"></a>关于类</h2><p>OC中类的设计包括三个方面：类名、类的属性和方法</p>
+<h2 id="关于对象"><a href="#关于对象" class="headerlink" title="关于对象"></a>关于对象</h2><p>每个对象内部都默认有一个隐藏的isa指针指向这个对象所使用的类<br><code>创建过程</code>：调用alloc方法在内存中为对象开辟一块内存空间，调用init方法进行初始化，每个对象都有一份属于自己的单独的成员变量，所有的对象公用类的成员方法，方法在整个内存中只有一份，类本身在内存中占据一份存储空间，类的方法存储于此。</p>
+<h2 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h2><p>在OC中，对象对方法的调用称为消息机制，即向既定的对象发送了什么消息。<br><code>[p eat];</code>表示给p所指向的对象发送一条eat消息，调用对象的eat方法，此时对象会顺着内部的isa指针找到存储于类中的方法(先去缓存中去取，缓存中没有再去类的内存中找)，执行。<br><code>点语法的本质</code>：调用属性的setter和getter方法</p>
+<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2><p><strong>@public</strong>：全局可以访问<br><strong>@protected</strong>：只能在类内部和子类中访问<br><strong>@private</strong>：只能在类内部访问</p>
+<blockquote>
+<p>注意：<code>.h</code>中的成员变量的默认作用域是<code>@protected</code><br><code>.m</code>中的成员变量不管作用域写为什么，子类都不能访问，即被强制为<code>@private</code></p>
+</blockquote>
+<h2 id="property关键字"><a href="#property关键字" class="headerlink" title="@property关键字"></a>@property关键字</h2><ul>
+<li><p>在xcode4.5之前，可以让编译器自动生成属性的setter和getter方法的<code>声明</code></p>
+<pre><code>@proterty int age;// 等价于下面2行
+- (void)setAge:(int)newAge;// setter
+- (int)age;    // getter
+</code></pre></li>
+<li><p>在xcode4.5(包括)之后，可以让编译器自动生成属性的setter和getter方法的<code>声明</code>和<code>实现</code>(会访问带下划线的同名的成员变量，如果没有则自动创建一个带下划线的同名的私有成员变量，并为该变量生成getter和setter方法)</p>
+<pre><code>@proterty int age;// 等价于下面8行
+- (void)setAge:(int)newAge;// setter声明
+- (int)age;    // getter声明
+- (void)setAge:(int)newAge{// setter实现
+    _age = newAge;
+}
+- (int)age{// getter实现
+    return _age;
+}        
+</code></pre></li>
+</ul>
+<h2 id="synthesize关键字"><a href="#synthesize关键字" class="headerlink" title="@synthesize关键字"></a>@synthesize关键字</h2><p><strong>示例用法</strong>：<code>@synthesize name = _goodName;</code><br><strong>默认情况</strong>：<code>@synthesize name;</code>等价于<code>@synthesize name = _name;</code><br>让编译器自动生成同名属性<code>name</code>的setter和getter方法的<code>声明</code>和<code>实现</code>，并访问成员变量<code>_goodName</code>，如果没有则创建一个私有成员变量<code>_goodName</code>，默认情况访问成员变量<code>_name</code>;</p>
+<pre><code>@synthesize age;// 等价于下面6行
+- (void)setAge:(int)newAge{// setter实现
+    _age = newAge;
+}
+- (int)age{// getter实现
+    return _age;
+}
+
+@synthesize age = _goodName;// 等价于下面6行
+- (void)setAge:(int)newAge{// setter实现
+    _goodName = newAge;
+}
+- (int)age{// getter实现
+    return _goodName;
+}
+</code></pre><blockquote>
+<p><strong>注意</strong>：<br>1、如果实现自定义的setter方法，@property就不会帮我们生成它的setter方法，但仍然会帮我们生成getter方法和私有的成员变量<br>2、如果实现自定义的getter方法，@property就不会帮我们生成它的getter方法，但仍然会帮我们生成setter方法和私有的成员变量<br>3、如果你实现了setter和getter方法，@property就不会帮我们生成它的setter和getter方法，同时也不会生成私有成员变量了，需要自己手动添加该成员变量或者手动实现@synthesize name = _name方法。</p>
+</blockquote>
+<h2 id="关于self"><a href="#关于self" class="headerlink" title="关于self"></a>关于self</h2><p><strong>在对象方法中使用</strong>：指的是该对象<br><strong>在类方法中使用</strong>：指的是该类本身</p>
+<h2 id="成员变量和属性的区别"><a href="#成员变量和属性的区别" class="headerlink" title="成员变量和属性的区别"></a>成员变量和属性的区别</h2><p>操作成员变量需要用<code>-&gt;</code>，@property生成属性仅仅是帮我们自动生成了私有成员变量和set和get方法，而set和get方法本质还是操作成员变量，而属性则可以让我们方便的用点语法访问该属性（本质也就是操作成员变量），@synthesize则可以通过@synthesize name = alias_name的方式改变set和get方法操作的具体成员变量。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>iOS中的消息转发机制</title>
     <url>/iOS/OC%E8%BF%9B%E9%98%B6/iOS%E4%B8%AD%E7%9A%84%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91%E6%9C%BA%E5%88%B6.html</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>假设我们有一个Person类和一个ViewController类，如下<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line"><span class="comment">/******************************* Person.h 文件 *******************************/</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)run;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">/******************************* Person.m 文件 *******************************/</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
@@ -665,6 +652,19 @@ if([stu respondsToSelector:@selector(方法名)]){
       </categories>
       <tags>
         <tag>OC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OC语言系列——关于变量</title>
+    <url>/iOS/OC%E5%9F%BA%E7%A1%80/OC%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F.html</url>
+    <content><![CDATA[<p>变量可以分为全局变量、静态全局变量、静态局部变量和局部变量</p>
+<p>按存储区域分：全局变量、静态全局变量和静态局部变量都存放在内存的全局数据区，局部变量存放在内存的栈区<br>按作用域分：全局变量在整个工程文件内都有效；静态全局变量只在定义它的文件内有效；静态局部变量只在定义它的函数内有效，只是程序仅分配一次内存，函数返回后，该变量不会消失；局部变量在定义它的函数内有效，但是函数返回后失效。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
       </tags>
   </entry>
   <entry>
@@ -754,27 +754,6 @@ if([stu respondsToSelector:@selector(方法名)]){
       </tags>
   </entry>
   <entry>
-    <title>深入理解iOS中的frame和bounds</title>
-    <url>/iOS/OC%E8%BF%9B%E9%98%B6/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3iOS%E4%B8%AD%E7%9A%84frame%E5%92%8Cbounds.html</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在iOS开发界面的过程中，frame和bounds是两个非常常用的属性，这是两个非常容易混淆的概念，我们虽然经常用，但如果不清楚其原理，遇到了一些莫名其妙的问题可能会使我们不知所措，本来就将通过两个特殊场景来详细介绍一下二者的本质及区别。</p>
-<h2 id="场景一（关于frame）"><a href="#场景一（关于frame）" class="headerlink" title="场景一（关于frame）"></a>场景一（关于frame）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> screen_width = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line">    <span class="built_in">CGFloat</span> screen_height = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.height;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *bgView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    bgView.frame = <span class="built_in">CGRectMake</span>((screen_width - <span class="number">200</span>) * <span class="number">0.5</span>, (screen_height - <span class="number">200</span>) * <span class="number">0.5</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">    bgView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *subView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    subView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line">    subView.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    [bgView addSubview:subView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>代码是不是很简单，仔细看一下，然后想象一下运行出来的效果，和下面的图形对照一下，看看和你想象的是不是一样。<br><img src="http://p2utrpfbk.bkt.clouddn.com/frame_bounds_cj1_result.jpeg" alt></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>那么为什么黄色视图不是从红色视图的左上角位置出现呢？</p>
-<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>因为frame是<code>center</code>+<code>size</code>的组合模式，如果不设置center或者origin的话，那么默认center是CGPointZero，所以会出现上述状况。由此可知，改变origin的本质其实也是改变center。</p>
-<h2 id="场景二（关于bounds）"><a href="#场景二（关于bounds）" class="headerlink" title="场景二（关于bounds）"></a>场景二（关于bounds）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> screen_width = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line">    <span class="built_in">CGFloat</span> screen_height = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.height;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *bgView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    bgView.frame = <span class="built_in">CGRectMake</span>((screen_width - <span class="number">200</span>) * <span class="number">0.5</span>, (screen_height - <span class="number">200</span>) * <span class="number">0.5</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">    bgView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *middleView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    middleView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line">    middleView.frame = <span class="built_in">CGRectMake</span>((bgView.frame.size.width - <span class="number">100</span>) * <span class="number">0.5</span>, (bgView.frame.size.height - <span class="number">100</span>) * <span class="number">0.5</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    <span class="comment">//注意这一行代码</span></span><br><span class="line">    middleView.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    [bgView addSubview:middleView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *smallView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    smallView.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</span><br><span class="line">    smallView.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">    [middleView addSubview:smallView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样的，这个场景非常的简单，看完代码，你马上就可以在脑子里把UI效果构建出来。</p>
-<h3 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h3><p>问题是如果把其中的第<code>16</code>行代码修改为<code>middleView.bounds = CGRectMake(-50, -50, 100, 100);</code>会产生什么要的效果呢？</p>
-<h3 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h3><p>实际效果如下图所示，看看和你想的是不是一样？然后想想一下为什么会出现这种现象？<br><img src="http://p2utrpfbk.bkt.clouddn.com/frame_bounds_cj2_result.jpeg" alt><br>可以发现，红色和黄色视图的位置不受影响，符合预期，绿色视图的frame的origin虽然设置为<code>{0,0}</code>，但是并没有出现在的黄色视图的左上角位置，而是向右大概偏移了50个像素，很显然，上面改动的第<code>16</code>行代码对绿色视图出现的位置造成了影响。</p>
-<h3 id="解释-1"><a href="#解释-1" class="headerlink" title="解释"></a>解释</h3><p>事实上，bounds的<code>x</code>和<code>y</code>这两个参数描述的是自身左上角的那个点在本地坐标系中的坐标，默认情况下是<code>{0,0}</code>，如果设置为非零值，则会把该点的坐标强制转化为该非零值，上面16行中把该点坐标设置为<code>{-50,-50}</code>，所以该点坐标在本地坐标系中变为{-50,-50}，如果绿色视图想要在黄色视图的左上角位置出现，则需要把自身的origin设置为<code>{-50,-50}</code>，但是实际上我们给绿色视图的origin设置的是<code>{0,0}</code>，所以出现了上面向右偏移50个像素的现象。又因为改变的是黄色视图的本地坐标系，所以其父视图和自身不受影响。<br>综上，<code>bounds的x和y的值会影响其子视图出现的位置</code>。</p>
-]]></content>
-      <categories>
-        <category>iOS</category>
-      </categories>
-      <tags>
-        <tag>Objective-C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>iOS 开发技巧 - 实时访问真机沙盒文件</title>
     <url>/iOS/iOS%E6%8A%80%E5%B7%A7/iOS-%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7-%E5%AE%9E%E6%97%B6%E8%AE%BF%E9%97%AE%E7%9C%9F%E6%9C%BA%E6%B2%99%E7%9B%92%E6%96%87%E4%BB%B6.html</url>
     <content><![CDATA[<h3 id="1-想要解决的问题"><a href="#1-想要解决的问题" class="headerlink" title="1.想要解决的问题"></a>1.想要解决的问题</h3><blockquote>
@@ -811,6 +790,27 @@ _server = [[GCDWebUploader alloc] initWithUploadDirectory:myDocPath];
       </categories>
       <tags>
         <tag>沙盒</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深入理解iOS中的frame和bounds</title>
+    <url>/iOS/OC%E8%BF%9B%E9%98%B6/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3iOS%E4%B8%AD%E7%9A%84frame%E5%92%8Cbounds.html</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在iOS开发界面的过程中，frame和bounds是两个非常常用的属性，这是两个非常容易混淆的概念，我们虽然经常用，但如果不清楚其原理，遇到了一些莫名其妙的问题可能会使我们不知所措，本来就将通过两个特殊场景来详细介绍一下二者的本质及区别。</p>
+<h2 id="场景一（关于frame）"><a href="#场景一（关于frame）" class="headerlink" title="场景一（关于frame）"></a>场景一（关于frame）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> screen_width = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line">    <span class="built_in">CGFloat</span> screen_height = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.height;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *bgView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    bgView.frame = <span class="built_in">CGRectMake</span>((screen_width - <span class="number">200</span>) * <span class="number">0.5</span>, (screen_height - <span class="number">200</span>) * <span class="number">0.5</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">    bgView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *subView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    subView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line">    subView.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    [bgView addSubview:subView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>代码是不是很简单，仔细看一下，然后想象一下运行出来的效果，和下面的图形对照一下，看看和你想象的是不是一样。<br><img src="http://p2utrpfbk.bkt.clouddn.com/frame_bounds_cj1_result.jpeg" alt></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>那么为什么黄色视图不是从红色视图的左上角位置出现呢？</p>
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>因为frame是<code>center</code>+<code>size</code>的组合模式，如果不设置center或者origin的话，那么默认center是CGPointZero，所以会出现上述状况。由此可知，改变origin的本质其实也是改变center。</p>
+<h2 id="场景二（关于bounds）"><a href="#场景二（关于bounds）" class="headerlink" title="场景二（关于bounds）"></a>场景二（关于bounds）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> screen_width = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line">    <span class="built_in">CGFloat</span> screen_height = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.height;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *bgView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    bgView.frame = <span class="built_in">CGRectMake</span>((screen_width - <span class="number">200</span>) * <span class="number">0.5</span>, (screen_height - <span class="number">200</span>) * <span class="number">0.5</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">    bgView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *middleView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    middleView.backgroundColor = [<span class="built_in">UIColor</span> orangeColor];</span><br><span class="line">    middleView.frame = <span class="built_in">CGRectMake</span>((bgView.frame.size.width - <span class="number">100</span>) * <span class="number">0.5</span>, (bgView.frame.size.height - <span class="number">100</span>) * <span class="number">0.5</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    <span class="comment">//注意这一行代码</span></span><br><span class="line">    middleView.bounds = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">    [bgView addSubview:middleView];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *smallView = [<span class="built_in">UIView</span> new];</span><br><span class="line">    smallView.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</span><br><span class="line">    smallView.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br><span class="line">    [middleView addSubview:smallView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样的，这个场景非常的简单，看完代码，你马上就可以在脑子里把UI效果构建出来。</p>
+<h3 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h3><p>问题是如果把其中的第<code>16</code>行代码修改为<code>middleView.bounds = CGRectMake(-50, -50, 100, 100);</code>会产生什么要的效果呢？</p>
+<h3 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h3><p>实际效果如下图所示，看看和你想的是不是一样？然后想想一下为什么会出现这种现象？<br><img src="http://p2utrpfbk.bkt.clouddn.com/frame_bounds_cj2_result.jpeg" alt><br>可以发现，红色和黄色视图的位置不受影响，符合预期，绿色视图的frame的origin虽然设置为<code>{0,0}</code>，但是并没有出现在的黄色视图的左上角位置，而是向右大概偏移了50个像素，很显然，上面改动的第<code>16</code>行代码对绿色视图出现的位置造成了影响。</p>
+<h3 id="解释-1"><a href="#解释-1" class="headerlink" title="解释"></a>解释</h3><p>事实上，bounds的<code>x</code>和<code>y</code>这两个参数描述的是自身左上角的那个点在本地坐标系中的坐标，默认情况下是<code>{0,0}</code>，如果设置为非零值，则会把该点的坐标强制转化为该非零值，上面16行中把该点坐标设置为<code>{-50,-50}</code>，所以该点坐标在本地坐标系中变为{-50,-50}，如果绿色视图想要在黄色视图的左上角位置出现，则需要把自身的origin设置为<code>{-50,-50}</code>，但是实际上我们给绿色视图的origin设置的是<code>{0,0}</code>，所以出现了上面向右偏移50个像素的现象。又因为改变的是黄色视图的本地坐标系，所以其父视图和自身不受影响。<br>综上，<code>bounds的x和y的值会影响其子视图出现的位置</code>。</p>
+]]></content>
+      <categories>
+        <category>iOS</category>
+      </categories>
+      <tags>
+        <tag>Objective-C</tag>
       </tags>
   </entry>
   <entry>
@@ -1032,6 +1032,50 @@ return 0;
       </tags>
   </entry>
   <entry>
+    <title>如何把自己写的框架上传至CocoaPods</title>
+    <url>/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87/%E7%BB%84%E4%BB%B6%E5%8C%96/%E5%A6%82%E4%BD%95%E6%8A%8A%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E6%A1%86%E6%9E%B6%E4%B8%8A%E4%BC%A0%E8%87%B3CocoaPods.html</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>作为一名iOS应用开发者，我们在实际工作中经常会用到各种各样的第三方库,比如我们常用的AFNetworking,SDWebimage等.这些类库一般都可以通过一款叫做Cocoapods的工具进行管理，非常的便利。当享受着Cocoapods带给我们的这种便利的同时，你是否想过让自己封装的常用的工具类也添加Cocoapods支持?本文将会一步步揭开CocoaPods的神秘面纱,教你把自己封装的一些工具类上传至CocoaPods,以后你就可以通过CocoaPods来使用自己封装的工具类了,听起来是不是很酷,那么就让我们开始我们的CocoaPods之旅吧.</p>
+<h3 id="Cocoapods介绍"><a href="#Cocoapods介绍" class="headerlink" title="Cocoapods介绍"></a>Cocoapods介绍</h3><p>你来看这篇文章,我相信你肯定已经使用过CocoaPods了吧.就算没用过,起码也至少应该有所了解.<br>但是如果你并不了解CocoaPods是什么东西,以及如何使用,那么这里给你准备了一篇文章<a href="http://blog.devtang.com/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/" target="_blank" rel="noopener">用CocoaPods做iOS程序的依赖管理</a>,或者你也可以去自己百度,网上的教程一大堆,这里就不再对此进行相信的介绍了.</p>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>本文将会以我自己写的一个UI调试小工具<a href="https://github.com/hclib/UIHelper" target="_blank" rel="noopener">UIHelper</a>为例,来说明把自己写的类库上传至CocoaPods的整个过程.</p>
+<ul>
+<li>注册trunk</li>
+<li>在github上上传相关的代码库</li>
+<li>创建podspec配置文件</li>
+<li>验证是否可用</li>
+<li>推送到CocoaPods</li>
+<li>检查是否可用</li>
+</ul>
+<h3 id="注册trunk"><a href="#注册trunk" class="headerlink" title="注册trunk"></a>注册trunk</h3><p>想让Cocoapods支持你自己的工具代码库，首先需要一个CocoaPods账号。<br>注册命令:<br><code>$ pod trunk register 邮箱地址 ‘用户名’ —description=&#39;描述信息&#39;</code><br>执行以上注册命令后，到你注册邮箱检查一下，一切顺利的话就会受到一份邮件，点击验证链接打开网页。如果出现下面的提示，说明注册成功(如果打开网页太慢的话，建议开vpn)。<br><img src="/img/2017/iOS/register_cocoapods.jpg" alt="注册成功的图示"><br>查看注册信息的命令:<br><code>$ pod trunk me</code><br><img src="/img/2017/iOS/cocoapods_trunk_me.jpg" alt="查看注册信息"></p>
+<h3 id="在github上上传相关的代码库"><a href="#在github上上传相关的代码库" class="headerlink" title="在github上上传相关的代码库"></a>在github上上传相关的代码库</h3><p>到<a href="https://github.com/" target="_blank" rel="noopener">github官网</a>登录你的账户,执行Create a new repository操作,因为笔者已经创建过UIHelper这个项目,所有会有红色警告,如果你是第一次创建某个项目,不会有该警告.<br><img src="/img/2017/iOS/cocoapods_github.png" alt="在github上上传代码图示"><br>创建项目的时候请注意图中选择的MIT License选项,这个会在添加Cocoapods支持的时候用到.创建完成后,clone到本地,把你写的工具代码放到该文件夹,此时的目录结构如下图所示.<br><img src="/img/2017/iOS/cocoapods_mljg.png" alt="目录结构"></p>
+<h3 id="创建podspec配置文件"><a href="#创建podspec配置文件" class="headerlink" title="创建podspec配置文件"></a>创建podspec配置文件</h3><p>打开终端，cd到刚刚的文件夹目录下，执行创建podspec命令：<br><code>$ pod spec create UIHelper</code><br>此时你会看到文件夹下多了一个UIHelper.podspec文件,如下图所示<br><img src="/img/2017/iOS/cocoapods_mljg2.jpg" alt="目录结构"><br>用vim或者Sublime Text或者其它文本编辑器打开该文件,会发现里面有很多内容,看起来可能毫无头绪,其实里面的很多内容是并没有用的,以下是我整理过后的内容(把不用的东西都删掉,只留下有用的),接下来就以此文件中的内容进行一下重点说明.<br><img src="/img/2017/iOS/cocoapods_podspec.png" alt="podspec文件"><br>当然，我们开发的库中也可能还依赖第三方库，例如SDWebimage，那么，就可以添加如下声明:<br><code>$ s.dependency &quot;SDWebimage&quot;, &quot;~&gt; 1.4&quot;</code><br>如果有多个需要填写多个s.dependency.</p>
+<h3 id="验证是否可用"><a href="#验证是否可用" class="headerlink" title="验证是否可用"></a>验证是否可用</h3><ul>
+<li>验证</li>
+</ul>
+<p>编辑完podspec文件后，需要验证一下这个文件是否可用，如果有WARNING或者ERROR是不可以的，就不能被添加到Spec Repo中，不过xcode的WARNING是可以存在的，进行验证的命令如下：<br><code>$ pod lib lint UIHelper.podspec</code><br>如果有没有Error输出，只有Warning输出，那么可以将这些警告直接忽略<br><code>$ pod lib lint UIHelper.podspec —allow-warnings</code><br>如果出现以下信息说明验证通过<br><img src="/img/2017/iOS/cocoapods_podspec_success.png" alt="验证通过"></p>
+<ul>
+<li>解决错误</li>
+</ul>
+<p>在验证podspec的时候，如果直接用pod spec lint xxx.podspec的话，出现错误它只会直接给出一句红色的提示The spec did not pass validation, due to 1 error.告诉你有多少个error和warning，而不会具体的指出你的错误出在哪里，这时候你可以在这句指令后面加上参数–verbose<br><code>$ pod lib lint UIHelper.podspec --verbose</code><br>这样就会告诉你具体的错误信息。然后就可以根据它提示的具体错误信息去解决问题了。**<br>在执行校验命令时如果出现类似<code>fatal error: &#39;UIKit/UIKit.h&#39; file not found</code>这样的错误，这里笔者提供2种解决方案,供大家参考。</p>
+<ol>
+<li>在podspec配置文件里，修改 s.framework选项如下<br><code>s.frameworks   = &quot;Foundation&quot;</code></li>
+<li>在你的项目里，创建一个pch文件，将所有需要开源的代码库的.h头文件导入到pch文件里。<br>然后执行<code>$ pod lib lint UIHelper.podspec —allow-warnings</code>命令。</li>
+</ol>
+<ul>
+<li>制作相应tag的版本</li>
+</ul>
+<p>所有错误都解决后，接下来我们需要将修改后的最新项目重新push到GitHub上(库文件 和 .spec文件)并制作一个和podspec文件里面对应的tag一致的release包,可以在github里面项目页点击release按照提示直接操作,如下图<br><img src="/img/2017/iOS/cocoapods_tag.jpg" alt="制作tag"><br>也可以使用以下命令直接操作<br><code>$ git tag &#39;1.0.3&#39;</code><br><code>$ git push --tags</code></p>
+<h3 id="推送到CocoaPods"><a href="#推送到CocoaPods" class="headerlink" title="推送到CocoaPods"></a>推送到CocoaPods</h3><p>所有的准备工作都已经完成了，下面就可以将我们的项目push到Cocoapods.<br>执行命令：<code>$ pod trunk push UIHelper.podspec</code><br>如果出现如下图所示的结果,证明推送成功<br><img src="/img/2017/iOS/cocoppods_success.png" alt="推送成功"></p>
+<h3 id="检查是否可用"><a href="#检查是否可用" class="headerlink" title="检查是否可用"></a>检查是否可用</h3><p>上传成功后,可以试一下能否通过pod search命令搜索到自己刚刚上传成功的类库<br><code>$ pod search UIHelper</code><br>如果搜索不到，建议删除本地的CocoaPods的搜索目录，执行以下命令：<br><code>$ rm ~/Library/Caches/CocoaPods/search_index.json</code><br>然后重新执行<code>$ pod search UIHelper</code>命令就可以了.<br>ps:如果你发布成功后，在你自己的电脑上可以search到，在别的电脑上搜不到，建议首先执行<code>$ rm ~/Library/Caches/CocoaPods/search_index.json</code>命令，先删除旧的搜索目录.也可以尝试更新你的pod.<br>最后完成的成果如下图所示<br><img src="/img/2017/iOS/cocoapods_result.png" alt="完成结果"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>附上以上完成的小项目的github链接:<a href="https://github.com/hclib/UIHelper" target="_blank" rel="noopener">UIHelper</a>,你可以直接把UIHelper.podspec里面的内容复制粘贴到你项目中的.podspec文件里面,简单修改一下即可.</p>
+]]></content>
+      <categories>
+        <category>开发必备</category>
+      </categories>
+      <tags>
+        <tag>CocoaPods</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CocoaPods的安装和使用</title>
     <url>/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87/%E7%BB%84%E4%BB%B6%E5%8C%96/CocoaPods%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8.html</url>
     <content><![CDATA[<p><img src="/img/2018/Tools/cocoapods.jpg" alt></p>
@@ -1071,50 +1115,6 @@ target &apos;MyApp&apos; do
 end
 </code></pre><h3 id="执行pod-install命令自动集成第三方库"><a href="#执行pod-install命令自动集成第三方库" class="headerlink" title="执行pod install命令自动集成第三方库"></a>执行<code>pod install</code>命令自动集成第三方库</h3><p>如果出现下图字样，证明集成成功，这时候会在你的项目根目录下生成一个<strong>.xcworkspace</strong>文件。只需要关闭当前的<strong>.xcodeproj</strong>，打开新生成的<strong>.xcworkspace</strong>即可使用集成好的第三方库。<br><img src="/img/2018/Tools/cocoapods_success.png" alt></p>
 <h3 id="更新第三方库"><a href="#更新第三方库" class="headerlink" title="更新第三方库"></a>更新第三方库</h3><p>只需要执行<strong><code>pod update</code></strong>命令即可</p>
-]]></content>
-      <categories>
-        <category>开发必备</category>
-      </categories>
-      <tags>
-        <tag>CocoaPods</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何把自己写的框架上传至CocoaPods</title>
-    <url>/%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87/%E7%BB%84%E4%BB%B6%E5%8C%96/%E5%A6%82%E4%BD%95%E6%8A%8A%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84%E6%A1%86%E6%9E%B6%E4%B8%8A%E4%BC%A0%E8%87%B3CocoaPods.html</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>作为一名iOS应用开发者，我们在实际工作中经常会用到各种各样的第三方库,比如我们常用的AFNetworking,SDWebimage等.这些类库一般都可以通过一款叫做Cocoapods的工具进行管理，非常的便利。当享受着Cocoapods带给我们的这种便利的同时，你是否想过让自己封装的常用的工具类也添加Cocoapods支持?本文将会一步步揭开CocoaPods的神秘面纱,教你把自己封装的一些工具类上传至CocoaPods,以后你就可以通过CocoaPods来使用自己封装的工具类了,听起来是不是很酷,那么就让我们开始我们的CocoaPods之旅吧.</p>
-<h3 id="Cocoapods介绍"><a href="#Cocoapods介绍" class="headerlink" title="Cocoapods介绍"></a>Cocoapods介绍</h3><p>你来看这篇文章,我相信你肯定已经使用过CocoaPods了吧.就算没用过,起码也至少应该有所了解.<br>但是如果你并不了解CocoaPods是什么东西,以及如何使用,那么这里给你准备了一篇文章<a href="http://blog.devtang.com/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/" target="_blank" rel="noopener">用CocoaPods做iOS程序的依赖管理</a>,或者你也可以去自己百度,网上的教程一大堆,这里就不再对此进行相信的介绍了.</p>
-<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>本文将会以我自己写的一个UI调试小工具<a href="https://github.com/hclib/UIHelper" target="_blank" rel="noopener">UIHelper</a>为例,来说明把自己写的类库上传至CocoaPods的整个过程.</p>
-<ul>
-<li>注册trunk</li>
-<li>在github上上传相关的代码库</li>
-<li>创建podspec配置文件</li>
-<li>验证是否可用</li>
-<li>推送到CocoaPods</li>
-<li>检查是否可用</li>
-</ul>
-<h3 id="注册trunk"><a href="#注册trunk" class="headerlink" title="注册trunk"></a>注册trunk</h3><p>想让Cocoapods支持你自己的工具代码库，首先需要一个CocoaPods账号。<br>注册命令:<br><code>$ pod trunk register 邮箱地址 ‘用户名’ —description=&#39;描述信息&#39;</code><br>执行以上注册命令后，到你注册邮箱检查一下，一切顺利的话就会受到一份邮件，点击验证链接打开网页。如果出现下面的提示，说明注册成功(如果打开网页太慢的话，建议开vpn)。<br><img src="/img/2017/iOS/register_cocoapods.jpg" alt="注册成功的图示"><br>查看注册信息的命令:<br><code>$ pod trunk me</code><br><img src="/img/2017/iOS/cocoapods_trunk_me.jpg" alt="查看注册信息"></p>
-<h3 id="在github上上传相关的代码库"><a href="#在github上上传相关的代码库" class="headerlink" title="在github上上传相关的代码库"></a>在github上上传相关的代码库</h3><p>到<a href="https://github.com/" target="_blank" rel="noopener">github官网</a>登录你的账户,执行Create a new repository操作,因为笔者已经创建过UIHelper这个项目,所有会有红色警告,如果你是第一次创建某个项目,不会有该警告.<br><img src="/img/2017/iOS/cocoapods_github.png" alt="在github上上传代码图示"><br>创建项目的时候请注意图中选择的MIT License选项,这个会在添加Cocoapods支持的时候用到.创建完成后,clone到本地,把你写的工具代码放到该文件夹,此时的目录结构如下图所示.<br><img src="/img/2017/iOS/cocoapods_mljg.png" alt="目录结构"></p>
-<h3 id="创建podspec配置文件"><a href="#创建podspec配置文件" class="headerlink" title="创建podspec配置文件"></a>创建podspec配置文件</h3><p>打开终端，cd到刚刚的文件夹目录下，执行创建podspec命令：<br><code>$ pod spec create UIHelper</code><br>此时你会看到文件夹下多了一个UIHelper.podspec文件,如下图所示<br><img src="/img/2017/iOS/cocoapods_mljg2.jpg" alt="目录结构"><br>用vim或者Sublime Text或者其它文本编辑器打开该文件,会发现里面有很多内容,看起来可能毫无头绪,其实里面的很多内容是并没有用的,以下是我整理过后的内容(把不用的东西都删掉,只留下有用的),接下来就以此文件中的内容进行一下重点说明.<br><img src="/img/2017/iOS/cocoapods_podspec.png" alt="podspec文件"><br>当然，我们开发的库中也可能还依赖第三方库，例如SDWebimage，那么，就可以添加如下声明:<br><code>$ s.dependency &quot;SDWebimage&quot;, &quot;~&gt; 1.4&quot;</code><br>如果有多个需要填写多个s.dependency.</p>
-<h3 id="验证是否可用"><a href="#验证是否可用" class="headerlink" title="验证是否可用"></a>验证是否可用</h3><ul>
-<li>验证</li>
-</ul>
-<p>编辑完podspec文件后，需要验证一下这个文件是否可用，如果有WARNING或者ERROR是不可以的，就不能被添加到Spec Repo中，不过xcode的WARNING是可以存在的，进行验证的命令如下：<br><code>$ pod lib lint UIHelper.podspec</code><br>如果有没有Error输出，只有Warning输出，那么可以将这些警告直接忽略<br><code>$ pod lib lint UIHelper.podspec —allow-warnings</code><br>如果出现以下信息说明验证通过<br><img src="/img/2017/iOS/cocoapods_podspec_success.png" alt="验证通过"></p>
-<ul>
-<li>解决错误</li>
-</ul>
-<p>在验证podspec的时候，如果直接用pod spec lint xxx.podspec的话，出现错误它只会直接给出一句红色的提示The spec did not pass validation, due to 1 error.告诉你有多少个error和warning，而不会具体的指出你的错误出在哪里，这时候你可以在这句指令后面加上参数–verbose<br><code>$ pod lib lint UIHelper.podspec --verbose</code><br>这样就会告诉你具体的错误信息。然后就可以根据它提示的具体错误信息去解决问题了。**<br>在执行校验命令时如果出现类似<code>fatal error: &#39;UIKit/UIKit.h&#39; file not found</code>这样的错误，这里笔者提供2种解决方案,供大家参考。</p>
-<ol>
-<li>在podspec配置文件里，修改 s.framework选项如下<br><code>s.frameworks   = &quot;Foundation&quot;</code></li>
-<li>在你的项目里，创建一个pch文件，将所有需要开源的代码库的.h头文件导入到pch文件里。<br>然后执行<code>$ pod lib lint UIHelper.podspec —allow-warnings</code>命令。</li>
-</ol>
-<ul>
-<li>制作相应tag的版本</li>
-</ul>
-<p>所有错误都解决后，接下来我们需要将修改后的最新项目重新push到GitHub上(库文件 和 .spec文件)并制作一个和podspec文件里面对应的tag一致的release包,可以在github里面项目页点击release按照提示直接操作,如下图<br><img src="/img/2017/iOS/cocoapods_tag.jpg" alt="制作tag"><br>也可以使用以下命令直接操作<br><code>$ git tag &#39;1.0.3&#39;</code><br><code>$ git push --tags</code></p>
-<h3 id="推送到CocoaPods"><a href="#推送到CocoaPods" class="headerlink" title="推送到CocoaPods"></a>推送到CocoaPods</h3><p>所有的准备工作都已经完成了，下面就可以将我们的项目push到Cocoapods.<br>执行命令：<code>$ pod trunk push UIHelper.podspec</code><br>如果出现如下图所示的结果,证明推送成功<br><img src="/img/2017/iOS/cocoppods_success.png" alt="推送成功"></p>
-<h3 id="检查是否可用"><a href="#检查是否可用" class="headerlink" title="检查是否可用"></a>检查是否可用</h3><p>上传成功后,可以试一下能否通过pod search命令搜索到自己刚刚上传成功的类库<br><code>$ pod search UIHelper</code><br>如果搜索不到，建议删除本地的CocoaPods的搜索目录，执行以下命令：<br><code>$ rm ~/Library/Caches/CocoaPods/search_index.json</code><br>然后重新执行<code>$ pod search UIHelper</code>命令就可以了.<br>ps:如果你发布成功后，在你自己的电脑上可以search到，在别的电脑上搜不到，建议首先执行<code>$ rm ~/Library/Caches/CocoaPods/search_index.json</code>命令，先删除旧的搜索目录.也可以尝试更新你的pod.<br>最后完成的成果如下图所示<br><img src="/img/2017/iOS/cocoapods_result.png" alt="完成结果"></p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>附上以上完成的小项目的github链接:<a href="https://github.com/hclib/UIHelper" target="_blank" rel="noopener">UIHelper</a>,你可以直接把UIHelper.podspec里面的内容复制粘贴到你项目中的.podspec文件里面,简单修改一下即可.</p>
 ]]></content>
       <categories>
         <category>开发必备</category>

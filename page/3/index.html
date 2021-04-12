@@ -107,7 +107,7 @@
     root: '/',
     scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -152,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left 
+  <div class="container sidebar-position-right 
   page-home">
     <div class="headband"></div>
 
@@ -657,7 +657,7 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.astudyer.com/iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html">
+    <link itemprop="mainEntityOfPage" href="http://blog.astudyer.com/iOS/OC基础/OC语言系列——Category.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="匿名">
@@ -676,7 +676,7 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html" itemprop="url">OC语言系列——Protocol(协议)及Delegate(委托代理)</a></h1>
+                <a class="post-title-link" href="/iOS/OC基础/OC语言系列——Category.html" itemprop="url">OC语言系列——Category</a></h1>
         
 
         <div class="post-meta">
@@ -729,8 +729,8 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html" itemprop="commentCount"></span>
+                <a href="/iOS/OC基础/OC语言系列——Category.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="iOS/OC基础/OC语言系列——Category.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -754,7 +754,7 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  274
+                  845
                 </span>
               
 
@@ -781,12 +781,16 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
       
         
           
-          因为Objective-C是不支持多继承的，所以很多时候都是用Protocol代替。Protocol（协议）只是定义公用的一套接口，但不提供具体的实现方法。当一个类要使用某个Protocol（协议）时，就必须要遵守协议，实现协议需要用到委托代理（Delegate）。Protocol（协议）的作用：
-
+          
+简介
+OC提供了一种与众不同的方式–Category，可以动态的为已经存在的类添加新的行为（方法）
+这样可以保证类的原始设计规模大小，功能增加时再逐步扩展
+使用Category对类进行扩展时，不需要创建子类
+Category使用简单的方式，实现了类的相关方法的模块化，把不同的类方法分配到不同的分类
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/iOS/OC基础/OC语言系列——Protocol(协议)及Delegate(委托代理).html#more" rel="contents">
+            <a class="btn" href="/iOS/OC基础/OC语言系列——Category.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -948,13 +952,6 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
       
 
       
-        <div class="back-to-top">
-          <i class="fa fa-arrow-up"></i>
-          
-            <span id="scrollpercent"><span>0</span>%</span>
-          
-        </div>
-      
 
     </div>
   </aside>
@@ -1001,6 +998,13 @@ Block可以作为函数参数或者函数的返回值，而其本身又可以带
       </div>
     </footer>
 
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
     
 
     
